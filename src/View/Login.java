@@ -126,7 +126,10 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    User u = new User();
+    public class getDataUser {
+        static public String tenTk;
+        static public String hinhAnh;
+    }
     public static boolean loginUser(String username, String password) {
         try {
             Connection userConn = ConnectOracle.getUserConnection(username, password);
@@ -164,8 +167,8 @@ public class Login extends javax.swing.JFrame {
         String pass = txtMK.getText().toString();
         String hashPass = hashPassword(pass);
         boolean check = loginUser(tk, pass);
+        getDataUser.tenTk = tk;
         if(check == true) {
-            u.setUserName(tk);
             this.setVisible(false);
             Menu menu = new Menu();
             menu.setVisible(true);

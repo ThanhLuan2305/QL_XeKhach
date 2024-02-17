@@ -130,8 +130,8 @@ public class Menu extends javax.swing.JFrame {
     private void btnDXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDXActionPerformed
         // TODO add your handling code here:
         try {
-            //String tk = u.getUserName();
-            boolean check = logoutUser("luan14121");
+            String tk = Login.getDataUser.tenTk;
+            boolean check = logoutUser(tk);
             if(check == true) {
                 this.setVisible(false);
                 Login lg = new Login();
