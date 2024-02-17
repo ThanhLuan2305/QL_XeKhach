@@ -6,6 +6,7 @@ package qlxekhach;
 
 import Database.ConnectOracle;
 import View.Login;
+import View.Register;
 import java.sql.Connection;
 
 /**
@@ -18,13 +19,12 @@ public class QLXeKhach {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Connection con = ConnectOracle.getConnecOracle();
-        System.out.println(con);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Register().setVisible(true);
             }
         });
+        
     }
     
 }

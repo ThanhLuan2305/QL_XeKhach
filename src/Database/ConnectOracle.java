@@ -14,36 +14,23 @@ import java.sql.Statement;
  * @author ADMIN
  */
 public class ConnectOracle {
-    public static Connection getConnecOracle() {
+    private static final String ADMIN_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
+    private static final String ADMIN_USER = "luan"; 
+    private static final String ADMIN_PASSWORD = "1412"; 
+    
+    public static Connection getConnecOracle() throws ClassNotFoundException {
 		Connection c = null;
 		try {
-			// Đăng ký MySQL Driver với DriverManager
-			try {
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-			String username = "luan";
-			String password = "1412";
-			
+                        Class.forName("oracle.jdbc.driver.OracleDriver");
 			// Tạo kết n
-			c = DriverManager.getConnection(url, username, password);
-			
-//			String sql = "INSERT INTO KHACHHANG VALUES (2,'JOIN','JOIN@GMAIL.COM','0123456789','kHANH HOA')";
-//			Statement statement = c.createStatement();
-//			int rows = statement.executeUpdate(sql);
-//			if(rows > 0) {
-//				System.out.println("Thành công");
-//			}
-			
-			c.close();
+			c = DriverManager.getConnection(ADMIN_URL, ADMIN_USER, ADMIN_PASSWORD);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return c;
-		
 	}
+    public static Connection getUserConnection(String username, String password) throws SQLException {
+        return DriverManager.getConnection(ADMIN_URL, username, password);
+    }
 }
