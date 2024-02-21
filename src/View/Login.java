@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author ADMIN
@@ -45,6 +47,11 @@ public class Login extends javax.swing.JFrame {
         btnDK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         btnDN.setText("Đăng nhập");
         btnDN.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +136,7 @@ public class Login extends javax.swing.JFrame {
     public class getDataUser {
         static public String tenTk;
         static public String hinhAnh;
+        static public String mk;
     }
     public static boolean loginUser(String username, String password) {
         try {
@@ -168,10 +176,19 @@ public class Login extends javax.swing.JFrame {
         String hashPass = hashPassword(pass);
         boolean check = loginUser(tk, pass);
         getDataUser.tenTk = tk;
+        getDataUser.mk = pass;
         if(check == true) {
             this.setVisible(false);
-            Menu menu = new Menu();
-            menu.setVisible(true);
+            Menu menu;
+            try {
+                menu = new Menu();
+                menu.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         else {
             txtMK.setText("");
@@ -179,6 +196,10 @@ public class Login extends javax.swing.JFrame {
             txtTk.grabFocus();
         }
     }//GEN-LAST:event_btnDNActionPerformed
+    
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
