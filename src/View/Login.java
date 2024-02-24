@@ -78,6 +78,11 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setText("Bạn chưa có tài khoản ?");
 
         btnDK.setText("Đăng ký ");
+        btnDK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,6 +205,13 @@ public class Login extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnDKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDKActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Register rg = new Register();
+        rg.setVisible(true);
+    }//GEN-LAST:event_btnDKActionPerformed
 
     /**
      * @param args the command line arguments
