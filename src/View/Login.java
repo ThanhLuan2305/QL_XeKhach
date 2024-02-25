@@ -197,6 +197,7 @@ public class Login extends javax.swing.JFrame {
         }
         else {
             txtMK.setText("");
+            txtMK.setText("");
             txtTk.setText("");
             txtTk.grabFocus();
         }
