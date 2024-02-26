@@ -61,10 +61,25 @@ public class Menu extends javax.swing.JFrame {
         }
         
     }
-    
+    public void loadCombobox() throws ClassNotFoundException {
+        try (Connection conn = ConnectOracle.getConnecOracle()) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT username FROM dba_users");
+            while (rs.next()) {
+                String username = rs.getString("username");
+                cbbUserName.addItem(username);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public Menu() throws SQLException, ClassNotFoundException {
         initComponents();
         getDataTable();
+        loadCombobox();
         parentPN.removeAll();
         parentPN.add(pnHome);
         parentPN.repaint();
@@ -128,7 +143,6 @@ public class Menu extends javax.swing.JFrame {
         btnTBS = new javax.swing.JButton();
         btnDTF = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txtUser = new javax.swing.JTextField();
         pnCartHome = new javax.swing.JPanel();
         pnDTF = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -146,6 +160,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtSize = new javax.swing.JTextField();
         btnAddDTF = new javax.swing.JButton();
+        cbbUserName = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -300,7 +315,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -410,7 +425,6 @@ public class Menu extends javax.swing.JFrame {
         });
 
         btnXemTbs.setText("Xem Tablespace");
-        btnXemTbs.setActionCommand("Xem Tablespace");
         btnXemTbs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXemTbsActionPerformed(evt);
@@ -426,6 +440,8 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        cbbUserName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên người dùng" }));
+
         javax.swing.GroupLayout pnHomeLayout = new javax.swing.GroupLayout(pnHome);
         pnHome.setLayout(pnHomeLayout);
         pnHomeLayout.setHorizontalGroup(
@@ -440,27 +456,23 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(pnHomeLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnHomeLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(txtUser)
-                            .addComponent(txtTbsName)))
-                    .addGroup(pnHomeLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtSize)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbbUserName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtSize)
+                    .addComponent(txtFolder)
+                    .addComponent(txtTbsName))
+                .addGap(56, 56, 56)
                 .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnFolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddTbs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnXemTbs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddDTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33))
+                .addGap(53, 53, 53))
         );
         pnHomeLayout.setVerticalGroup(
             pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,14 +480,14 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXemTbs))
+                    .addComponent(btnXemTbs)
+                    .addComponent(cbbUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtTbsName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddTbs))
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -485,7 +497,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddDTF))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnCartHome, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -574,7 +586,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFolderActionPerformed
 
     private void loadDataTablespace() throws ClassNotFoundException {
-        String username = txtUser.getText().toString();
+        String username = (String) cbbUserName.getSelectedItem();
         try (Connection conn = ConnectOracle.getConnecOracle()) {
             String Call = "{call xem_tbs_dtf_user(?, ?)}";
             try (CallableStatement callableStatement = conn.prepareCall(Call)) {
@@ -617,31 +629,31 @@ public class Menu extends javax.swing.JFrame {
 
     
     private void loadDataFile() throws ClassNotFoundException {
-        String username = txtUser.getText().toString();
+        String username = (String) cbbUserName.getSelectedItem();
         try (Connection conn = ConnectOracle.getConnecOracle()) {
             CallableStatement cstmt = conn.prepareCall("{call hien_thi_datafiles_chi_tiet(?, ?)}");
             cstmt.setString(1, username);
             cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+            
+            // Thực thi stored procedure
             cstmt.execute();
-
+            
+            // Nhận kết quả từ tham số đầu ra
             ResultSet rs = (ResultSet) cstmt.getObject(2);
             DefaultTableModel model = (DefaultTableModel) tblDTF.getModel();
             while(model.getRowCount() > 0)
-            {
-                model.removeRow(0);
-            }
-//            // Add columns to your model if not already added
-//            model.addColumn("File Name");
-//            model.addColumn("File ID");
-//            model.addColumn("Tablespace Name");
-
+                {
+                     model.removeRow(0);
+                }
+            // Thêm dữ liệu từ ResultSet vào DefaultTableModel
             while (rs.next()) {
-                model.addRow(new Object[]{
-                    rs.getString("file_name"),
-                    rs.getInt("file_id"),
-                    rs.getString("tablespace_name")
-                });
+                model.addRow(new Object[]{rs.getString("file_name"), rs.getInt("file_id"), rs.getString("tablespace_name")});
             }
+            
+            // Đóng tất cả các tài nguyên
+            rs.close();
+            cstmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -662,7 +674,7 @@ public class Menu extends javax.swing.JFrame {
     private void btnXemTbsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemTbsActionPerformed
         // TODO add your handling code here:
         try {
-            String userName = txtUser.getText().toString();
+            String userName = (String) cbbUserName.getSelectedItem();;
             con = ConnectOracle.getConnecOracle();
             try (CallableStatement stmtEnable = con.prepareCall("{call dbms_output.enable(?) }")) {
                 stmtEnable.setInt(1, 10000); // Set buffer size
@@ -766,6 +778,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnQL;
     private javax.swing.JButton btnTBS;
     private javax.swing.JButton btnXemTbs;
+    private javax.swing.JComboBox<String> cbbUserName;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -792,6 +805,5 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField txtFolder;
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtTbsName;
-    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
