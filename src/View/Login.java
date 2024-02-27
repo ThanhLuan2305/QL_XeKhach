@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+
 import Database.ConnectOracle;
 import Model.User;
 import java.security.MessageDigest;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author ADMIN
@@ -139,10 +141,12 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public class getDataUser {
+
         static public String tenTk;
         static public String hinhAnh;
         static public String mk;
     }
+
     public static boolean loginUser(String username, String password) {
         try {
             Connection userConn = ConnectOracle.getUserConnection(username, password);
@@ -153,18 +157,19 @@ public class Login extends javax.swing.JFrame {
             return false;
         }
     }
+
     public static String hashPassword(String password) {
         String hashedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            
+
             byte[] bytes = md.digest(password.getBytes());
-            
+
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < bytes.length; i++) {
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
-            
+
             hashedPassword = sb.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -185,24 +190,27 @@ public class Login extends javax.swing.JFrame {
         if(check == true) {
             this.setVisible(false);
             Menu menu;
-            try {
-                menu = new Menu();
-                menu.setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Manager manager;
+//            try {
+//                menu = new Menu();
+//                menu.setVisible(true);
+                manager=new Manager();
+                manager.setVisible(true);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             
         }
-        else {
+         else {
             txtMK.setText("");
             txtMK.setText("");
             txtTk.setText("");
             txtTk.grabFocus();
         }
     }//GEN-LAST:event_btnDNActionPerformed
-    
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
@@ -217,7 +225,6 @@ public class Login extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDK;
