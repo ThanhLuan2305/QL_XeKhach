@@ -40,8 +40,8 @@ public class Menu extends javax.swing.JFrame {
         try {
             String tk = Login.getDataUser.tenTk;
             String mk = Login.getDataUser.mk;
-            con = ConnectOracle.getConnecOracle();
-            String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi";
+            con = ConnectOracle.getUserConnection(tk, mk);
+            String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from luan.chuyendi";
             stmt = con.createStatement();
             //pst = con.prepareStatement("select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi");
             rs = stmt.executeQuery(sql);
@@ -56,6 +56,7 @@ public class Menu extends javax.swing.JFrame {
                     rs.getBigDecimal("GiaVe")
                 });
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -87,22 +88,16 @@ public class Menu extends javax.swing.JFrame {
     }
     
     public static boolean logoutUser(String username) throws SQLException, ClassNotFoundException {
-        String query = "SELECT SID, SERIAL# FROM V$SESSION WHERE USERNAME = ?";
-        try (Connection conn = ConnectOracle.getConnecOracle();
-             PreparedStatement pstmt = conn.prepareStatement(query)) 
+        String call = "{ call kill_user_sessions(?) }";
+        try (Connection conn = ConnectOracle.getConnecOracle()) 
         {
-             
-            pstmt.setString(1, username.toUpperCase());
-            ResultSet rs = pstmt.executeQuery();
-            
-            while (rs.next()) {
-                String sid = rs.getString("SID");
-                String serial = rs.getString("SERIAL#");
-                String killSessionSql = String.format("ALTER SYSTEM KILL SESSION '%s,%s' IMMEDIATE", sid, serial);
-                try (Statement killStmt = conn.createStatement()) {
-                    killStmt.execute(killSessionSql);
-                    JOptionPane.showMessageDialog(new JFrame(), "Đăng xuất thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
+            try (CallableStatement cstmt = conn.prepareCall(call)) {
+                cstmt.setString(1, username); 
+                cstmt.execute();
+                JOptionPane.showMessageDialog(new JFrame(), "Đăng xuất thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(new JFrame(), "Đăng xuất thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                return false;
             }
             return true;
         }catch (SQLException e) {
@@ -133,9 +128,6 @@ public class Menu extends javax.swing.JFrame {
         btnHome = new javax.swing.JButton();
         parentPN = new javax.swing.JPanel();
         pnChuyenDi = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblChuyenDi = new javax.swing.JTable();
         pnNhatKy = new javax.swing.JPanel();
@@ -296,26 +288,12 @@ public class Menu extends javax.swing.JFrame {
         pnChuyenDi.setLayout(pnChuyenDiLayout);
         pnChuyenDiLayout.setHorizontalGroup(
             pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnChuyenDiLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1))
-                .addGap(37, 37, 37)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
         );
         pnChuyenDiLayout.setVerticalGroup(
             pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnChuyenDiLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -779,7 +757,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnTBS;
     private javax.swing.JButton btnXemTbs;
     private javax.swing.JComboBox<String> cbbUserName;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -789,8 +766,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel parentPN;
     private javax.swing.JPanel pnAva;
     private javax.swing.JPanel pnCartHome;

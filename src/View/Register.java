@@ -162,6 +162,7 @@ public class Register extends javax.swing.JFrame {
              
             stmt.execute(sqlCreateUser);
             stmt.execute(sqlGrant);
+            conn.close();
         }
     }
     public static String hashPassword(String password) {
