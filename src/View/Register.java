@@ -188,16 +188,18 @@ public class Register extends javax.swing.JFrame {
             // TODO add your handling code here:
             Connection con = ConnectOracle.getConnecOracle();
             String tk = txtTK.getText().toString();
+            String mail = txtGmail.getText();
             String pass = txtMK.getText().toString();
             String rePass = txtReMK.getText().toString();
             String hashPass = hashPassword(pass);
             if(pass.equals(rePass)) {
-                String insertUserSql = "INSERT INTO TaiKhoan(TenDangNhap, MatKhau) VALUES (?, ?)";
+                String insertUserSql = "INSERT INTO TaiKhoan(TenDangNhap, MatKhau, EMAIL) VALUES (?, ?, ?)";
                 PreparedStatement pstmt;
                 try {
                     pstmt = con.prepareStatement(insertUserSql);
                     pstmt.setString(1, tk);
                     pstmt.setString(2, hashPass);
+                    pstmt.setString(3, mail);
                     int rowsAffected = pstmt.executeUpdate(); // Số hàng được thêm, nếu > 0 thì thành công
                     if(rowsAffected > 0) {
                         JOptionPane.showMessageDialog(new JFrame(), "Đăng ký thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
