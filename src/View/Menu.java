@@ -20,6 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import javax.swing.JPanel;
 import javax.swing.table.TableModel;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
@@ -36,6 +37,7 @@ public class Menu extends javax.swing.JFrame {
     Connection con;
     Statement stmt;
     ResultSet rs;
+    private JPanel chillPn;
     
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
@@ -130,6 +132,7 @@ public class Menu extends javax.swing.JFrame {
         pnAva = new javax.swing.JPanel();
         btnNhatKy1 = new javax.swing.JButton();
         btnHome = new javax.swing.JButton();
+        txtNameU = new javax.swing.JLabel();
         parentPN = new javax.swing.JPanel();
         pnChuyenDi = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -225,6 +228,13 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        txtNameU.setText("Null");
+        txtNameU.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNameUMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -248,12 +258,18 @@ public class Menu extends javax.swing.JFrame {
                                 .addComponent(pnAva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)))))
                 .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtNameU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(pnAva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNameU)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnHome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -447,7 +463,6 @@ public class Menu extends javax.swing.JFrame {
         });
 
         btnDTFToTBS.setText("Datafile từ TBS");
-        btnDTFToTBS.setActionCommand("Datafile từ TBS");
         btnDTFToTBS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDTFToTBSActionPerformed(evt);
@@ -485,11 +500,10 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnDTFToTBS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnFolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddTbs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnXemTbs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddDTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnFolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddTbs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnXemTbs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddDTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(53, 53, 53))
         );
         pnHomeLayout.setVerticalGroup(
@@ -899,6 +913,15 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDTFToTBSActionPerformed
 
+    private void txtNameUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNameUMouseClicked
+        // TODO add your handling code here:
+        chillPn = new pnUser();
+        parentPN.removeAll();
+        parentPN.add(chillPn);
+        parentPN.repaint();
+        parentPN.revalidate();
+    }//GEN-LAST:event_txtNameUMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -942,6 +965,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTable tblDTF;
     private javax.swing.JTable tblTBS;
     private javax.swing.JTextField txtFolder;
+    private javax.swing.JLabel txtNameU;
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtTbsName;
     // End of variables declaration//GEN-END:variables

@@ -78,6 +78,11 @@
                   </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="txtNameU" min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -85,6 +90,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="pnAva" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtNameU" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnHome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -180,6 +187,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHomeActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="txtNameU">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Null"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtNameUMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -339,12 +354,10 @@
                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnDTFToTBS" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnFolder" max="32767" attributes="0"/>
-                              <Component id="btnAddTbs" max="32767" attributes="0"/>
-                              <Component id="btnXemTbs" max="32767" attributes="0"/>
-                              <Component id="btnAddDTF" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btnFolder" max="32767" attributes="0"/>
+                          <Component id="btnAddTbs" max="32767" attributes="0"/>
+                          <Component id="btnXemTbs" max="32767" attributes="0"/>
+                          <Component id="btnAddDTF" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
@@ -630,7 +643,6 @@
             <Component class="javax.swing.JButton" name="btnDTFToTBS">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Datafile t&#x1eeb; TBS"/>
-                <Property name="actionCommand" type="java.lang.String" value="Datafile t&#x1eeb; TBS"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDTFToTBSActionPerformed"/>
