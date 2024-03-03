@@ -914,8 +914,12 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDTFToTBSActionPerformed
 
     private void txtNameUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNameUMouseClicked
-        // TODO add your handling code here:
-        chillPn = new pnUser();
+        try {
+            // TODO add your handling code here:
+            chillPn = new pnUser();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         parentPN.removeAll();
         parentPN.add(chillPn);
         parentPN.repaint();
