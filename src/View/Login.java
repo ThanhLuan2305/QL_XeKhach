@@ -150,7 +150,7 @@ public class Login extends javax.swing.JFrame {
     public static boolean loginUser(String username, String password) {
         try {
             Connection userConn = ConnectOracle.getUserConnection(username, password);
-            JOptionPane.showMessageDialog(new JFrame(), "Đăng nhập thành công!", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), userConn, "Dialog", JOptionPane.INFORMATION_MESSAGE);
             return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(new JFrame(), "Sai tài khoản hoặc mật khẩu. Mời bạn đăng nhập lại!", "Dialog", JOptionPane.INFORMATION_MESSAGE);

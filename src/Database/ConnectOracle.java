@@ -14,23 +14,25 @@ import java.sql.Statement;
  * @author ADMIN
  */
 public class ConnectOracle {
-    private static final String ADMIN_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-    private static final String ADMIN_USER = "luan"; 
-    private static final String ADMIN_PASSWORD = "1412"; 
+    private static final String CONNECTION_URL = "jdbc:oracle:thin:@localhost:1522:orcl1";
+    private static final String ADMIN_USER = "user_quoc2"; 
+    private static final String ADMIN_PASSWORD = "oracle123"; 
     
     public static Connection getConnecOracle() throws ClassNotFoundException {
 		Connection c = null;
 		try {
                         Class.forName("oracle.jdbc.driver.OracleDriver");
 			// Tạo kết n
-			c = DriverManager.getConnection(ADMIN_URL, ADMIN_USER, ADMIN_PASSWORD);
+			c = DriverManager.getConnection(CONNECTION_URL, ADMIN_USER, ADMIN_PASSWORD);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return c;
-	}
-    public static Connection getUserConnection(String username, String password) throws SQLException {
-        return DriverManager.getConnection(ADMIN_URL, username, password);
     }
+    
+    public static Connection getUserConnection(String username, String password) throws SQLException {
+        return DriverManager.getConnection(CONNECTION_URL, username, password);
+    }
+    
 }
