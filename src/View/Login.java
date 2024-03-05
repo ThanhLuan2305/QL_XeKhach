@@ -191,16 +191,30 @@ public class Login extends javax.swing.JFrame {
             this.setVisible(false);
             Menu menu;
             Manager manager;
-//            try {
-//                menu = new Menu();
-//                menu.setVisible(true);
-                manager=new Manager();
-                manager.setVisible(true);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            if(tk.equals("hao")) {
+                try {
+                    manager=new Manager();
+                    manager.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else {
+                try {
+                     manager=new Manager();
+                    manager.setVisible(true);
+//                    menu = new Menu();
+//                    menu.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            
             
         }
          else {
