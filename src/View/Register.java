@@ -15,6 +15,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import oracle.jdbc.OracleTypes;
     /**
      * Creates new form Register
 
@@ -22,9 +26,27 @@ import java.util.logging.Logger;
  *
  * @author ADMIN
  */
+
 public class Register extends javax.swing.JFrame {
-    public Register() {
+    private void loadAllDataTablespace() throws ClassNotFoundException {
+        try (Connection conn = ConnectOracle.getConnecOracle()) {
+            try (CallableStatement cstmt = conn.prepareCall("{call sys.GetAllTablespaces(?)}")) {
+                cstmt.registerOutParameter(1, OracleTypes.CURSOR); 
+                cstmt.execute();
+                try (ResultSet rs = (ResultSet) cstmt.getObject(1)) {
+                    while (rs.next()) {
+                        String tbsName = rs.getString("tablespace_name");
+                        cbbTBSName.addItem(tbsName);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public Register() throws ClassNotFoundException {
         initComponents();
+        loadAllDataTablespace();
     }
 
     /**
@@ -47,6 +69,10 @@ public class Register extends javax.swing.JFrame {
         txtReMK = new javax.swing.JPasswordField();
         btnDK = new javax.swing.JButton();
         btnDN = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        cbbTBSName = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        txtQuota = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -91,35 +117,50 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Tên Tablespace:");
+
+        cbbTBSName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn tên tablespace" }));
+
+        jLabel7.setText("Bộ nhớ Quota:");
+
+        txtQuota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuotaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(134, 134, 134)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtReMK, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMK, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtGmail, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtReMK, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(txtMK, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(txtGmail, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtTK, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(66, 66, 66))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDN, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDK, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                        .addComponent(btnDK, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbTBSName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuota)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
@@ -137,11 +178,19 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtReMK, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbbTBSName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(txtQuota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDK, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -153,15 +202,18 @@ public class Register extends javax.swing.JFrame {
         Login login = new Login();
         login.setVisible(true);
     }//GEN-LAST:event_btnDNActionPerformed
-    public static void createUser(String username, String password) throws SQLException, ClassNotFoundException {
-        String sqlCreateUser = String.format("CREATE USER %s IDENTIFIED BY %s", username, password);
-        String sqlGrant = String.format("GRANT CONNECT, RESOURCE TO %s", username);
-
+    public static void createUser(String username, String password, String tbsName, String quotaSize) throws SQLException, ClassNotFoundException {
+        String call = "{ call create_user_with_grants(?, ?, ?, ?) }";
         try (Connection conn = ConnectOracle.getConnecOracle();
-             Statement stmt = conn.createStatement()) {
+             CallableStatement stmt = conn.prepareCall(call);) {
              
-            stmt.execute(sqlCreateUser);
-            stmt.execute(sqlGrant);
+            stmt.setString(1, username); // 
+            stmt.setString(2, password); 
+            stmt.setString(3, tbsName); 
+            stmt.setString(4, quotaSize); 
+            stmt.execute();
+
+            stmt.close();
             conn.close();
         }
     }
@@ -191,15 +243,16 @@ public class Register extends javax.swing.JFrame {
             String mail = txtGmail.getText();
             String pass = txtMK.getText().toString();
             String rePass = txtReMK.getText().toString();
+            String tenTBS = (String) cbbTBSName.getSelectedItem();
+            String quotaSize = txtQuota.getText();
             String hashPass = hashPassword(pass);
             if(pass.equals(rePass)) {
-                String insertUserSql = "INSERT INTO TaiKhoan(TenDangNhap, MatKhau, EMAIL) VALUES (?, ?, ?)";
+                String insertUserSql = "INSERT INTO khachhang(TenDangNhap, EMAIL) VALUES (?, ?)";
                 PreparedStatement pstmt;
                 try {
                     pstmt = con.prepareStatement(insertUserSql);
                     pstmt.setString(1, tk);
-                    pstmt.setString(2, hashPass);
-                    pstmt.setString(3, mail);
+                    pstmt.setString(2, mail);
                     int rowsAffected = pstmt.executeUpdate(); // Số hàng được thêm, nếu > 0 thì thành công
                     if(rowsAffected > 0) {
                         JOptionPane.showMessageDialog(new JFrame(), "Đăng ký thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
@@ -210,7 +263,7 @@ public class Register extends javax.swing.JFrame {
                     else {
                         JOptionPane.showMessageDialog(new JFrame(), "Đăng ký thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    createUser(tk, pass);
+                    createUser(tk, pass, tenTBS, quotaSize);
                     con.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
@@ -227,6 +280,10 @@ public class Register extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowClosing
 
+    private void txtQuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuotaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -235,13 +292,17 @@ public class Register extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDK;
     private javax.swing.JButton btnDN;
+    private javax.swing.JComboBox<String> cbbTBSName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtGmail;
     private javax.swing.JPasswordField txtMK;
+    private javax.swing.JTextField txtQuota;
     private javax.swing.JPasswordField txtReMK;
     private javax.swing.JTextField txtTK;
     // End of variables declaration//GEN-END:variables

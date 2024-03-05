@@ -4,26 +4,13 @@
  */
 package View;
 import Database.ConnectOracle;
-import Model.User;
 import java.sql.Connection;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.sql.ResultSetMetaData;
-import java.util.Vector;
-import javax.swing.JFileChooser;
-import javax.swing.table.DefaultTableModel;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import javax.swing.JPanel;
-import javax.swing.table.TableModel;
-import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
+import java.sql.Types;
 /**
  *
  * @author ADMIN
@@ -33,7 +20,38 @@ public class pnUser extends javax.swing.JPanel {
     /**
      * Creates new form pnUser
      */
-    
+    public void getDBA_USER(String tenDangNhap) throws ClassNotFoundException {
+        String sql = "{ ? = call F_GetUserDBA(?) }";
+        try (Connection conn = ConnectOracle.getConnecOracle();
+             CallableStatement stmt = conn.prepareCall(sql)) {
+             
+             stmt.registerOutParameter(1, Types.REF_CURSOR); 
+             stmt.setString(2, tenDangNhap); 
+
+            stmt.execute();
+
+            
+            try (ResultSet rs = (ResultSet) stmt.getObject(1)) {  
+                while (rs.next()) {
+                    String userName = rs.getString("USERNAME");
+                    String created = rs.getDate("CREATED")+"";
+                    String expiryDate = rs.getDate("EXPIRY_DATE") + "";
+                    String accountStatus = rs.getString("ACCOUNT_STATUS");
+                    String lastLogin = rs.getTimestamp("LAST_LOGIN")+"";
+                    String profile = rs.getString("PROFILE");
+                    txtTDN.setText(userName);
+                    txtDayCr.setText(created);
+                    txtDayEnd.setText(expiryDate);
+                    txtStatus.setText(accountStatus);
+                    txtLastLogin.setText(lastLogin);
+                    txtProfile.setText(profile);
+                }
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void getUserInfo(String tenDangNhap) throws ClassNotFoundException {
         String call = "{CALL sp_selectUserInfo(?, ?)}";
 
@@ -47,35 +65,26 @@ public class pnUser extends javax.swing.JPanel {
 
             try (ResultSet rs = (ResultSet) cstmt.getObject(2)) {
                 while (rs.next()) {
-                    txtTDN.setText(rs.getString("TenDangNhap"));
                     txtTen.setText(rs.getString("Ten"));
-                    txtRole.setText(rs.getString("VaiTro"));
                     txtGender.setText(rs.getString("GioiTinh"));
                     txtEmail.setText(rs.getString("email"));
                     txtSDT.setText(rs.getString("SDT"));
                     txtDiachi.setText(rs.getString("DiaChi"));
-                    txtDayCr.setText(rs.getDate("NgayTao")+"");
-                    txtDayEnd.setText(rs.getDate("NgayHetHan")+"");
-                    txtStatus.setText(rs.getString("TrangThai"));
-//                    txtLastLogin.setText(rs.getDate("TGDNCUOI")+"");
-//                    System.out.println("TrangThai: " + rs.getString("TrangThai"));
-//                    System.out.println("VaiTro: " + rs.getString("VaiTro"));
-//                    System.out.println("NgayTao: " + rs.getDate("NgayTao"));
-//                    System.out.println("NgayHetHan: " + rs.getDate("NgayHetHan"));
-//                    // Giả định cột TGDNCUOI không tồn tại do bạn không đề cập trong câu hỏi, nếu tồn tại thêm vào đây
-//                    System.out.println("Ten: " + rs.getString("Ten"));
-//                    System.out.println("GioiTinh: " + rs.getString("GioiTinh")); 
-//                    System.out.println("SDT: " + rs.getString("SDT"));
-//                    System.out.println("DiaChi: " + rs.getString("DiaChi"));
                 }
+                rs.close();
             }
+            cstmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
     public pnUser() throws ClassNotFoundException {
         initComponents();
-        getUserInfo(Login.getDataUser.tenTk);
+        String tk = Login.getDataUser.tenTk;
+        getUserInfo(tk);
+        getDBA_USER(tk);
     }
 
     /**
@@ -110,7 +119,7 @@ public class pnUser extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txtDiachi = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtRole = new javax.swing.JLabel();
+        txtProfile = new javax.swing.JLabel();
 
         jLabel1.setText("Tên người dùng:");
 
@@ -158,9 +167,9 @@ public class pnUser extends javax.swing.JPanel {
 
         txtDiachi.setText("null");
 
-        jLabel6.setText("Vai trò: ");
+        jLabel6.setText("Profile:");
 
-        txtRole.setText("null");
+        txtProfile.setText("null");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -195,7 +204,7 @@ public class pnUser extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtTDN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtGender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtSDT, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
@@ -223,7 +232,7 @@ public class pnUser extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtRole))
+                    .addComponent(txtProfile))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -283,7 +292,7 @@ public class pnUser extends javax.swing.JPanel {
     private javax.swing.JLabel txtEmail;
     private javax.swing.JLabel txtGender;
     private javax.swing.JLabel txtLastLogin;
-    private javax.swing.JLabel txtRole;
+    private javax.swing.JLabel txtProfile;
     private javax.swing.JLabel txtSDT;
     private javax.swing.JLabel txtStatus;
     private javax.swing.JLabel txtTDN;

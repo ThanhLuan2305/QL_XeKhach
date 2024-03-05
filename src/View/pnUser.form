@@ -51,7 +51,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtTen" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtTDN" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtRole" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtProfile" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtGender" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtSDT" alignment="0" pref="119" max="32767" attributes="0"/>
@@ -86,7 +86,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRole" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtProfile" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -254,10 +254,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Vai tr&#xf2;: "/>
+        <Property name="text" type="java.lang.String" value="Profile:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtRole">
+    <Component class="javax.swing.JLabel" name="txtProfile">
       <Properties>
         <Property name="text" type="java.lang.String" value="null"/>
       </Properties>
