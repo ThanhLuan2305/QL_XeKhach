@@ -22,6 +22,7 @@ public class pnUser extends javax.swing.JPanel {
      */
     public void getDBA_USER(String tenDangNhap) throws ClassNotFoundException {
         String sql = "{ ? = call F_GetUserDBA(?) }";
+        
         try (Connection conn = ConnectOracle.getConnecOracle();
              CallableStatement stmt = conn.prepareCall(sql)) {
              

@@ -5,6 +5,9 @@
 package View;
 import Database.ConnectOracle;
 import Model.User;
+import java.awt.Graphics;
+import java.awt.LayoutManager;
+import java.awt.image.BufferedImage;
 import java.sql.Connection;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -24,6 +27,9 @@ import javax.swing.JPanel;
 import javax.swing.table.TableModel;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -91,6 +97,7 @@ public class Menu extends javax.swing.JFrame {
         parentPN.add(pnHome);
         parentPN.repaint();
         parentPN.revalidate();
+        txtNameU.setText(Login.getDataUser.tenTk);
     }
     
     public static boolean logoutUser(String username) throws SQLException, ClassNotFoundException {
@@ -199,6 +206,11 @@ public class Menu extends javax.swing.JFrame {
         btnGiaoDich.setText("Giao dịch");
 
         btnQL.setText("Quàn lý khách hàng");
+        btnQL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator1.setForeground(new java.awt.Color(0, 51, 204));
@@ -256,12 +268,11 @@ public class Menu extends javax.swing.JFrame {
                             .addComponent(btnHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(pnAva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)))))
+                                .addGap(8, 8, 8))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(txtNameU)))
                 .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtNameU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +283,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(txtNameU)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnCD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnNhatKy)
@@ -925,6 +936,15 @@ public class Menu extends javax.swing.JFrame {
         parentPN.repaint();
         parentPN.revalidate();
     }//GEN-LAST:event_txtNameUMouseClicked
+
+    private void btnQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLActionPerformed
+        // TODO add your handling code here:
+        chillPn = new pnAllUser();
+        parentPN.removeAll();
+        parentPN.add(chillPn);
+        parentPN.repaint();
+        parentPN.revalidate();
+    }//GEN-LAST:event_btnQLActionPerformed
 
     /**
      * @param args the command line arguments
