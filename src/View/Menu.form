@@ -597,7 +597,6 @@
             <Component class="javax.swing.JButton" name="btnXemTbs">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Xem Tablespace"/>
-                <Property name="actionCommand" type="java.lang.String" value="Xem Tablespace"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXemTbsActionPerformed"/>

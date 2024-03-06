@@ -40,8 +40,8 @@ public class Menu extends javax.swing.JFrame {
         try {
             String tk = Login.getDataUser.tenTk;
             String mk = Login.getDataUser.mk;
-            con = ConnectOracle.getConnecOracle();
-            String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi";
+            con = ConnectOracle.getUserConnection(tk, mk);
+            String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from hao.chuyendi";
             stmt = con.createStatement();
             //pst = con.prepareStatement("select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi");
             rs = stmt.executeQuery(sql);
