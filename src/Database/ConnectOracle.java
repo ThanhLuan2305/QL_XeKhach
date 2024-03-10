@@ -15,8 +15,8 @@ import java.sql.Statement;
  */
 public class ConnectOracle {
     private static final String CONNECTION_URL = "jdbc:oracle:thin:@localhost:1522:orcl1";
-    private static final String ADMIN_USER = "user_quoc2"; 
-    private static final String ADMIN_PASSWORD = "oracle123"; 
+    private static final String ADMIN_USER = "quoc"; 
+    private static final String ADMIN_PASSWORD = "123123"; 
     
     public static Connection getConnecOracle() throws ClassNotFoundException {
 		Connection c = null;
@@ -35,4 +35,15 @@ public class ConnectOracle {
         return DriverManager.getConnection(CONNECTION_URL, username, password);
     }
     
+    // CHỈ CẦN ĐĂNG NHẬP 1 LẦN ĐÂU, LẦN  SAU CHỈ CẦN GỌI 'getUserConnected()'
+    private static Connection userConnect;
+    
+    public static Connection login(String username, String password) throws SQLException {
+        userConnect = DriverManager.getConnection(CONNECTION_URL, username, password);
+        return userConnect;
+    }
+
+    public static Connection getUserConnected () {
+        return userConnect;
+    }
 }
