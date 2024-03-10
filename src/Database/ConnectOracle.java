@@ -14,9 +14,9 @@ import java.sql.Statement;
  * @author ADMIN
  */
 public class ConnectOracle {
-    private static final String ADMIN_URL = "jdbc:oracle:thin:@localhost:1521:orcldb12c";
-    private static final String ADMIN_USER = "hao"; 
-    private static final String ADMIN_PASSWORD = "hao123"; 
+    private static final String ADMIN_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
+    private static final String ADMIN_USER = "luan"; 
+    private static final String ADMIN_PASSWORD = "1412"; 
     
     public static Connection getConnecOracle() throws ClassNotFoundException {
 		Connection c = null;

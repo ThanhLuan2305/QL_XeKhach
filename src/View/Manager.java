@@ -6,7 +6,11 @@ package View;
 
 import Database.ConnectOracle;
 import View.Login;
+
 import java.awt.Window;
+
+import static View.Menu.logoutUser;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,6 +52,7 @@ public class Manager extends javax.swing.JFrame {
         LB_SESSION = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+
         tab3 = new javax.swing.JPanel();
         LB_SGA = new javax.swing.JLabel();
         tab4 = new javax.swing.JPanel();
@@ -64,6 +69,9 @@ public class Manager extends javax.swing.JFrame {
         LB_SPFILE = new javax.swing.JLabel();
         tab7 = new javax.swing.JPanel();
         LB_AUDIT = new javax.swing.JLabel();
+
+        btnDXM = new javax.swing.JButton();
+
         jPanel2 = new javax.swing.JPanel();
         Panel_Session = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -176,6 +184,7 @@ public class Manager extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Manager");
+
 
         tab3.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -392,6 +401,15 @@ public class Manager extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+
+        btnDXM.setText("Đăng xuất");
+        btnDXM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDXMActionPerformed(evt);
+            }
+        });
+
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -413,8 +431,15 @@ public class Manager extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29))))
+
             .addComponent(tab2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(tab7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(btnDXM, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,6 +452,7 @@ public class Manager extends javax.swing.JFrame {
                 .addComponent(tab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -444,6 +470,13 @@ public class Manager extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tab7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
+
+                .addGap(30, 30, 30)
+                .addComponent(tab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                .addComponent(btnDXM, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -1083,14 +1116,12 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_SGA() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT Name,value,con_id FROM V$SGA";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
             DefaultTableModel model = (DefaultTableModel) TBL_SGA.getModel();
-            model.setRowCount(0);
+            model.setRowCount(0)
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getString("NAME"),
@@ -1099,6 +1130,7 @@ public class Manager extends javax.swing.JFrame {
 
                 });
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1107,8 +1139,6 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_PGA() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT Name,value,unit,con_id FROM V$PGASTAT";
             stmt = con.createStatement();
@@ -1124,6 +1154,7 @@ public class Manager extends javax.swing.JFrame {
 
                 });
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1132,8 +1163,6 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_PROCESS() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT SPID, USERNAME, PROGRAM FROM V$PROCESS";
             stmt = con.createStatement();
@@ -1148,6 +1177,7 @@ public class Manager extends javax.swing.JFrame {
 
                 });
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1156,8 +1186,6 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_INSTANCE() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT INSTANCE_NAME, HOST_NAME, STARTUP_TIME FROM V$INSTANCE";
             stmt = con.createStatement();
@@ -1170,6 +1198,7 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("HOST_NAME"),
                     rs.getTimestamp("STARTUP_TIME"),});
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1178,8 +1207,6 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_DATABASE() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT NAME, LOG_MODE, OPEN_MODE FROM V$DATABASE";
             stmt = con.createStatement();
@@ -1192,6 +1219,7 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("LOG_MODE"),
                     rs.getString("OPEN_MODE"),});
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1200,8 +1228,6 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_DATAFILE() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT FILE_NAME, TABLESPACE_NAME, BYTES FROM DBA_DATA_FILES";
             stmt = con.createStatement();
@@ -1215,6 +1241,7 @@ public class Manager extends javax.swing.JFrame {
                     rs.getBigDecimal("BYTES")
                 });
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1222,8 +1249,6 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_CONTROLFILE() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT NAME, STATUS, IS_RECOVERY_DEST_FILE FROM V$CONTROLFILE";
             stmt = con.createStatement();
@@ -1237,6 +1262,7 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("IS_RECOVERY_DEST_FILE")
                 });
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1244,8 +1270,6 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_SPFILE() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT NUM,NAME,VALUE FROM V$PARAMETER WHERE NAME = 'spfile'";
             stmt = con.createStatement();
@@ -1259,6 +1283,7 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("VALUE")
                 });
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1266,8 +1291,6 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_SESSION() throws ClassNotFoundException, SQLException {
         try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
             String sql = "SELECT sid,serial#,username,program FROM V$SESSION WHERE TYPE!='BACKGROUP'";
             stmt = con.createStatement();
@@ -1282,6 +1305,7 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("PROGRAM")
                 });
             }
+            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -1718,6 +1742,22 @@ public class Manager extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, e);
         }
     }//GEN-LAST:event_Button_LocActionPerformed
+    private void btnDXMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDXMActionPerformed
+        // TODO add your handling code here:
+        try {
+            String tk = Login.getDataUser.tenTk;
+            boolean check = logoutUser(tk);
+            if(check == true) {
+                this.setVisible(false);
+                Login lg = new Login();
+                lg.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDXMActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1759,6 +1799,8 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JTable TBL_SPFILE;
     private javax.swing.JTextField Txt_SERIAL;
     private javax.swing.JTextField Txt_SID;
+    private javax.swing.JButton btnDXM;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

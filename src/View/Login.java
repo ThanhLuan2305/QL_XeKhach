@@ -153,7 +153,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "Đăng nhập thành công!", "Dialog", JOptionPane.INFORMATION_MESSAGE);
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(new JFrame(), "Đăng nhập thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Sai tài khoản hoặc mật khẩu. Mời bạn đăng nhập lại!", "Dialog", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
     }
@@ -203,8 +203,6 @@ public class Login extends javax.swing.JFrame {
             }
             else {
                 try {
-//                     manager=new Manager();
-//                    manager.setVisible(true);
                     menu = new Menu();
                     menu.setVisible(true);
                 } catch (SQLException ex) {
