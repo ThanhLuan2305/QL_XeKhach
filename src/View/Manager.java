@@ -1056,22 +1056,30 @@ public class Manager extends javax.swing.JFrame {
 
 // Phương thức để tìm và đóng form thuộc session tương ứng
     private void closeFormBySessionID(String sessionID) {
-        for (Window window : Window.getWindows()) {
-            if (window instanceof JFrame) {
-                JFrame frame = (JFrame) window;
-                // Kiểm tra trạng thái session của form
-                // Nếu trùng với sessionID cần đóng, thực hiện đóng form
-                if (frame.isVisible() && frame instanceof Manager) {
-                    Manager manager = (Manager) frame;
-                    String formSessionID = manager.getSessionID();
-                    if (formSessionID != null && formSessionID.equals(sessionID)) {
-                        frame.dispose();
-                        break;
+    for (Window window : Window.getWindows()) {
+        if (window instanceof JFrame) {
+            JFrame frame = (JFrame) window;
+            // Kiểm tra trạng thái session của form
+            // Nếu trùng với sessionID cần đóng, thực hiện đóng form
+            if (frame.isVisible() && frame instanceof Manager) {
+                Manager manager = (Manager) frame;
+                String formSessionID = manager.getSessionID();
+                if (formSessionID != null && formSessionID.equals(sessionID)) {
+                    frame.dispose();
+                    
+                    // Kiểm tra nếu form hiện tại là form Manager
+                    if (frame instanceof Manager) {
+                        // Quay lại form đăng ký
+                        Login login = new Login();
+                        login.setVisible(true);
                     }
+                    
+                    break;
                 }
             }
         }
     }
+}
 
     public void getDataTable_SGA() throws ClassNotFoundException, SQLException {
         try {
@@ -1460,7 +1468,7 @@ public class Manager extends javax.swing.JFrame {
 //                String tk = Login.getDataUser.tenTk;
 //                String mk = Login.getDataUser.mk;
                 con = ConnectOracle.getConnecOracle();
-                String sql = "ALTER SYSTEM KILL SESSION '" + sid + "," + serial + "'";
+                String sql = "ALTER SYSTEM KILL SESSION '" + sid + "," + serial + "'IMMEDIATE";
                 stmt = con.createStatement();
                 stmt.executeUpdate(sql);
                 JOptionPane.showMessageDialog(new JFrame(), "Hủy session thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
