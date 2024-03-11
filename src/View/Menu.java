@@ -3,8 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+
 import Database.ConnectOracle;
 import Model.User;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,10 +25,17 @@ import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import javax.sound.sampled.AudioInputStream;
 import javax.swing.JPanel;
 import javax.swing.table.TableModel;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.sql.DriverManager;
 
 /**
  *
@@ -38,7 +50,7 @@ public class Menu extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
     private JPanel chillPn;
-    
+
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
             String tk = Login.getDataUser.tenTk;
@@ -48,9 +60,8 @@ public class Menu extends javax.swing.JFrame {
             stmt = con.createStatement();
             //pst = con.prepareStatement("select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi");
             rs = stmt.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel)tblChuyenDi.getModel();
-            while(model.getRowCount() > 0)
-            {
+            DefaultTableModel model = (DefaultTableModel) tblChuyenDi.getModel();
+            while (model.getRowCount() > 0) {
                 model.removeRow(0);
             }
             model.setRowCount(0);
@@ -66,45 +77,43 @@ public class Menu extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
-        
+
     }
-    
-    
+
     public void getDataTableProlicy() throws ClassNotFoundException, SQLException {
-    try {
-        String tk = Login.getDataUser.tenTk;
-        String mk = Login.getDataUser.mk;
-        con = ConnectOracle.getUserConnection(tk, mk);
-        String sql = "SELECT POLICY_NAME, OBJECT_NAME, PF_OWNER FROM DBA_POLICIES";
-        stmt = con.createStatement();
-        rs = stmt.executeQuery(sql);
-        DefaultTableModel model = (DefaultTableModel)tblProlicy.getModel();
-        // Clear existing rows in the table
-        model.setRowCount(0);
-        while (rs.next()) {
-            // Assuming PF_OWNER is a timestamp column, adjust the data retrieval accordingly
-            // Add data to the table model
-            model.addRow(new Object[]{
-                rs.getString("POLICY_NAME"),
-                rs.getString("OBJECT_NAME"),
-                rs.getString("PF_OWNER"),
-            });
-        }
-    } catch (Exception e) {
-        // Properly log the exception
-        e.printStackTrace();
-        // Show a user-friendly error message
-        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        // Close resources properly in a finally block
-        if (rs != null) {
-            rs.close();
-        }
-        if (stmt != null) {
-            stmt.close();
+        try {
+            String tk = Login.getDataUser.tenTk;
+            String mk = Login.getDataUser.mk;
+            con = ConnectOracle.getUserConnection(tk, mk);
+            String sql = "SELECT POLICY_NAME, OBJECT_NAME, PF_OWNER FROM DBA_POLICIES";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            DefaultTableModel model = (DefaultTableModel) tblProlicy.getModel();
+            // Clear existing rows in the table
+            model.setRowCount(0);
+            while (rs.next()) {
+                // Assuming PF_OWNER is a timestamp column, adjust the data retrieval accordingly
+                // Add data to the table model
+                model.addRow(new Object[]{
+                    rs.getString("POLICY_NAME"),
+                    rs.getString("OBJECT_NAME"),
+                    rs.getString("PF_OWNER"),});
+            }
+        } catch (Exception e) {
+            // Properly log the exception
+            e.printStackTrace();
+            // Show a user-friendly error message
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Close resources properly in a finally block
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
-}
 
     public void loadCombobox() throws ClassNotFoundException {
         try (Connection conn = ConnectOracle.getUserConnected()) {
@@ -121,6 +130,7 @@ public class Menu extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     public Menu() throws SQLException, ClassNotFoundException {
         initComponents();
         loadCombobox();
@@ -129,14 +139,13 @@ public class Menu extends javax.swing.JFrame {
         parentPN.repaint();
         parentPN.revalidate();
     }
-    
+
     public static boolean logoutUser(String username) throws SQLException, ClassNotFoundException {
         String call = "{ call QUOC.kill_sessions(?) }";
-        try (Connection conn = ConnectOracle.getConnecOracle()) 
-        {
+        try (Connection conn = ConnectOracle.getConnecOracle()) {
             try {
                 CallableStatement cstmt = conn.prepareCall(call);
-                cstmt.setString(1, username); 
+                cstmt.setString(1, username);
                 cstmt.execute();
                 JOptionPane.showMessageDialog(new JFrame(), "Đăng xuất thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
@@ -144,12 +153,12 @@ public class Menu extends javax.swing.JFrame {
                 return false;
             }
             return true;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(new JFrame(), "Đăng xuất thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,6 +184,7 @@ public class Menu extends javax.swing.JFrame {
         pnChuyenDi = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblChuyenDi = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         pnNhatKy = new javax.swing.JPanel();
         pnHome = new javax.swing.JPanel();
         btnTBS = new javax.swing.JButton();
@@ -359,16 +369,29 @@ public class Menu extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblChuyenDi);
 
+        jButton1.setText("play");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnChuyenDiLayout = new javax.swing.GroupLayout(pnChuyenDi);
         pnChuyenDi.setLayout(pnChuyenDiLayout);
         pnChuyenDiLayout.setHorizontalGroup(
             pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnChuyenDiLayout.setVerticalGroup(
             pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnChuyenDiLayout.createSequentialGroup()
-                .addContainerGap(159, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -660,7 +683,7 @@ public class Menu extends javax.swing.JFrame {
         try {
             String tk = Login.getDataUser.tenTk;
             boolean check = logoutUser(tk);
-            if(check == true) {
+            if (check == true) {
                 this.setVisible(false);
                 Login lg = new Login();
                 lg.setVisible(true);
@@ -696,10 +719,10 @@ public class Menu extends javax.swing.JFrame {
     private void btnNhatKy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhatKy1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNhatKy1ActionPerformed
-  
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_formWindowClosing
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
@@ -715,7 +738,7 @@ public class Menu extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int result = fileChooser.showOpenDialog(this);
-        if(result == JFileChooser.APPROVE_OPTION) {
+        if (result == JFileChooser.APPROVE_OPTION) {
             String path = fileChooser.getSelectedFile().getAbsolutePath();
             txtFolder.setText(path);
         }
@@ -733,14 +756,13 @@ public class Menu extends javax.swing.JFrame {
                 try (ResultSet rs = (ResultSet) callableStatement.getObject(2)) {
                     // Assuming your JTable variable name is jTable1
                     DefaultTableModel model = (DefaultTableModel) tblTBS.getModel();
-                    while(model.getRowCount() > 0)
-                    {
+                    while (model.getRowCount() > 0) {
                         model.removeRow(0);
                     }
-                    Object[] row = new Object[2]; 
+                    Object[] row = new Object[2];
                     while (rs.next()) {
-                        row[0] = rs.getString("tablespace_name"); 
-                        row[1] = rs.getString("file_name"); 
+                        row[0] = rs.getString("tablespace_name");
+                        row[1] = rs.getString("file_name");
                         model.addRow(row);
                     }
                 }
@@ -749,7 +771,7 @@ public class Menu extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    
+
     private void btnTBSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTBSActionPerformed
         // TODO add your handling code here:
         pnCartHome.removeAll();
@@ -763,29 +785,27 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnTBSActionPerformed
 
-    
     private void loadDataFile() throws ClassNotFoundException {
         String username = (String) cbbUserName.getSelectedItem();
         try (Connection conn = ConnectOracle.getUserConnected()) {
             CallableStatement cstmt = conn.prepareCall("{call hien_thi_datafiles_chi_tiet(?, ?)}");
             cstmt.setString(1, username);
             cstmt.registerOutParameter(2, OracleTypes.CURSOR);
-            
+
             // Thực thi stored procedure
             cstmt.execute();
-            
+
             // Nhận kết quả từ tham số đầu ra
             ResultSet rs = (ResultSet) cstmt.getObject(2);
             DefaultTableModel model = (DefaultTableModel) tblDTF.getModel();
-            while(model.getRowCount() > 0)
-                {
-                     model.removeRow(0);
-                }
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
             // Thêm dữ liệu từ ResultSet vào DefaultTableModel
             while (rs.next()) {
                 model.addRow(new Object[]{rs.getString("file_name"), rs.getInt("file_id"), rs.getString("tablespace_name")});
             }
-            
+
             // Đóng tất cả các tài nguyên
             rs.close();
             cstmt.close();
@@ -821,7 +841,7 @@ public class Menu extends javax.swing.JFrame {
                 stmtCall.execute();
 
                 // Retrieve DBMS_OUTPUT
-                try (OracleCallableStatement stmtOutput = (OracleCallableStatement)con.prepareCall("{call dbms_output.get_line(?,?)}")) {
+                try (OracleCallableStatement stmtOutput = (OracleCallableStatement) con.prepareCall("{call dbms_output.get_line(?,?)}")) {
                     stmtOutput.registerOutParameter(1, OracleTypes.VARCHAR);
                     stmtOutput.registerOutParameter(2, OracleTypes.INTEGER);
 
@@ -846,7 +866,7 @@ public class Menu extends javax.swing.JFrame {
         String tablespaceName = txtTbsName.getText();
         String datafilePath = txtFolder.getText();
         String size = txtSize.getText();
-        
+
         try {
             Connection conn = ConnectOracle.getUserConnected();
             String sql = "{CALL them_datafile_vao_tablespace(?, ?, ?)}";
@@ -871,9 +891,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void createTablespace() throws ClassNotFoundException {
         String tablespaceName = txtTbsName.getText();
-        String datafileNames =txtFolder.getText();
+        String datafileNames = txtFolder.getText();
         String sizes = txtSize.getText();
-        
+
         try {
             Connection conn = ConnectOracle.getUserConnected();
             String sql = "{CALL tao_tablespace1(?, ?, ?)}";
@@ -920,20 +940,19 @@ public class Menu extends javax.swing.JFrame {
 
     private void loadAllDataTablespace() throws ClassNotFoundException {
         DefaultTableModel model = (DefaultTableModel) tblTBS.getModel();
-        while(model.getRowCount() > 0)
-        {
+        while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
         try (Connection conn = ConnectOracle.getUserConnected()) {
             try (CallableStatement cstmt = conn.prepareCall("{call sys.GetAllTablespaces(?)}")) {
-                cstmt.registerOutParameter(1, OracleTypes.CURSOR); 
+                cstmt.registerOutParameter(1, OracleTypes.CURSOR);
                 cstmt.execute();
 
                 try (ResultSet rs = (ResultSet) cstmt.getObject(1)) {
-                    
-                    Object[] row = new Object[2]; 
+
+                    Object[] row = new Object[2];
                     while (rs.next()) {
-                        row[0] = rs.getString("tablespace_name"); 
+                        row[0] = rs.getString("tablespace_name");
                         model.addRow(row);
                     }
                 }
@@ -962,29 +981,28 @@ public class Menu extends javax.swing.JFrame {
         String nameTBS = model.getValueAt(index, 0).toString();
         txtTbsName.setText(nameTBS);
     }//GEN-LAST:event_tblTBSMouseClicked
-    
+
     private void loadDataFileToTBS() throws ClassNotFoundException {
         String tbsName = txtTbsName.getText();
         DefaultTableModel model = (DefaultTableModel) tblDTF.getModel();
-            while(model.getRowCount() > 0)
-                {
-                     model.removeRow(0);
-                }
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
         try (Connection conn = ConnectOracle.getUserConnected()) {
             CallableStatement cstmt = conn.prepareCall("{call GetDTF_To_TBS(?, ?)}");
             cstmt.setString(1, tbsName);
             cstmt.registerOutParameter(2, OracleTypes.CURSOR);
-            
+
             // Thực thi stored procedure
             cstmt.execute();
-            
+
             // Nhận kết quả từ tham số đầu ra
             ResultSet rs = (ResultSet) cstmt.getObject(2);
             // Thêm dữ liệu từ ResultSet vào DefaultTableModel
             while (rs.next()) {
                 model.addRow(new Object[]{rs.getString("file_name"), rs.getInt("file_id"), rs.getString("tablespace_name")});
             }
-            
+
             // Đóng tất cả các tài nguyên
             rs.close();
             cstmt.close();
@@ -1034,6 +1052,36 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnQL1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // Kết nối đến cơ sở dữ liệu Oracle
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1522:orcl1", "quoc", "123123");
+
+            // Thực hiện truy vấn để lấy dữ liệu âm thanh từ cơ sở dữ liệu
+            PreparedStatement statement = connection.prepareStatement("SELECT sound FROM audios WHERE id = 2");
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // Lấy dữ liệu âm thanh từ trường LOB trong cơ sở dữ liệu
+                byte[] audioBytes = resultSet.getBytes("sound");
+                ByteArrayInputStream bis = new ByteArrayInputStream(audioBytes);
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(bis);
+
+                // Tạo Clip và phát âm thanh
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1057,6 +1105,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnTBS;
     private javax.swing.JButton btnXemTbs;
     private javax.swing.JComboBox<String> cbbUserName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
