@@ -175,7 +175,7 @@ public class Manager extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Manager");
+        jLabel3.setText("-Manager-");
 
         tab3.setBackground(new java.awt.Color(204, 204, 204));
 
