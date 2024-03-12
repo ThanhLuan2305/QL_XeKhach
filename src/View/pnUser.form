@@ -24,47 +24,41 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnFixTT" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel14" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel9" pref="120" max="32767" attributes="0"/>
-                                  <Component id="jLabel4" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel7" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel1" alignment="1" pref="120" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabel15" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Component id="jLabel11" min="-2" pref="120" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel6" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                          </Group>
+                  <Component id="jLabel14" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel9" pref="120" max="32767" attributes="0"/>
+                          <Component id="jLabel4" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtTen" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtTDN" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtProfile" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtGender" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtSDT" alignment="0" pref="119" max="32767" attributes="0"/>
-                          <Component id="txtDayEnd" max="32767" attributes="0"/>
-                          <Component id="txtStatus" max="32767" attributes="0"/>
-                          <Component id="txtLastLogin" max="32767" attributes="0"/>
-                          <Component id="txtDiachi" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtDayCr" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel7" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel1" alignment="1" pref="120" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jLabel15" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="jLabel11" min="-2" pref="120" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jLabel6" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="txtTen" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtTDN" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtProfile" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtGender" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtSDT" alignment="0" pref="119" max="32767" attributes="0"/>
+                  <Component id="txtDayEnd" max="32767" attributes="0"/>
+                  <Component id="txtStatus" max="32767" attributes="0"/>
+                  <Component id="txtLastLogin" max="32767" attributes="0"/>
+                  <Component id="txtDiachi" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtDayCr" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace pref="110" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -128,9 +122,7 @@
                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtLastLogin" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnFixTT" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -225,11 +217,6 @@
     <Component class="javax.swing.JLabel" name="txtLastLogin">
       <Properties>
         <Property name="text" type="java.lang.String" value="null"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnFixTT">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="S&#x1eed;a th&#xf4;ng tin"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

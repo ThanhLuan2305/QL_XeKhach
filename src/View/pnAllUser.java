@@ -26,7 +26,7 @@ public class pnAllUser extends javax.swing.JPanel {
      * Creates new form pnAllUser
      */
      public static void showDBAUsers(JTable table) {
-        try (Connection conn = ConnectOracle.getConnecOracle()) {
+        try (Connection conn = ConnectOracle.getUserConnection(Login.getDataUser.tenTk, Login.getDataUser.mk)) {
             // Assuming you have already created the function in the database
             CallableStatement cs = conn.prepareCall("{ ? = call F_GetAllUserDBA() }");
             cs.registerOutParameter(1, OracleTypes.CURSOR); // Use the appropriate type for your database if not Oracle
@@ -119,6 +119,7 @@ public class pnAllUser extends javax.swing.JPanel {
         btnTimKiem = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAllUser = new javax.swing.JTable();
+        btnAllProfile = new javax.swing.JButton();
 
         jLabel1.setText("Tên người dùng:");
 
@@ -142,6 +143,8 @@ public class pnAllUser extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tblAllUser);
 
+        btnAllProfile.setText("Tất cả Profile");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,7 +156,9 @@ public class pnAllUser extends javax.swing.JPanel {
                 .addComponent(txtTenUser, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAllProfile)
+                .addGap(15, 15, 15))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -163,7 +168,8 @@ public class pnAllUser extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtTenUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem))
+                    .addComponent(btnTimKiem)
+                    .addComponent(btnAllProfile))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -176,6 +182,7 @@ public class pnAllUser extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAllProfile;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;

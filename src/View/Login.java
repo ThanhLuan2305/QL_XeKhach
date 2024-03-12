@@ -230,8 +230,13 @@ public class Login extends javax.swing.JFrame {
     private void btnDKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDKActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        Register rg = new Register();
-        rg.setVisible(true);
+        Register rg;
+        try {
+            rg = new Register();
+           rg.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDKActionPerformed
 
     /**

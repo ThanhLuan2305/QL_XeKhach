@@ -30,6 +30,8 @@ import oracle.jdbc.OracleTypes;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Types;
+import java.util.Date;
 
 /**
  *
@@ -45,6 +47,25 @@ public class Menu extends javax.swing.JFrame {
     ResultSet rs;
     private JPanel chillPn;
     
+    public void getLastLogin() throws ClassNotFoundException, SQLException {
+        try {
+            String tk = Login.getDataUser.tenTk;
+            String mk = Login.getDataUser.mk;
+            con = ConnectOracle.getUserConnection(tk, mk);
+            CallableStatement  cstmt = con.prepareCall("{call Get_Last_Login(?, ?)}");
+
+            // Thiết lập đối số vào stored procedure
+            cstmt.setString(1, tk.toUpperCase());
+            cstmt.registerOutParameter(2, Types.TIMESTAMP);
+
+            cstmt.execute();
+            txtLastLogin.setText(cstmt.getTimestamp(2)+"");
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+        
+    }
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
             String tk = Login.getDataUser.tenTk;
@@ -98,6 +119,7 @@ public class Menu extends javax.swing.JFrame {
         parentPN.repaint();
         parentPN.revalidate();
         txtNameU.setText(Login.getDataUser.tenTk);
+        getLastLogin();
     }
     
     public static boolean logoutUser(String username) throws SQLException, ClassNotFoundException {
@@ -140,6 +162,7 @@ public class Menu extends javax.swing.JFrame {
         btnNhatKy1 = new javax.swing.JButton();
         btnHome = new javax.swing.JButton();
         txtNameU = new javax.swing.JLabel();
+        txtLastLogin = new javax.swing.JLabel();
         parentPN = new javax.swing.JPanel();
         pnChuyenDi = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -240,12 +263,19 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        txtNameU.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNameU.setForeground(new java.awt.Color(0, 51, 255));
         txtNameU.setText("Null");
         txtNameU.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtNameUMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtNameUMouseEntered(evt);
+            }
         });
+
+        txtLastLogin.setText("Null");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,20 +288,22 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(btnDX, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNhatKy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGiaoDich, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnQL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNhatKy1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(pnAva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8))))
+                        .addGap(60, 60, 60)
+                        .addComponent(txtNameU))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(txtNameU)))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtLastLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnCD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnNhatKy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGiaoDich, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnQL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnNhatKy1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(pnAva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(8, 8, 8))))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -281,6 +313,8 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(pnAva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNameU)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtLastLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnHome)
                 .addGap(18, 18, 18)
@@ -582,6 +616,7 @@ public class Menu extends javax.swing.JFrame {
                 this.setVisible(false);
                 Login lg = new Login();
                 lg.setVisible(true);
+                System.exit(0); 
             }
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
@@ -830,7 +865,17 @@ public class Menu extends javax.swing.JFrame {
     private void btnDropTbsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropTbsActionPerformed
         try {
             // TODO add your handling code here:
-            dropTablespace();
+            String nametbs = txtTbsName.getText();
+            if(nametbs.contains("")) {
+                   JOptionPane.showMessageDialog(new JFrame(), "Hãy điền tên Tablespace!","WARNING",JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                int dialogButton = JOptionPane.showConfirmDialog (new JFrame(), "Bạn có chắc muốn xóa?","WARNING",JOptionPane.YES_NO_OPTION);
+                if(dialogButton == JOptionPane.YES_OPTION) {
+                  dropTablespace();
+                }
+            }
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -925,12 +970,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDTFToTBSActionPerformed
 
     private void txtNameUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNameUMouseClicked
-        try {
-            // TODO add your handling code here:
-            chillPn = new pnUser();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        chillPn = new pnPrUser();
         parentPN.removeAll();
         parentPN.add(chillPn);
         parentPN.repaint();
@@ -945,6 +986,10 @@ public class Menu extends javax.swing.JFrame {
         parentPN.repaint();
         parentPN.revalidate();
     }//GEN-LAST:event_btnQLActionPerformed
+
+    private void txtNameUMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNameUMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameUMouseEntered
 
     /**
      * @param args the command line arguments
@@ -989,6 +1034,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTable tblDTF;
     private javax.swing.JTable tblTBS;
     private javax.swing.JTextField txtFolder;
+    private javax.swing.JLabel txtLastLogin;
     private javax.swing.JLabel txtNameU;
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtTbsName;
