@@ -58,7 +58,14 @@ public class Menu extends javax.swing.JFrame {
             String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from QUOC.CHUYENDI";
             stmt = con.createStatement();
             //pst = con.prepareStatement("select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi");
-            rs = stmt.executeQuery(sql);
+            try {
+                rs = stmt.executeQuery(sql);
+            } catch (Exception e) {
+                JOptionPane.showConfirmDialog(null, "Phiên bản hết hạn !");
+                this.setVisible(false);
+                Login lg = new Login();
+                lg.setVisible(true);
+            }
             DefaultTableModel model = (DefaultTableModel) tblChuyenDi.getModel();
             while (model.getRowCount() > 0) {
                 model.removeRow(0);
@@ -74,10 +81,8 @@ public class Menu extends javax.swing.JFrame {
                 });
             }
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, "Phiên bản hết hạn !");
-            this.setVisible(false);
-            Login lg = new Login();
-            lg.setVisible(true);
+            JOptionPane.showConfirmDialog(null, e);
+
         }
 
     }
@@ -86,7 +91,14 @@ public class Menu extends javax.swing.JFrame {
         try {
             String sql = "SELECT POLICY_NAME, OBJECT_NAME, PF_OWNER FROM DBA_POLICIES";
             stmt = con.createStatement();
-            rs = stmt.executeQuery(sql);
+             try {
+                rs = stmt.executeQuery(sql);
+            } catch (Exception e) {
+                JOptionPane.showConfirmDialog(null, "Phiên bản hết hạn !");
+                this.setVisible(false);
+                Login lg = new Login();
+                lg.setVisible(true);
+            }
             DefaultTableModel model = (DefaultTableModel) tblProlicy.getModel();
             // Clear existing rows in the table
             model.setRowCount(0);
@@ -99,10 +111,8 @@ public class Menu extends javax.swing.JFrame {
                     rs.getString("PF_OWNER"),});
             }
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, "Phiên bản hết hạn !");
-            this.setVisible(false);
-            Login lg = new Login();
-            lg.setVisible(true);
+            JOptionPane.showConfirmDialog(null, e);
+           
         } finally {
             // Close resources properly in a finally block
 
@@ -135,10 +145,9 @@ public class Menu extends javax.swing.JFrame {
     public static boolean logoutUser(String username) {
         try {
             String call = "{ call kill_user_sessions(?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) 
-            {
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
                 try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, username.toUpperCase()); 
+                    cstmt.setString(1, username.toUpperCase());
                     cstmt.execute();
                     JOptionPane.showMessageDialog(new JFrame(), "Đăng xuất thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
@@ -146,7 +155,7 @@ public class Menu extends javax.swing.JFrame {
                     return false;
                 }
                 return true;
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(new JFrame(), "Đăng xuất thất bại2", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                 return false;
             }
@@ -668,7 +677,9 @@ public class Menu extends javax.swing.JFrame {
         pnProlicy.setLayout(pnProlicyLayout);
         pnProlicyLayout.setHorizontalGroup(
             pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addGap(106, 106, 106))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1121,8 +1132,7 @@ public class Menu extends javax.swing.JFrame {
         String tableName = textTable.getText().toString().toUpperCase();
         try {
             String call = "{ call add_policy_to_object(?, ?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) 
-            {
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
                 try (CallableStatement cstmt = conn.prepareCall(call)) {
                     cstmt.setString(1, username.toUpperCase());
                     cstmt.setString(2, tableName);
@@ -1131,7 +1141,7 @@ public class Menu extends javax.swing.JFrame {
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                 }
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
