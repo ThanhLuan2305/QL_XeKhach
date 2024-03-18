@@ -25,6 +25,7 @@ import oracle.jdbc.OracleCallableStatement;
 import java.util.List;
 import java.util.ArrayList;
 import Model.ListQuyen;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -35,7 +36,8 @@ public class Manager extends javax.swing.JFrame {
     /**
      * Creates new form Manager
      */
-    Connection con = ConnectOracle.getUserConnected();;
+    Connection con = ConnectOracle.getUserConnected();
+    ;
     Statement stmt;
     ResultSet rs;
 
@@ -161,10 +163,13 @@ public class Manager extends javax.swing.JFrame {
         tblProlicy = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        textTable = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         btnCreatePolicy = new javax.swing.JButton();
         cbbUserName1 = new javax.swing.JComboBox<>();
+        cbbUserName2 = new javax.swing.JComboBox<>();
+        btnXoa = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        txtPolicyname = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1319,9 +1324,14 @@ public class Manager extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "tên", "Đối tượng", "OWNER"
+                "người dùng", "Bảng", "tên policy"
             }
         ));
+        tblProlicy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProlicyMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tblProlicy);
 
         jLabel8.setText("tất cả Policy");
@@ -1344,32 +1354,53 @@ public class Manager extends javax.swing.JFrame {
             }
         });
 
+        cbbUserName2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bảng" }));
+        cbbUserName2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbUserName2ActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setText("xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("jLabel11");
+
+        txtPolicyname.setText("tên policy");
+
         javax.swing.GroupLayout pnProlicyLayout = new javax.swing.GroupLayout(pnProlicy);
         pnProlicy.setLayout(pnProlicyLayout);
         pnProlicyLayout.setHorizontalGroup(
             pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-                .addGap(106, 106, 106))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
+            .addGroup(pnProlicyLayout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(pnProlicyLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnProlicyLayout.createSequentialGroup()
+                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnProlicyLayout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9))
                     .addGroup(pnProlicyLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel10)))
+                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbbUserName1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textTable))
+                    .addComponent(cbbUserName2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnProlicyLayout.createSequentialGroup()
+                        .addComponent(btnCreatePolicy, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPolicyname))
                 .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCreatePolicy)
-                .addGap(44, 44, 44))
         );
         pnProlicyLayout.setVerticalGroup(
             pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1381,11 +1412,17 @@ public class Manager extends javax.swing.JFrame {
                     .addComponent(cbbUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addGap(30, 30, 30)
-                .addComponent(btnCreatePolicy)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                    .addComponent(jLabel10)
+                    .addComponent(cbbUserName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtPolicyname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCreatePolicy, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1454,9 +1491,8 @@ public class Manager extends javax.swing.JFrame {
                     .addContainerGap(26, Short.MAX_VALUE)))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(pnProlicy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 61, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1519,10 +1555,10 @@ public class Manager extends javax.swing.JFrame {
                     .addComponent(Panel_ChiTietNhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(14, Short.MAX_VALUE)))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(73, Short.MAX_VALUE)
                     .addComponent(pnProlicy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(73, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1793,7 +1829,7 @@ public class Manager extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, e);
         } finally {
             // Đảm bảo đóng tài nguyên
-          
+
         }
     }
 
@@ -1847,8 +1883,6 @@ public class Manager extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, e);
         }
     }
-
-    
 
     public void getDataTable_PhanQuyen() throws ClassNotFoundException, SQLException {
         try {
@@ -2020,6 +2054,8 @@ public class Manager extends javax.swing.JFrame {
 
     public Manager() throws SQLException, ClassNotFoundException {
         initComponents();
+        loadCombobox();
+        loadComboboxUser();
 //        getDataTable_SGA();
 //        getDataTable_PGA();
 //        getDataTable_PROCESS();
@@ -2033,6 +2069,31 @@ public class Manager extends javax.swing.JFrame {
 //           getDataTable_AUDIT();
 
     }
+
+    public void loadCombobox() throws ClassNotFoundException {
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT username FROM dba_users");
+            while (rs.next()) {
+                String username = rs.getString("username");
+                cbbUserName1.addItem(username);
+                cbbUserName1.addItem(username);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadComboboxUser() throws ClassNotFoundException {
+        cbbUserName2.addItem("CHUYENDI");
+        cbbUserName2.addItem("DATVE");
+        cbbUserName2.addItem("GHENGOI");
+        cbbUserName2.addItem("KHACHHANG");
+        cbbUserName2.addItem("NHATKYHOATDONG");
+        cbbUserName2.addItem("THANHTOAN");
+        cbbUserName2.addItem("XEKHACH");
+    }
+
     private void LB_PGAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LB_PGAMouseClicked
         try {
             // TODO add your handling code here:
@@ -2659,7 +2720,7 @@ public class Manager extends javax.swing.JFrame {
 //            String tk = Login.getDataUser.tenTk;
 //            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
-            String sql = "SELECT Role,Owner,table_name,Privilege FROM role_tab_privs WHERE role = '"+Item+"'";
+            String sql = "SELECT Role,Owner,table_name,Privilege FROM role_tab_privs WHERE role = '" + Item + "'";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
             DefaultTableModel model = (DefaultTableModel) TBL_ChiTietNhomQuyen.getModel();
@@ -2675,14 +2736,14 @@ public class Manager extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
-        
+
     }//GEN-LAST:event_JBtn_ChonActionPerformed
 
     public void getDataTableProlicy() throws ClassNotFoundException, SQLException {
         try {
-            String sql = "SELECT POLICY_NAME, OBJECT_NAME, PF_OWNER FROM DBA_POLICIES";
+            String sql = "SELECT OBJECT_OWNER, OBJECT_NAME, policy_name FROM DBA_POLICIES";
             stmt = con.createStatement();
-           try {
+            try {
                 rs = stmt.executeQuery(sql);
             } catch (Exception e) {
                 JOptionPane.showConfirmDialog(null, "Phiên bản hết hạn !");
@@ -2697,19 +2758,19 @@ public class Manager extends javax.swing.JFrame {
                 // Assuming PF_OWNER is a timestamp column, adjust the data retrieval accordingly
                 // Add data to the table model
                 model.addRow(new Object[]{
-                    rs.getString("POLICY_NAME"),
+                    rs.getString("OBJECT_OWNER"),
                     rs.getString("OBJECT_NAME"),
-                    rs.getString("PF_OWNER"),});
+                    rs.getString("policy_name"),});
             }
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
-           
+
         } finally {
             // Close resources properly in a finally block
 
         }
     }
-    
+
     private void parentPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parentPNActionPerformed
         // TODO add your handling code here:
         jPanel2.removeAll();
@@ -2727,20 +2788,22 @@ public class Manager extends javax.swing.JFrame {
 
     private void btnCreatePolicyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatePolicyActionPerformed
         String username = (String) cbbUserName1.getSelectedItem();
-        String tableName = textTable.getText().toString().toUpperCase();
+        String tableName = (String) cbbUserName2.getSelectedItem();
+        String txtPlicy = txtPolicyname.getText();
         try {
-            String call = "{ call add_policy_to_object(?, ?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle())
-            {
+            String call = "{ call add_policy_to_object(?, ?, ?) }";
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
                 try (CallableStatement cstmt = conn.prepareCall(call)) {
                     cstmt.setString(1, username.toUpperCase());
                     cstmt.setString(2, tableName);
+                    cstmt.setString(3, txtPlicy);
                     cstmt.execute();
+                    getDataTableProlicy();
                     JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                 }
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
@@ -2750,6 +2813,43 @@ public class Manager extends javax.swing.JFrame {
     private void cbbUserName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbUserName1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbUserName1ActionPerformed
+
+    private void cbbUserName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbUserName2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbUserName2ActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+String username = (String) cbbUserName1.getSelectedItem();
+        String tableName = (String) cbbUserName2.getSelectedItem();
+        String txtPlicy = txtPolicyname.getText();
+        try {
+            String call = "{ call drop_policy_from_object(?, ?, ?) }";
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
+                try (CallableStatement cstmt = conn.prepareCall(call)) {
+                    cstmt.setString(1, username.toUpperCase());
+                    cstmt.setString(2, tableName);
+                    cstmt.setString(3, txtPlicy);
+                    cstmt.execute();
+                    getDataTableProlicy();
+                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void tblProlicyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProlicyMouseClicked
+        int i = tblProlicy.getSelectedRow();
+        TableModel model = tblProlicy.getModel();
+        cbbUserName1.getModel().setSelectedItem(model.getValueAt(i, 0));
+        cbbUserName2.getModel().setSelectedItem(model.getValueAt(i, 1));
+        txtPolicyname.setText((String) model.getValueAt(i, 2));
+    }//GEN-LAST:event_tblProlicyMouseClicked
 
     /**
      * @param args the command line arguments
@@ -2818,10 +2918,13 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_TenQuyen;
     private javax.swing.JTextField Txt_XoaNhomQuyen;
     private javax.swing.JButton btnCreatePolicy;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbbUserName1;
+    private javax.swing.JComboBox<String> cbbUserName2;
     private javax.swing.JComboBox<String> jComboBox_Quyen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -2872,7 +2975,7 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JPanel tab8;
     private javax.swing.JPanel tab9;
     private javax.swing.JTable tblProlicy;
-    private javax.swing.JTextField textTable;
+    private javax.swing.JTextField txtPolicyname;
     // End of variables declaration//GEN-END:variables
 
 }
