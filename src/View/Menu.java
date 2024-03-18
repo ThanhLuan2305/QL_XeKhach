@@ -11,6 +11,9 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.awt.Graphics;
+import java.awt.LayoutManager;
+import java.awt.image.BufferedImage;
 import java.sql.Connection;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -38,6 +41,11 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.sql.DriverManager;
 import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Types;
+import java.util.Date;
 
 /**
  *
@@ -52,7 +60,26 @@ public class Menu extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
     private JPanel chillPn;
+    
+    public void getLastLogin() throws ClassNotFoundException, SQLException {
+        try {
+            String tk = Login.getDataUser.tenTk;
+            String mk = Login.getDataUser.mk;
+            con = ConnectOracle.getUserConnection(tk, mk);
+            CallableStatement  cstmt = con.prepareCall("{call Get_Last_Login(?, ?)}");
 
+            // Thiết lập đối số vào stored procedure
+            cstmt.setString(1, tk.toUpperCase());
+            cstmt.registerOutParameter(2, Types.TIMESTAMP);
+
+            cstmt.execute();
+            txtLastLogin.setText(cstmt.getTimestamp(2)+"");
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+        
+    }
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
             String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from QUOC.CHUYENDI";
@@ -93,6 +120,8 @@ public class Menu extends javax.swing.JFrame {
         parentPN.add(pnHome);
         parentPN.repaint();
         parentPN.revalidate();
+        txtNameU.setText(Login.getDataUser.tenTk);
+        getLastLogin();
     }
 
     public static boolean logoutUser(String username) {
@@ -138,6 +167,7 @@ public class Menu extends javax.swing.JFrame {
         btnNhatKy1 = new javax.swing.JButton();
         btnHome = new javax.swing.JButton();
         txtNameU = new javax.swing.JLabel();
+        txtLastLogin = new javax.swing.JLabel();
         parentPN = new javax.swing.JPanel();
         pnChuyenDi = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -205,6 +235,11 @@ public class Menu extends javax.swing.JFrame {
         btnGiaoDich.setText("Giao dịch");
 
         btnQL.setText("Quàn lý khách hàng");
+        btnQL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator1.setForeground(new java.awt.Color(0, 51, 204));
@@ -234,12 +269,19 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        txtNameU.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNameU.setForeground(new java.awt.Color(0, 51, 255));
         txtNameU.setText("Null");
         txtNameU.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtNameUMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtNameUMouseEntered(evt);
+            }
         });
+
+        txtLastLogin.setText("Null");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -275,9 +317,11 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(pnAva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNameU)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtLastLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnCD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnNhatKy)
@@ -587,12 +631,19 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnDXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDXActionPerformed
         // TODO add your handling code here:
-        String tk = Login.getDataUser.tenTk;
-        boolean check = logoutUser(tk);
-        if (check == true) {
-            this.setVisible(false);
-            Login lg = new Login();
-            lg.setVisible(true);
+        try {
+            String tk = Login.getDataUser.tenTk;
+            boolean check = logoutUser(tk);
+            if(check == true) {
+                this.setVisible(false);
+                Login lg = new Login();
+                lg.setVisible(true);
+                System.exit(0); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDXActionPerformed
 
@@ -830,7 +881,17 @@ public class Menu extends javax.swing.JFrame {
     private void btnDropTbsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropTbsActionPerformed
         try {
             // TODO add your handling code here:
-            dropTablespace();
+            String nametbs = txtTbsName.getText();
+            if(nametbs.contains("")) {
+                   JOptionPane.showMessageDialog(new JFrame(), "Hãy điền tên Tablespace!","WARNING",JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                int dialogButton = JOptionPane.showConfirmDialog (new JFrame(), "Bạn có chắc muốn xóa?","WARNING",JOptionPane.YES_NO_OPTION);
+                if(dialogButton == JOptionPane.YES_OPTION) {
+                  dropTablespace();
+                }
+            }
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -920,12 +981,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDTFToTBSActionPerformed
 
     private void txtNameUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNameUMouseClicked
-        try {
-            // TODO add your handling code here:
-            chillPn = new pnUser();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        chillPn = new pnPrUser();
         parentPN.removeAll();
         parentPN.add(chillPn);
         parentPN.repaint();
@@ -965,6 +1022,19 @@ public class Menu extends javax.swing.JFrame {
 
     String filename = null;
     byte[] person_image = null;
+    private void btnQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLActionPerformed
+        // TODO add your handling code here:
+        chillPn = new pnAllUser();
+        parentPN.removeAll();
+        parentPN.add(chillPn);
+        parentPN.repaint();
+        parentPN.revalidate();
+    }//GEN-LAST:event_btnQLActionPerformed
+
+    private void txtNameUMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNameUMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameUMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1010,6 +1080,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTable tblDTF;
     private javax.swing.JTable tblTBS;
     private javax.swing.JTextField txtFolder;
+    private javax.swing.JLabel txtLastLogin;
     private javax.swing.JLabel txtNameU;
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtTbsName;
