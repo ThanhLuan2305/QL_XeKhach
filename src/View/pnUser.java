@@ -51,7 +51,6 @@ public class pnUser extends javax.swing.JPanel {
                     txtProfile.setText(profile);
                 }
             }
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,10 +74,7 @@ public class pnUser extends javax.swing.JPanel {
                     txtSDT.setText(rs.getString("SDT"));
                     txtDiachi.setText(rs.getString("DiaChi"));
                 }
-                rs.close();
             }
-            cstmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

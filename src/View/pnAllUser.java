@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JPanel;
 import oracle.jdbc.OracleTypes;
 import java.sql.Types;
@@ -25,8 +26,9 @@ public class pnAllUser extends javax.swing.JPanel {
     /**
      * Creates new form pnAllUser
      */
+    
      public static void showDBAUsers(JTable table) {
-        try (Connection conn = ConnectOracle.getUserConnection(Login.getDataUser.tenTk, Login.getDataUser.mk)) {
+        try (Connection conn = ConnectOracle.getUserConnected()) {
             // Assuming you have already created the function in the database
             CallableStatement cs = conn.prepareCall("{ ? = call F_GetAllUserDBA() }");
             cs.registerOutParameter(1, OracleTypes.CURSOR); // Use the appropriate type for your database if not Oracle
@@ -51,10 +53,6 @@ public class pnAllUser extends javax.swing.JPanel {
                 row[5] = rs.getObject("PROFILE");
                 model.addRow(row);
             }
-            
-            // Cleanup
-            rs.close();
-            cs.close();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error accessing Database.");
@@ -92,9 +90,6 @@ public class pnAllUser extends javax.swing.JPanel {
                 model.addRow(row);
             }
             
-            // Cleanup
-            rs.close();
-            cs.close();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error accessing Database.");

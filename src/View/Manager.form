@@ -2408,13 +2408,10 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel11"/>
+                <Property name="text" type="java.lang.String" value="T&#xea;n policy"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPolicyname">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="t&#xea;n policy"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

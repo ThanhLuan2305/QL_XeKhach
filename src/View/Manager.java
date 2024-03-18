@@ -1368,9 +1368,7 @@ public class Manager extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("jLabel11");
-
-        txtPolicyname.setText("tên policy");
+        jLabel11.setText("Tên policy");
 
         javax.swing.GroupLayout pnProlicyLayout = new javax.swing.GroupLayout(pnProlicy);
         pnProlicy.setLayout(pnProlicyLayout);
@@ -1924,17 +1922,6 @@ public class Manager extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -1988,17 +1975,6 @@ public class Manager extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -2536,20 +2512,6 @@ public class Manager extends javax.swing.JFrame {
                 Text_TenQuyen.setText("");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                    if (con != null) {
-                        con.close();
-                    }
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
             }
         }
     }//GEN-LAST:event_Btn_HuyQuyenActionPerformed
@@ -2620,20 +2582,6 @@ public class Manager extends javax.swing.JFrame {
                 Txt_XoaNhomQuyen.setText("");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                    if (con != null) {
-                        con.close();
-                    }
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
             }
         }
 
@@ -2669,21 +2617,7 @@ public class Manager extends javax.swing.JFrame {
                 Txt_NameNhomQuyen.setText("");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                    if (con != null) {
-                        con.close();
-                    }
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
-            }
+            } 
         }
     }//GEN-LAST:event_Btn_AddQuyenActionPerformed
 

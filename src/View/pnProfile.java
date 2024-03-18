@@ -55,10 +55,6 @@ public class pnProfile extends javax.swing.JPanel {
                 model.addRow(new Object[]{profile, resourceName, resourceType, limit});
             }
 
-            // Clean up
-            rs.close();
-            cstmt.close();
-            conn.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
