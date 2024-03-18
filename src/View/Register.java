@@ -162,7 +162,6 @@ public class Register extends javax.swing.JFrame {
              
             stmt.execute(sqlCreateUser);
             stmt.execute(sqlGrant);
-            conn.close();
         }
     }
     public static String hashPassword(String password) {
@@ -211,7 +210,6 @@ public class Register extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(new JFrame(), "Đăng ký thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                     }
                     createUser(tk, pass);
-                    con.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -584,7 +584,7 @@ public class Manager extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     public void getDataTable_SGA() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT Name,value,con_id FROM V$SGA";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -598,7 +598,6 @@ public class Manager extends javax.swing.JFrame {
 
                 });
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -607,7 +606,7 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_PGA() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT Name,value,unit,con_id FROM V$PGASTAT";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -622,7 +621,6 @@ public class Manager extends javax.swing.JFrame {
 
                 });
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -631,7 +629,7 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_PROCESS() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT SPID, USERNAME, PROGRAM FROM V$PROCESS";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -645,7 +643,6 @@ public class Manager extends javax.swing.JFrame {
 
                 });
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -654,7 +651,7 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_INSTANCE() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT INSTANCE_NAME, HOST_NAME, STARTUP_TIME FROM V$INSTANCE";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -666,7 +663,6 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("HOST_NAME"),
                     rs.getTimestamp("STARTUP_TIME"),});
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -675,7 +671,7 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_DATABASE() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT NAME, LOG_MODE, OPEN_MODE FROM V$DATABASE";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -687,7 +683,6 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("LOG_MODE"),
                     rs.getString("OPEN_MODE"),});
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -696,7 +691,7 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_DATAFILE() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT FILE_NAME, TABLESPACE_NAME, BYTES FROM DBA_DATA_FILES";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -709,7 +704,6 @@ public class Manager extends javax.swing.JFrame {
                     rs.getBigDecimal("BYTES")
                 });
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -717,7 +711,7 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_CONTROLFILE() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT NAME, STATUS, IS_RECOVERY_DEST_FILE FROM V$CONTROLFILE";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -730,7 +724,6 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("IS_RECOVERY_DEST_FILE")
                 });
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -738,7 +731,7 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_SPFILE() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT NUM,NAME,VALUE FROM V$PARAMETER WHERE NAME = 'spfile'";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -751,7 +744,6 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("VALUE")
                 });
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -759,7 +751,7 @@ public class Manager extends javax.swing.JFrame {
 
     public void getDataTable_SESSION() throws ClassNotFoundException, SQLException {
         try {
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT sid,serial#,username,program FROM V$SESSION WHERE TYPE!='BACKGROUP'";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -773,7 +765,6 @@ public class Manager extends javax.swing.JFrame {
                     rs.getString("PROGRAM")
                 });
             }
-            con.close();
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -784,7 +775,7 @@ public class Manager extends javax.swing.JFrame {
         try {
             String tk = Login.getDataUser.tenTk;
             String mk = Login.getDataUser.mk;
-            con = ConnectOracle.getConnecOracle();
+            con = ConnectOracle.getUserConnected();
             String sql = "SELECT COUNT(*) AS session_count FROM V$SESSION";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
@@ -797,15 +788,7 @@ public class Manager extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, e);
         } finally {
             // Đảm bảo đóng tài nguyên
-            if (rs != null) {
-                rs.close();
-            }
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+          
         }
     }
      public Manager() throws SQLException, ClassNotFoundException  {
@@ -860,7 +843,7 @@ public class Manager extends javax.swing.JFrame {
             try {
                 String tk = Login.getDataUser.tenTk;
                 String mk = Login.getDataUser.mk;
-                con = ConnectOracle.getConnecOracle();
+                con = ConnectOracle.getUserConnected();
                 String sql = "ALTER SYSTEM KILL SESSION '" + sid + "," + serial + "'";
                 stmt = con.createStatement();
                 stmt.executeUpdate(sql);
@@ -868,19 +851,6 @@ public class Manager extends javax.swing.JFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                    if (con != null) {
-                        con.close();
-                    }
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
             }
         }
     }//GEN-LAST:event_HUY_SESSIONActionPerformed

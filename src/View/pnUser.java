@@ -37,7 +37,7 @@ public class pnUser extends javax.swing.JPanel {
     public void getUserInfo(String tenDangNhap) throws ClassNotFoundException {
         String call = "{CALL sp_selectUserInfo(?, ?)}";
 
-        try (Connection conn = ConnectOracle.getConnecOracle();
+        try (Connection conn = ConnectOracle.getUserConnected();
              CallableStatement cstmt = conn.prepareCall(call)) {
              
             cstmt.setString(1, tenDangNhap);
@@ -149,6 +149,11 @@ public class pnUser extends javax.swing.JPanel {
         txtLastLogin.setText("null");
 
         btnFixTT.setText("Sửa thông tin");
+        btnFixTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFixTTActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Tên đăng nhập:");
 
@@ -261,6 +266,10 @@ public class pnUser extends javax.swing.JPanel {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnFixTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFixTTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFixTTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
