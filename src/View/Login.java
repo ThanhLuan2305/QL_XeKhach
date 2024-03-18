@@ -214,6 +214,8 @@ public class Login extends javax.swing.JFrame {
             }
             else {
                 try {
+//                     manager=new Manager();
+//                    manager.setVisible(true);
                     menu = new Menu();
                     menu.setVisible(true);
                 } catch (SQLException ex) {

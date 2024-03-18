@@ -55,7 +55,14 @@ public class Menu extends javax.swing.JFrame {
 
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
+<<<<<<< HEAD
             String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from QUOC.CHUYENDI";
+=======
+            String tk = Login.getDataUser.tenTk;
+            String mk = Login.getDataUser.mk;
+            con = ConnectOracle.getUserConnection(tk, mk);
+            String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from hao.chuyendi";
+>>>>>>> origin/hao-branch
             stmt = con.createStatement();
             //pst = con.prepareStatement("select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi");
             rs = stmt.executeQuery(sql);
