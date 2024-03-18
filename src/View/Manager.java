@@ -2021,18 +2021,12 @@ public class Manager extends javax.swing.JFrame {
 
     private void btnDXMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDXMActionPerformed
         // TODO add your handling code here:
-        try {
-            String tk = Login.getDataUser.tenTk;
-            boolean check = logoutUser(tk);
-            if(check == true) {
-                this.setVisible(false);
-                Login lg = new Login();
-                lg.setVisible(true);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        String tk = Login.getDataUser.tenTk;
+        boolean check = logoutUser(tk);
+        if(check == true) {
+            this.setVisible(false);
+            Login lg = new Login();
+            lg.setVisible(true);
         }
     }//GEN-LAST:event_btnDXMActionPerformed
     private void LB_SGAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LB_SGAMouseClicked
