@@ -87,55 +87,8 @@ public class Menu extends javax.swing.JFrame {
 
     }
 
-    public void getDataTableProlicy() throws ClassNotFoundException, SQLException {
-        try {
-            String sql = "SELECT POLICY_NAME, OBJECT_NAME, PF_OWNER FROM DBA_POLICIES";
-            stmt = con.createStatement();
-             try {
-                rs = stmt.executeQuery(sql);
-            } catch (Exception e) {
-                JOptionPane.showConfirmDialog(null, "Phiên bản hết hạn !");
-                this.setVisible(false);
-                Login lg = new Login();
-                lg.setVisible(true);
-            }
-            DefaultTableModel model = (DefaultTableModel) tblProlicy.getModel();
-            // Clear existing rows in the table
-            model.setRowCount(0);
-            while (rs.next()) {
-                // Assuming PF_OWNER is a timestamp column, adjust the data retrieval accordingly
-                // Add data to the table model
-                model.addRow(new Object[]{
-                    rs.getString("POLICY_NAME"),
-                    rs.getString("OBJECT_NAME"),
-                    rs.getString("PF_OWNER"),});
-            }
-        } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e);
-           
-        } finally {
-            // Close resources properly in a finally block
-
-        }
-    }
-
-    public void loadCombobox() throws ClassNotFoundException {
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT username FROM dba_users");
-            while (rs.next()) {
-                String username = rs.getString("username");
-                cbbUserName.addItem(username);
-                cbbUserName1.addItem(username);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public Menu() throws SQLException, ClassNotFoundException {
         initComponents();
-        loadCombobox();
         parentPN.removeAll();
         parentPN.add(pnHome);
         parentPN.repaint();
@@ -185,7 +138,6 @@ public class Menu extends javax.swing.JFrame {
         btnNhatKy1 = new javax.swing.JButton();
         btnHome = new javax.swing.JButton();
         txtNameU = new javax.swing.JLabel();
-        btnQL1 = new javax.swing.JButton();
         parentPN = new javax.swing.JPanel();
         pnChuyenDi = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -217,15 +169,6 @@ public class Menu extends javax.swing.JFrame {
         btnAlTbs = new javax.swing.JButton();
         btnDropTbs = new javax.swing.JButton();
         btnDTFToTBS = new javax.swing.JButton();
-        pnProlicy = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tblProlicy = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        textTable = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        btnCreatePolicy = new javax.swing.JButton();
-        cbbUserName1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -298,13 +241,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnQL1.setText("prolicy");
-        btnQL1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQL1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -316,9 +252,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(62, 62, 62))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDX, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                    .addComponent(btnQL1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnDX, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
@@ -355,9 +289,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btnQL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(btnQL1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(49, 49, 49)
                 .addComponent(btnDX)
                 .addContainerGap())
         );
@@ -634,91 +566,6 @@ public class Menu extends javax.swing.JFrame {
         );
 
         parentPN.add(pnHome, "card4");
-
-        pnProlicy.setBackground(new java.awt.Color(204, 204, 204));
-
-        tblProlicy.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "tên", "Đối tượng", "OWNER"
-            }
-        ));
-        jScrollPane4.setViewportView(tblProlicy);
-
-        jLabel5.setText("tất cả Policy");
-
-        jLabel6.setText("TÊN NGƯỜI DÙNG");
-
-        jLabel7.setText("bảng");
-
-        btnCreatePolicy.setText("Tạo");
-        btnCreatePolicy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreatePolicyActionPerformed(evt);
-            }
-        });
-
-        cbbUserName1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên người dùng" }));
-        cbbUserName1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbUserName1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnProlicyLayout = new javax.swing.GroupLayout(pnProlicy);
-        pnProlicy.setLayout(pnProlicyLayout);
-        pnProlicyLayout.setHorizontalGroup(
-            pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                .addGap(106, 106, 106))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnProlicyLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6))
-                    .addGroup(pnProlicyLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbbUserName1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textTable))
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCreatePolicy)
-                .addGap(44, 44, 44))
-        );
-        pnProlicyLayout.setVerticalGroup(
-            pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnProlicyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbbUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(30, 30, 30)
-                .addComponent(btnCreatePolicy)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        parentPN.add(pnProlicy, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1085,21 +932,6 @@ public class Menu extends javax.swing.JFrame {
         parentPN.revalidate();
     }//GEN-LAST:event_txtNameUMouseClicked
 
-    private void btnQL1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQL1ActionPerformed
-        // TODO add your handling code here:
-        parentPN.removeAll();
-        parentPN.add(pnProlicy);
-        parentPN.repaint();
-        parentPN.revalidate();
-        try {
-            getDataTableProlicy();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnQL1ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // Kết nối đến cơ sở dữ liệu Oracle
@@ -1127,34 +959,9 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnCreatePolicyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatePolicyActionPerformed
-        String username = (String) cbbUserName.getSelectedItem();
-        String tableName = textTable.getText().toString().toUpperCase();
-        try {
-            String call = "{ call add_policy_to_object(?, ?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) {
-                try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, username.toUpperCase());
-                    cstmt.setString(2, tableName);
-                    cstmt.execute();
-                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_btnCreatePolicyActionPerformed
-
     private void cbbUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbUserNameActionPerformed
-
-    private void cbbUserName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbUserName1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbUserName1ActionPerformed
 
     String filename = null;
     byte[] person_image = null;
@@ -1167,7 +974,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnAddTbs;
     private javax.swing.JButton btnAlTbs;
     private javax.swing.JButton btnCD;
-    private javax.swing.JButton btnCreatePolicy;
     private javax.swing.JButton btnDTF;
     private javax.swing.JButton btnDTFToTBS;
     private javax.swing.JButton btnDX;
@@ -1178,25 +984,19 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnNhatKy;
     private javax.swing.JButton btnNhatKy1;
     private javax.swing.JButton btnQL;
-    private javax.swing.JButton btnQL1;
     private javax.swing.JButton btnTBS;
     private javax.swing.JButton btnXemTbs;
     private javax.swing.JComboBox<String> cbbUserName;
-    private javax.swing.JComboBox<String> cbbUserName1;
     private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel parentPN;
     private javax.swing.JPanel pnAva;
@@ -1205,13 +1005,10 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel pnDTF;
     private javax.swing.JPanel pnHome;
     private javax.swing.JPanel pnNhatKy;
-    private javax.swing.JPanel pnProlicy;
     private javax.swing.JPanel pnTBS;
     private javax.swing.JTable tblChuyenDi;
     private javax.swing.JTable tblDTF;
-    private javax.swing.JTable tblProlicy;
     private javax.swing.JTable tblTBS;
-    private javax.swing.JTextField textTable;
     private javax.swing.JTextField txtFolder;
     private javax.swing.JLabel txtNameU;
     private javax.swing.JTextField txtSize;
