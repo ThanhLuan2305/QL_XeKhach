@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View;
+
 import Database.ConnectOracle;
+import Database.GetConnect;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author ADMIN
@@ -18,6 +21,7 @@ public class pnAddProfile extends javax.swing.JPanel {
     /**
      * Creates new form pnAddProfile
      */
+    Connection con = GetConnect.getUserConnected();
     public void addProfile() throws ClassNotFoundException {
         String profileName = txtProName.getText();
         int sessionsPerUser = Integer.parseInt(txtSSPer.getText());
@@ -28,9 +32,7 @@ public class pnAddProfile extends javax.swing.JPanel {
         int failedLoginAttempts = Integer.parseInt(txtFailLogin.getText());
         int passwordLockTime = Integer.parseInt(txtPassLockTime.getText());
         try {
-            Connection conn = ConnectOracle.getConnecOracle();
-
-            CallableStatement cstmt = conn.prepareCall("{call create_user_profile(?, ?, ?, ?, ?, ?, ?, ?)}");
+            CallableStatement cstmt = con.prepareCall("{call create_user_profile(?, ?, ?, ?, ?, ?, ?, ?)}");
             cstmt.setString(1, profileName);
             cstmt.setInt(2, sessionsPerUser);
             cstmt.setInt(3, cpuPerSession);
@@ -44,8 +46,9 @@ public class pnAddProfile extends javax.swing.JPanel {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(new JFrame(), "Thêm thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
             e.printStackTrace();
-        } 
+        }
     }
+
     public pnAddProfile() {
         initComponents();
     }

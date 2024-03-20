@@ -5,6 +5,7 @@
 package View;
 
 import Database.ConnectOracle;
+import Database.GetConnect;
 import View.Login.getDataUser;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -23,16 +24,15 @@ public class pnProfile extends javax.swing.JPanel {
     /**
      * Creates new form pnProfile
      */
+        Connection con = GetConnect.getUserConnected();
     public pnProfile() throws ClassNotFoundException {
         initComponents();
                 //getDataUser.tenTk
         viewProfile("TEMPORARY_USER_PROFILE", tblProfile);
     }
-     public static void viewProfile(String tk, JTable table) throws ClassNotFoundException {
+     public void viewProfile(String tk, JTable table) throws ClassNotFoundException {
         try {
-            Connection conn = ConnectOracle.getConnecOracle();
-
-            CallableStatement cstmt = conn.prepareCall("{call p_get_profile_u(?, ?)}");
+            CallableStatement cstmt = con.prepareCall("{call p_get_profile_u(?, ?)}");
             cstmt.setString(1, tk); 
             cstmt.registerOutParameter(2, OracleTypes.CURSOR); 
 

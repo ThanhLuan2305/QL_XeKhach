@@ -5,6 +5,7 @@
 package View;
 
 import Database.ConnectOracle;
+import Database.GetConnect;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -31,14 +32,13 @@ public class pnFixUser extends javax.swing.JPanel {
      * Creates new form pnFixUser
      */
     String tk = Login.getDataUser.tenTk;
-     public static void updateKhachHangInfo(String p_Username, String p_Ten, String p_SDT, String p_DiaChi, String p_AnhNguoiDung, String p_GioiTinh, String p_Email) throws ClassNotFoundException, FileNotFoundException {
+        Connection con = GetConnect.getUserConnected();
+     public void updateKhachHangInfo(String p_Username, String p_Ten, String p_SDT, String p_DiaChi, String p_AnhNguoiDung, String p_GioiTinh, String p_Email) throws ClassNotFoundException, FileNotFoundException {
         try {
-            // Mở kết nối
-            Connection conn = ConnectOracle.getConnecOracle();
 
             // Chuẩn bị gọi stored procedure
             String plSQL = "{call UpdateKhachHangInfo(?,?,?,?,?,?,?)}";
-            CallableStatement stmt = conn.prepareCall(plSQL);
+            CallableStatement stmt = con.prepareCall(plSQL);
 
             // Đặt các tham số đầu vào
             stmt.setString(1, p_Username);

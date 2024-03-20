@@ -6,6 +6,7 @@ package View;
 
 import javax.swing.JOptionPane;
 import Database.ConnectOracle;
+import Database.GetConnect;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.CallableStatement;
@@ -26,11 +27,11 @@ public class pnAllUser extends javax.swing.JPanel {
     /**
      * Creates new form pnAllUser
      */
-    
-     public static void showDBAUsers(JTable table) {
-        try (Connection conn = ConnectOracle.getUserConnected()) {
+        Connection con = GetConnect.getUserConnected();
+     public void showDBAUsers(JTable table) {
+        try  {
             // Assuming you have already created the function in the database
-            CallableStatement cs = conn.prepareCall("{ ? = call F_GetAllUserDBA() }");
+            CallableStatement cs = con.prepareCall("{ ? = call F_GetAllUserDBA() }");
             cs.registerOutParameter(1, OracleTypes.CURSOR); // Use the appropriate type for your database if not Oracle
             cs.execute();
 
@@ -58,10 +59,10 @@ public class pnAllUser extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Error accessing Database.");
         }
     }
-    public static void searchDBAUsers(JTable table, String username) {
-        try (Connection conn = ConnectOracle.getConnecOracle()) {
+    public void searchDBAUsers(JTable table, String username) {
+        try {
             // Assuming you have already created the function in the database
-            CallableStatement cs = conn.prepareCall("{ ? = call F_SearchUserDBA(?) }");
+            CallableStatement cs = con.prepareCall("{ ? = call F_SearchUserDBA(?) }");
             cs.registerOutParameter(1, OracleTypes.CURSOR); // Use the appropriate type for your database if not Oracle
             cs.setString(2, username); 
             cs.execute();

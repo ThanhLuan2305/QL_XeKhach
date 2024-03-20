@@ -48,7 +48,7 @@ public class ConnectOracle {
         return userConnect;
     }
 
-    public static Connection getUserConnected() throws SQLException, ClassNotFoundException {
+    public static Connection getUserConnected() {
         return userConnect;
     }
     

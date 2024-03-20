@@ -3,11 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View;
+
 import Database.ConnectOracle;
+import Database.GetConnect;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import oracle.jdbc.OracleTypes;
+
 /**
  *
  * @author ADMIN
@@ -17,16 +20,14 @@ public class pnAllProfile extends javax.swing.JPanel {
     /**
      * Creates new form pnAllProfile
      */
-    public static void viewProfiles(JTable table) throws ClassNotFoundException {
+    Connection con = GetConnect.getUserConnected();
+    public void viewProfiles(JTable table) throws ClassNotFoundException {
         try {
-            Connection conn = ConnectOracle.getConnecOracle();
-
-            CallableStatement cstmt = conn.prepareCall("{call p_get_profile(?)}");
+            CallableStatement cstmt = con.prepareCall("{call p_get_profile(?)}");
             cstmt.registerOutParameter(1, OracleTypes.CURSOR); // 
-
             cstmt.execute();
 
-            ResultSet rs = (ResultSet)cstmt.getObject(1);
+            ResultSet rs = (ResultSet) cstmt.getObject(1);
 
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             model.setRowCount(0); // Clear existing data
@@ -46,7 +47,7 @@ public class pnAllProfile extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }
-    
+
     public pnAllProfile() throws ClassNotFoundException {
         initComponents();
         viewProfiles(tblProfile);
@@ -108,4 +109,4 @@ public class pnAllProfile extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProfile;
     // End of variables declaration//GEN-END:variables
-    }
+}

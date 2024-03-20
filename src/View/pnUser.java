@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View;
+
 import Database.ConnectOracle;
+import Database.GetConnect;
 import View.Menu;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,34 +16,36 @@ import oracle.jdbc.OracleTypes;
 import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author ADMIN
  */
 public class pnUser extends javax.swing.JPanel {
+
     private JPanel chillPn;
     /**
      * Creates new form pnUser
      */
+    Connection con = GetConnect.getUserConnected();
+
     public void getDBA_USER(String tenDangNhap) throws ClassNotFoundException {
         String sql = "{ ? = call F_GetUserDBA(?) }";
-        
-        try (Connection conn = ConnectOracle.getConnecOracle();
-             CallableStatement stmt = conn.prepareCall(sql)) {
-             
-             stmt.registerOutParameter(1, Types.REF_CURSOR); 
-             stmt.setString(2, tenDangNhap); 
+
+        try {
+            CallableStatement stmt = con.prepareCall(sql);
+            stmt.registerOutParameter(1, Types.REF_CURSOR);
+            stmt.setString(2, tenDangNhap);
 
             stmt.execute();
 
-            
-            try (ResultSet rs = (ResultSet) stmt.getObject(1)) {  
+            try (ResultSet rs = (ResultSet) stmt.getObject(1)) {
                 while (rs.next()) {
                     String userName = rs.getString("USERNAME");
-                    String created = rs.getDate("CREATED")+"";
+                    String created = rs.getDate("CREATED") + "";
                     String expiryDate = rs.getDate("EXPIRY_DATE") + "";
                     String accountStatus = rs.getString("ACCOUNT_STATUS");
-                    String lastLogin = rs.getTimestamp("LAST_LOGIN")+"";
+                    String lastLogin = rs.getTimestamp("LAST_LOGIN") + "";
                     String profile = rs.getString("PROFILE");
                     txtTDN.setText(userName);
                     txtDayCr.setText(created);
@@ -55,15 +59,15 @@ public class pnUser extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+
     public void getUserInfo(String tenDangNhap) throws ClassNotFoundException {
         String call = "{CALL sp_selectUserInfo(?, ?)}";
 
-        try (Connection conn = ConnectOracle.getUserConnected();
-             CallableStatement cstmt = conn.prepareCall(call)) {
-             
+        try ( CallableStatement cstmt = con.prepareCall(call)) {
+
             cstmt.setString(1, tenDangNhap);
             cstmt.registerOutParameter(2, OracleTypes.CURSOR);
-            
+
             cstmt.execute();
 
             try (ResultSet rs = (ResultSet) cstmt.getObject(2)) {
@@ -79,7 +83,7 @@ public class pnUser extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
+
     public pnUser() throws ClassNotFoundException {
         initComponents();
         String tk = Login.getDataUser.tenTk;

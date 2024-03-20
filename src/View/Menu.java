@@ -5,6 +5,7 @@
 package View;
 
 import Database.ConnectOracle;
+import Database.GetConnect;
 import Model.User;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
@@ -56,7 +57,7 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    Connection con = ConnectOracle.getUserConnected();
+    Connection con = GetConnect.getUserConnected();
     Statement stmt;
     ResultSet rs;
     private JPanel chillPn;
