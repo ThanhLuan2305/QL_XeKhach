@@ -61,23 +61,25 @@ public class Menu extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
     private JPanel chillPn;
-    
+    private Object OracleTypes;
+
     public void getLastLogin() throws ClassNotFoundException, SQLException {
         try {
             String tk = Login.getDataUser.tenTk;
-            CallableStatement  cstmt = con.prepareCall("{call Get_Last_Login(?, ?)}");
+            CallableStatement cstmt = con.prepareCall("{call Get_Last_Login(?, ?)}");
 
             // Thiết lập đối số vào stored procedure
             cstmt.setString(1, tk.toUpperCase());
             cstmt.registerOutParameter(2, Types.TIMESTAMP);
 
             cstmt.execute();
-            txtLastLogin.setText(cstmt.getTimestamp(2)+"");
+            txtLastLogin.setText(cstmt.getTimestamp(2) + "");
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
-        
+
     }
+
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
             String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from QUOC.CHUYENDI";
@@ -634,7 +636,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tk = Login.getDataUser.tenTk;
         boolean check = logoutUser(tk);
-        if(check == true) {
+        if (check == true) {
             this.setVisible(false);
             Login lg = new Login();
             lg.setVisible(true);
@@ -697,7 +699,7 @@ public class Menu extends javax.swing.JFrame {
             String Call = "{call xem_tbs_dtf_user(?, ?)}";
             try (CallableStatement callableStatement = con.prepareCall(Call)) {
                 callableStatement.setString(1, username);
-                callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
+                callableStatement.registerOutParameter(2, java.sql.Types.REF_CURSOR);
                 callableStatement.execute();
 
                 try (ResultSet rs = (ResultSet) callableStatement.getObject(2)) {
@@ -737,7 +739,7 @@ public class Menu extends javax.swing.JFrame {
         try {
             CallableStatement cstmt = con.prepareCall("{call hien_thi_datafiles_chi_tiet(?, ?)}");
             cstmt.setString(1, username);
-            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+            cstmt.registerOutParameter(2, java.sql.Types.REF_CURSOR);
 
             // Thực thi stored procedure
             cstmt.execute();
@@ -786,9 +788,8 @@ public class Menu extends javax.swing.JFrame {
 
                 // Retrieve DBMS_OUTPUT
                 try (OracleCallableStatement stmtOutput = (OracleCallableStatement) con.prepareCall("{call dbms_output.get_line(?,?)}")) {
-                    stmtOutput.registerOutParameter(1, OracleTypes.VARCHAR);
-                    stmtOutput.registerOutParameter(2, OracleTypes.INTEGER);
-
+                    stmtOutput.registerOutParameter(1, java.sql.Types.VARCHAR);
+                    stmtOutput.registerOutParameter(2, java.sql.Types.INTEGER);
                     int status = 0;
                     while (status == 0) {
                         stmtOutput.execute();
@@ -874,16 +875,15 @@ public class Menu extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             String nametbs = txtTbsName.getText();
-            if(nametbs.contains("")) {
-                   JOptionPane.showMessageDialog(new JFrame(), "Hãy điền tên Tablespace!","WARNING",JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
-                int dialogButton = JOptionPane.showConfirmDialog (new JFrame(), "Bạn có chắc muốn xóa?","WARNING",JOptionPane.YES_NO_OPTION);
-                if(dialogButton == JOptionPane.YES_OPTION) {
-                  dropTablespace();
+            if (nametbs.contains("")) {
+                JOptionPane.showMessageDialog(new JFrame(), "Hãy điền tên Tablespace!", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                int dialogButton = JOptionPane.showConfirmDialog(new JFrame(), "Bạn có chắc muốn xóa?", "WARNING", JOptionPane.YES_NO_OPTION);
+                if (dialogButton == JOptionPane.YES_OPTION) {
+                    dropTablespace();
                 }
             }
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -896,7 +896,7 @@ public class Menu extends javax.swing.JFrame {
         }
         try {
             try (CallableStatement cstmt = con.prepareCall("{call sys.GetAllTablespaces(?)}")) {
-                cstmt.registerOutParameter(1, OracleTypes.CURSOR);
+                cstmt.registerOutParameter(1, java.sql.Types.REF_CURSOR);
                 cstmt.execute();
 
                 try (ResultSet rs = (ResultSet) cstmt.getObject(1)) {
@@ -942,7 +942,7 @@ public class Menu extends javax.swing.JFrame {
         try {
             CallableStatement cstmt = con.prepareCall("{call GetDTF_To_TBS(?, ?)}");
             cstmt.setString(1, tbsName);
-            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+            cstmt.registerOutParameter(2, java.sql.Types.REF_CURSOR);
 
             // Thực thi stored procedure
             cstmt.execute();
