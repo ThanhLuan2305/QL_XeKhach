@@ -47,6 +47,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Types;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -82,7 +83,7 @@ public class Menu extends javax.swing.JFrame {
 
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
-            String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from QUOC.CHUYENDI";
+            String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from Hao1.CHUYENDI";
             stmt = con.createStatement();
             //pst = con.prepareStatement("select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi");
             try {
@@ -174,6 +175,11 @@ public class Menu extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblChuyenDi = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        Txt_ThongBao = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        Combobox_GheTrong = new javax.swing.JComboBox<>();
+        Btn_DatVe = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         pnNhatKy = new javax.swing.JPanel();
         pnHome = new javax.swing.JPanel();
         btnTBS = new javax.swing.JButton();
@@ -357,6 +363,11 @@ public class Menu extends javax.swing.JFrame {
                 "Điểm Đi", "Điểm Đến", "Thời Gian Đi", "Thời Gian Đến", "Giá Vé"
             }
         ));
+        tblChuyenDi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblChuyenDiMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblChuyenDi);
 
         jButton1.setText("play");
@@ -366,6 +377,17 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Các ghế còn trống:");
+
+        Btn_DatVe.setText("Đặt vé");
+        Btn_DatVe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_DatVeActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Trạng thái:");
+
         javax.swing.GroupLayout pnChuyenDiLayout = new javax.swing.GroupLayout(pnChuyenDi);
         pnChuyenDi.setLayout(pnChuyenDiLayout);
         pnChuyenDiLayout.setHorizontalGroup(
@@ -373,7 +395,20 @@ public class Menu extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
             .addGroup(pnChuyenDiLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                        .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(Txt_ThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(Combobox_GheTrong, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(Btn_DatVe)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnChuyenDiLayout.setVerticalGroup(
@@ -381,7 +416,16 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(pnChuyenDiLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txt_ThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(Combobox_GheTrong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_DatVe))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1027,11 +1071,97 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameUMouseEntered
 
+    private void tblChuyenDiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChuyenDiMouseClicked
+        // TODO add your handling code here:
+
+        //Lấy dòng được chọn
+        int selectedRow = tblChuyenDi.getSelectedRow();
+
+        //Lấy thông tin tương ứng, giả sử bạn cần ID của Chuyến Đi để kiểm tra
+        String idChuyenDi = String.valueOf(selectedRow + 1);
+
+        //Thực hiện callable statement để gọi function từ oracle
+        try {
+
+            CallableStatement cst = con.prepareCall("{? = call check_availability(?)}");
+
+            cst.registerOutParameter(1, Types.VARCHAR); // Functon trả về kiểu VARCHAR
+            cst.setString(2, idChuyenDi);
+
+            cst.executeUpdate();
+
+            String availability = cst.getString(1); // 1 là vị trí kết quả trả về của function call, giả sử function trả về kiểu VARCHAR
+
+            if (availability.equals("1")) {
+                Txt_ThongBao.setText("Còn vé");
+            } else if (availability.equals("0")) {
+                Txt_ThongBao.setText("Hết vé");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DefaultComboBoxModel cbbModel = (DefaultComboBoxModel) Combobox_GheTrong.getModel();
+        cbbModel.removeAllElements();
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT idghe FROM GheNgoi WHERE IDXe = ? AND TrangThai = N'Trống'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, idChuyenDi);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String gheTrong = rs.getString("idghe");
+                cbbModel.addElement(gheTrong);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_tblChuyenDiMouseClicked
+
+    private void Btn_DatVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_DatVeActionPerformed
+        // TODO add your handling code here:
+        String selectedSeat = (String) Combobox_GheTrong.getSelectedItem();
+        int seatId = Integer.parseInt(selectedSeat);
+
+        try {
+            CallableStatement cst = con.prepareCall("{call buy_ticket(?, ?)}");
+
+            // Đặt giá trị đầu vào
+            cst.setInt(1, seatId);
+
+            // Đăng ký đầu ra là số nguyên
+            cst.registerOutParameter(2, Types.INTEGER);
+
+            // Gọi thủ tục
+            cst.execute();
+
+            // Nhận kết quả
+            int result = cst.getInt(2);
+
+            // Kiểm tra kết quả và hiện thông báo phù hợp
+            if (result == 1) {
+                JOptionPane.showMessageDialog(null, "Đặt vé thành công.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Ghế này đã được đặt. Vui lòng chọn ghế khác.");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_Btn_DatVeActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_DatVe;
+    private javax.swing.JComboBox<String> Combobox_GheTrong;
+    private javax.swing.JTextField Txt_ThongBao;
     private javax.swing.JButton btnAddDTF;
     private javax.swing.JButton btnAddTbs;
     private javax.swing.JButton btnAlTbs;
@@ -1051,6 +1181,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbUserName;
     private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

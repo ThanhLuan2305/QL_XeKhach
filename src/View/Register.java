@@ -19,19 +19,23 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
 import oracle.jdbc.OracleTypes;
-    /**
-     * Creates new form Register
 
 /**
+ * Creates new form Register
+ *
+ * /**
  *
  * @author ADMIN
  */
 
 public class Register extends javax.swing.JFrame {
+
+    
+
     private void loadAllDataTablespace() throws ClassNotFoundException {
         try (Connection conn = ConnectOracle.getConnecOracle()) {
             try (CallableStatement cstmt = conn.prepareCall("{call sys.GetAllTablespaces(?)}")) {
-                cstmt.registerOutParameter(1, OracleTypes.CURSOR); 
+                cstmt.registerOutParameter(1, OracleTypes.CURSOR);
                 cstmt.execute();
                 try (ResultSet rs = (ResultSet) cstmt.getObject(1)) {
                     while (rs.next()) {
@@ -44,6 +48,7 @@ public class Register extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
+
     public Register() throws ClassNotFoundException {
         initComponents();
         loadAllDataTablespace();
@@ -204,31 +209,37 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDNActionPerformed
     public static void createUser(String username, String password, String tbsName, String quotaSize) throws SQLException, ClassNotFoundException {
         String call = "{ call create_user_with_grants(?, ?, ?, ?) }";
-        try (Connection conn = ConnectOracle.getConnecOracle();
-             CallableStatement stmt = conn.prepareCall(call);) {
-             
-            stmt.setString(1, username); // 
-            stmt.setString(2, password); 
-            stmt.setString(3, tbsName); 
-            stmt.setString(4, quotaSize); 
-            stmt.execute();
+        String alterSessionSql = "ALTER SESSION SET \"_ORACLE_SCRIPT\"=true";
 
-            stmt.close();
-            conn.close();
+        try (Connection conn = ConnectOracle.getConnecOracle()) {
+            // Thực thi câu lệnh ALTER SESSION
+            try (Statement alterSessionStmt = conn.createStatement()) {
+                alterSessionStmt.execute(alterSessionSql);
+            }
+
+            // Gọi procedure
+            try (CallableStatement stmt = conn.prepareCall(call)) {
+                stmt.setString(1, username);
+                stmt.setString(2, password);
+                stmt.setString(3, tbsName);
+                stmt.setString(4, quotaSize);
+                stmt.execute();
+            }
         }
     }
+
     public static String hashPassword(String password) {
         String hashedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            
+
             byte[] bytes = md.digest(password.getBytes());
-            
+
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < bytes.length; i++) {
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
-            
+
             hashedPassword = sb.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -246,21 +257,20 @@ public class Register extends javax.swing.JFrame {
             String tenTBS = (String) cbbTBSName.getSelectedItem();
             String quotaSize = txtQuota.getText();
             String hashPass = hashPassword(pass);
-            if(pass.equals(rePass)) {
-                String insertUserSql = "INSERT INTO khachhang(TenDangNhap, EMAIL) VALUES (?, ?)";
+            if (pass.equals(rePass)) {
+                String insertUserSql = "INSERT INTO hao1.khachhang(TenDangNhap, EMAIL) VALUES (?, ?)";
                 PreparedStatement pstmt;
                 try {
                     pstmt = con.prepareStatement(insertUserSql);
                     pstmt.setString(1, tk);
                     pstmt.setString(2, mail);
                     int rowsAffected = pstmt.executeUpdate(); // Số hàng được thêm, nếu > 0 thì thành công
-                    if(rowsAffected > 0) {
+                    if (rowsAffected > 0) {
                         JOptionPane.showMessageDialog(new JFrame(), "Đăng ký thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                         this.setVisible(false);
                         Login login = new Login();
                         login.setVisible(true);
-                    }
-                    else {
+                    } else {
                         JOptionPane.showMessageDialog(new JFrame(), "Đăng ký thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                     }
                     createUser(tk, pass, tenTBS, quotaSize);
@@ -272,12 +282,12 @@ public class Register extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnDKActionPerformed
-    
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_formWindowClosing
 
     private void txtQuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuotaActionPerformed
@@ -287,7 +297,6 @@ public class Register extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDK;

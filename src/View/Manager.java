@@ -94,8 +94,10 @@ public class Manager extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Txt_NameNhomQuyen = new javax.swing.JTextField();
         jComboBox_Quyen = new javax.swing.JComboBox<>();
-        Btn_AddQuyen = new javax.swing.JButton();
+        Btn_AddQuyenDT = new javax.swing.JButton();
         Combobox_NameTable = new javax.swing.JComboBox<>();
+        Combobox_AddQuyenHT = new javax.swing.JComboBox<>();
+        Btn_AddQuyenHT = new javax.swing.JButton();
         Panel_ChiTietNhomQuyen = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         TBL_ChiTietNhomQuyen = new javax.swing.JTable();
@@ -103,25 +105,26 @@ public class Manager extends javax.swing.JFrame {
         ComboBox_ChiTiet = new javax.swing.JComboBox<>();
         Panel_PhanQuyen = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        Table_QuyenUser = new javax.swing.JTable();
+        Table_QuyenHTUser = new javax.swing.JTable();
         ComboBox_UserN = new javax.swing.JComboBox<>();
         Btn_Loc = new javax.swing.JButton();
-        Combobox_Quyen = new javax.swing.JComboBox<>();
-        Btn_ThemQuyen = new javax.swing.JButton();
+        Combobox_QuyenHT = new javax.swing.JComboBox<>();
+        Btn_ThemQuyenHT = new javax.swing.JButton();
         Text_TenQuyen = new javax.swing.JTextField();
         Btn_HuyQuyen = new javax.swing.JButton();
         CheckBox_GanQuyen = new javax.swing.JCheckBox();
-        Panel_Session = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TBL_SESSION = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        label_session = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        Txt_SID = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        Txt_SERIAL = new javax.swing.JTextField();
-        HUY_SESSION = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        Table_QuyenDTUser = new javax.swing.JTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        Table_NhomQuyenUser = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        Combobox_NhomQuyen = new javax.swing.JComboBox<>();
+        ComBoBox_QuyenDT = new javax.swing.JComboBox<>();
+        Btn_ThemNhomQuyen = new javax.swing.JButton();
+        Btn_ThemQuyenDT = new javax.swing.JButton();
+        Combobox_TenBang = new javax.swing.JComboBox<>();
         Panel_Sga = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TBL_SGA = new javax.swing.JTable();
@@ -172,6 +175,17 @@ public class Manager extends javax.swing.JFrame {
         btnXoa = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         txtPolicyname = new javax.swing.JTextField();
+        Panel_Session = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TBL_SESSION = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        label_session = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        Txt_SID = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        Txt_SERIAL = new javax.swing.JTextField();
+        HUY_SESSION = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -676,10 +690,17 @@ public class Manager extends javax.swing.JFrame {
 
         jLabel2.setText("Tên nhóm quyền muốn xóa:");
 
-        Btn_AddQuyen.setText("Thêm quyền vào nhóm");
-        Btn_AddQuyen.addActionListener(new java.awt.event.ActionListener() {
+        Btn_AddQuyenDT.setText("Thêm quyền đối tượng");
+        Btn_AddQuyenDT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_AddQuyenActionPerformed(evt);
+                Btn_AddQuyenDTActionPerformed(evt);
+            }
+        });
+
+        Btn_AddQuyenHT.setText("Thêm quyền hệ thống");
+        Btn_AddQuyenHT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_AddQuyenHTActionPerformed(evt);
             }
         });
 
@@ -692,38 +713,41 @@ public class Manager extends javax.swing.JFrame {
                 .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Tbl_NhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Panel_NhomQuyenLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(Panel_NhomQuyenLayout.createSequentialGroup()
                                 .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(Txt_XoaNhomQuyen)
-                                    .addComponent(Txt_TenQuyen, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
+                                    .addComponent(Txt_TenQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(Panel_NhomQuyenLayout.createSequentialGroup()
-                                .addComponent(Txt_NameNhomQuyen)
+                                .addComponent(Txt_NameNhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox_Quyen, 0, 142, Short.MAX_VALUE)
-                                    .addComponent(Combobox_NameTable, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(Combobox_AddQuyenHT, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox_Quyen, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Combobox_NameTable, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(32, 32, 32)
                         .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Btn_TaoNhomQuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Btn_XoaNhomQuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Btn_AddQuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(Btn_AddQuyenDT, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(Btn_AddQuyenHT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         Panel_NhomQuyenLayout.setVerticalGroup(
             Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_NhomQuyenLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(22, 22, 22)
                 .addComponent(Tbl_NhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Txt_TenQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(Btn_TaoNhomQuyen))
+                    .addComponent(Btn_TaoNhomQuyen)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -740,11 +764,15 @@ public class Manager extends javax.swing.JFrame {
                             .addGroup(Panel_NhomQuyenLayout.createSequentialGroup()
                                 .addGap(19, 19, 19)
                                 .addComponent(Txt_NameNhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 34, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Panel_NhomQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Combobox_AddQuyenHT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Btn_AddQuyenHT)))
                     .addGroup(Panel_NhomQuyenLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(Btn_AddQuyen)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(Btn_AddQuyenDT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         Panel_ChiTietNhomQuyen.setBackground(new java.awt.Color(204, 204, 204));
@@ -754,7 +782,7 @@ public class Manager extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ROLE", "OWNER", "TABLE_NAME", "PRIVILEGE"
+                "GRANTEE", "OWNER", "TABLE_NAME", "PRIVILEGE", "TYPE"
             }
         ));
         TBL_ChiTietNhomQuyen.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -800,7 +828,7 @@ public class Manager extends javax.swing.JFrame {
 
         Panel_PhanQuyen.setBackground(new java.awt.Color(204, 204, 204));
 
-        Table_QuyenUser.setModel(new javax.swing.table.DefaultTableModel(
+        Table_QuyenHTUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -808,12 +836,12 @@ public class Manager extends javax.swing.JFrame {
                 "GRANTEE", "PRIVILEGE", "ADMIN_OPTION"
             }
         ));
-        Table_QuyenUser.addMouseListener(new java.awt.event.MouseAdapter() {
+        Table_QuyenHTUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Table_QuyenUserMouseClicked(evt);
+                Table_QuyenHTUserMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(Table_QuyenUser);
+        jScrollPane3.setViewportView(Table_QuyenHTUser);
 
         Btn_Loc.setText("Chọn");
         Btn_Loc.addActionListener(new java.awt.event.ActionListener() {
@@ -822,10 +850,10 @@ public class Manager extends javax.swing.JFrame {
             }
         });
 
-        Btn_ThemQuyen.setText("Thêm quyền");
-        Btn_ThemQuyen.addActionListener(new java.awt.event.ActionListener() {
+        Btn_ThemQuyenHT.setText("Thêm quyền (HT)");
+        Btn_ThemQuyenHT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_ThemQuyenActionPerformed(evt);
+                Btn_ThemQuyenHTActionPerformed(evt);
             }
         });
 
@@ -838,157 +866,146 @@ public class Manager extends javax.swing.JFrame {
 
         CheckBox_GanQuyen.setText("Gán quyền");
 
+        Table_QuyenDTUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "GRANTEE", "TABLE_NAME", "GRANTOR", "PRIVILEGE", "GRANTABLE", "TYPE"
+            }
+        ));
+        Table_QuyenDTUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Table_QuyenDTUserMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(Table_QuyenDTUser);
+
+        Table_NhomQuyenUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "GRANTEE", "GRANTED_ROLE", "ADMIN_OPTION"
+            }
+        ));
+        Table_NhomQuyenUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Table_NhomQuyenUserMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(Table_NhomQuyenUser);
+
+        jLabel16.setText("Quyền hệ thống");
+
+        jLabel22.setText("Nhóm quyền");
+
+        jLabel23.setText("Quyền đối tượng");
+
+        Btn_ThemNhomQuyen.setText("Thêm nhóm quyền");
+        Btn_ThemNhomQuyen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_ThemNhomQuyenActionPerformed(evt);
+            }
+        });
+
+        Btn_ThemQuyenDT.setText("Thêm quyền (DT)");
+        Btn_ThemQuyenDT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_ThemQuyenDTActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Panel_PhanQuyenLayout = new javax.swing.GroupLayout(Panel_PhanQuyen);
         Panel_PhanQuyen.setLayout(Panel_PhanQuyenLayout);
         Panel_PhanQuyenLayout.setHorizontalGroup(
             Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
                 .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_PhanQuyenLayout.createSequentialGroup()
-                        .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel16)
+                        .addGap(205, 205, 205)
+                        .addComponent(jLabel22))
+                    .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
+                        .addGap(245, 245, 245)
+                        .addComponent(jLabel23))
+                    .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
-                                .addGap(66, 66, 66)
+                                .addComponent(Combobox_TenBang, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52)
                                 .addComponent(Text_TenQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Btn_HuyQuyen))
                             .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
-                                .addComponent(Combobox_Quyen, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Combobox_NhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Combobox_QuyenHT, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ComBoBox_QuyenDT, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Btn_ThemQuyen)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                                .addComponent(ComboBox_UserN, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(Btn_Loc)
-                        .addGap(70, 70, 70))
-                    .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
-                        .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CheckBox_GanQuyen)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
+                                        .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Btn_ThemQuyenHT, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(Btn_ThemNhomQuyen))
+                                        .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
+                                                .addGap(11, 11, 11)
+                                                .addComponent(ComboBox_UserN, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(Btn_Loc))
+                                            .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(CheckBox_GanQuyen))))
+                                    .addComponent(Btn_ThemQuyenDT, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         Panel_PhanQuyenLayout.setVerticalGroup(
             Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_PhanQuyenLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Combobox_QuyenHT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_ThemQuyenHT)
                     .addComponent(ComboBox_UserN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_Loc)
-                    .addComponent(Combobox_Quyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_ThemQuyen))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CheckBox_GanQuyen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                    .addComponent(Btn_Loc))
+                .addGap(7, 7, 7)
                 .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Text_TenQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_HuyQuyen))
-                .addGap(25, 25, 25))
-        );
-
-        Panel_Session.setBackground(new java.awt.Color(204, 204, 204));
-
-        TBL_SESSION.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "SID", "SERIAL#", "USERNAME", "PROGRAM"
-            }
-        ));
-        TBL_SESSION.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TBL_SESSIONMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(TBL_SESSION);
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setText("Thông tin các session");
-
-        jLabel5.setText("Số session");
-
-        jLabel6.setText("SID");
-
-        Txt_SID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Txt_SIDActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("SERIAL#");
-
-        Txt_SERIAL.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Txt_SERIALActionPerformed(evt);
-            }
-        });
-
-        HUY_SESSION.setText("Hủy Sesion");
-        HUY_SESSION.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HUY_SESSIONActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout Panel_SessionLayout = new javax.swing.GroupLayout(Panel_Session);
-        Panel_Session.setLayout(Panel_SessionLayout);
-        Panel_SessionLayout.setHorizontalGroup(
-            Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_SessionLayout.createSequentialGroup()
-                .addGap(236, 236, 236)
-                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(34, 34, 34)
-                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Txt_SERIAL, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_SID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(HUY_SESSION)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(Panel_SessionLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_SessionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_SessionLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(54, 54, 54))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_SessionLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(label_session)
-                .addGap(147, 147, 147))
-        );
-        Panel_SessionLayout.setVerticalGroup(
-            Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_SessionLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Combobox_NhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_ThemNhomQuyen)
+                    .addComponent(CheckBox_GanQuyen))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label_session))
+                .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ComBoBox_QuyenDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_ThemQuyenDT))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Panel_SessionLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(Txt_SID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(Txt_SERIAL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(Panel_SessionLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(HUY_SESSION)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGroup(Panel_PhanQuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Combobox_TenBang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_HuyQuyen)
+                    .addComponent(Text_TenQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         Panel_Sga.setBackground(new java.awt.Color(204, 204, 204));
@@ -1471,6 +1488,110 @@ public class Manager extends javax.swing.JFrame {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        Panel_Session.setBackground(new java.awt.Color(204, 204, 204));
+
+        TBL_SESSION.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "SID", "SERIAL#", "USERNAME", "PROGRAM"
+            }
+        ));
+        TBL_SESSION.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBL_SESSIONMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TBL_SESSION);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setText("Thông tin các session");
+
+        jLabel5.setText("Số session");
+
+        jLabel6.setText("SID");
+
+        Txt_SID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_SIDActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("SERIAL#");
+
+        Txt_SERIAL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_SERIALActionPerformed(evt);
+            }
+        });
+
+        HUY_SESSION.setText("Hủy Sesion");
+        HUY_SESSION.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HUY_SESSIONActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Panel_SessionLayout = new javax.swing.GroupLayout(Panel_Session);
+        Panel_Session.setLayout(Panel_SessionLayout);
+        Panel_SessionLayout.setHorizontalGroup(
+            Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel_SessionLayout.createSequentialGroup()
+                .addGap(236, 236, 236)
+                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(34, 34, 34)
+                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Txt_SERIAL, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txt_SID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(HUY_SESSION)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(Panel_SessionLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_SessionLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_SessionLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(54, 54, 54))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_SessionLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(label_session)
+                .addGap(147, 147, 147))
+        );
+        Panel_SessionLayout.setVerticalGroup(
+            Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel_SessionLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label_session))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Panel_SessionLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(Txt_SID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(Panel_SessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(Txt_SERIAL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(Panel_SessionLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(HUY_SESSION)))
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1478,11 +1599,6 @@ public class Manager extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(Panel_SpFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(45, 45, 45)
-                    .addComponent(Panel_Session, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(Panel_Sga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1521,9 +1637,9 @@ public class Manager extends javax.swing.JFrame {
                     .addContainerGap(77, Short.MAX_VALUE)))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(47, 47, 47)
+                    .addContainerGap()
                     .addComponent(Panel_PhanQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(48, Short.MAX_VALUE)))
+                    .addContainerGap(22, Short.MAX_VALUE)))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1542,6 +1658,11 @@ public class Manager extends javax.swing.JFrame {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                     .addComponent(Panel_ThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(37, 37, 37)
+                    .addComponent(Panel_Session, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(37, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1549,10 +1670,6 @@ public class Manager extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(Panel_SpFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addComponent(Panel_Session, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 18, Short.MAX_VALUE)))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addComponent(Panel_Sga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1590,9 +1707,8 @@ public class Manager extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(12, 12, 12)
-                    .addComponent(Panel_PhanQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(12, Short.MAX_VALUE)))
+                    .addComponent(Panel_PhanQuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(9, 9, 9)
@@ -1612,6 +1728,11 @@ public class Manager extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addComponent(Panel_ThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(13, 13, 13)
+                    .addComponent(Panel_Session, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(14, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1620,10 +1741,10 @@ public class Manager extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 626, Short.MAX_VALUE))
+                .addGap(0, 641, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(196, Short.MAX_VALUE)
+                    .addContainerGap(211, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
@@ -1886,6 +2007,75 @@ public class Manager extends javax.swing.JFrame {
         }
     }
 
+    public void getDataTable_QuyenHT(String Item) {
+        try {
+//            String tk = Login.getDataUser.tenTk;
+//            String mk = Login.getDataUser.mk;
+            con = ConnectOracle.getConnecOracle();
+            String sql = "SELECT grantee,privilege,admin_option FROM dba_sys_privs where grantee ='" + Item + "'";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            DefaultTableModel model = (DefaultTableModel) Table_QuyenHTUser.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("GRANTEE"),
+                    rs.getString("PRIVILEGE"),
+                    rs.getString("ADMIN_OPTION")
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+    }
+
+    public void getDataTable_NhomQuyen(String Item) {
+        try {
+//            String tk = Login.getDataUser.tenTk;
+//            String mk = Login.getDataUser.mk;
+            con = ConnectOracle.getConnecOracle();
+            String sql = "SELECT grantee,granted_role,admin_option FROM DBA_ROLE_PRIVS where grantee ='" + Item + "'";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            DefaultTableModel model = (DefaultTableModel) Table_NhomQuyenUser.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("GRANTEE"),
+                    rs.getString("GRANTED_ROLE"),
+                    rs.getString("ADMIN_OPTION")
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+    }
+
+    public void getDataTable_QuyenDT(String Item) {
+        try {
+//            String tk = Login.getDataUser.tenTk;
+//            String mk = Login.getDataUser.mk;
+            con = ConnectOracle.getConnecOracle();
+            String sql = "SELECT grantee,TABLE_NAME,GRANTOR,PRIVILEGE,GRANTABLE,TYPE FROM DBA_TAB_PRIVS where grantee ='" + Item + "'";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            DefaultTableModel model = (DefaultTableModel) Table_QuyenDTUser.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("GRANTEE"),
+                    rs.getString("TABLE_NAME"),
+                    rs.getString("GRANTOR"),
+                    rs.getString("PRIVILEGE"),
+                    rs.getString("GRANTABLE"),
+                    rs.getString("TYPE")
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+    }
+
     public void getDataTable_AUDIT() throws ClassNotFoundException, SQLException {
         try {
 //            String tk = Login.getDataUser.tenTk;
@@ -1945,7 +2135,7 @@ public class Manager extends javax.swing.JFrame {
             String sql = "SELECT grantee,privilege,admin_option FROM dba_sys_privs";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel) Table_QuyenUser.getModel();
+            DefaultTableModel model = (DefaultTableModel) Table_QuyenHTUser.getModel();
             model.setRowCount(0);
             while (rs.next()) {
                 model.addRow(new Object[]{
@@ -2033,6 +2223,27 @@ public class Manager extends javax.swing.JFrame {
         }
     }
 
+    public void LoadCombobox_ThemNhomQuyen() throws ClassNotFoundException {
+
+        DefaultComboBoxModel cbbModel = (DefaultComboBoxModel) Combobox_NhomQuyen.getModel();
+        cbbModel.removeAllElements();
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectOracle.getConnecOracle();
+            stmt = con.createStatement();
+            String sql = "SELECT role FROM dba_roles";
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                String nhomQuyen = rs.getString("role");
+                cbbModel.addElement(nhomQuyen);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void LoadCombobox_NameTable() throws ClassNotFoundException {
 
         DefaultComboBoxModel cbbModel = (DefaultComboBoxModel) Combobox_NameTable.getModel();
@@ -2042,7 +2253,39 @@ public class Manager extends javax.swing.JFrame {
         try {
             con = ConnectOracle.getConnecOracle();
             stmt = con.createStatement();
-            String sql = "SELECT table_name FROM user_tables";
+            String sql = "SELECT table_name FROM all_tables WHERE owner = 'HAO1'";
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                String tableName = rs.getString("table_name");
+                cbbModel.addElement(tableName);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void LoadCombobox_TenTable() throws ClassNotFoundException {
+
+        DefaultComboBoxModel cbbModel = (DefaultComboBoxModel) Combobox_TenBang.getModel();
+        cbbModel.removeAllElements();
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectOracle.getConnecOracle();
+            stmt = con.createStatement();
+            String sql = "SELECT table_name FROM all_tables WHERE owner = 'HAO1'";
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 String tableName = rs.getString("table_name");
@@ -2070,16 +2313,32 @@ public class Manager extends javax.swing.JFrame {
         List<String> data = listQuyen.getData();
         // Sử dụng danh sách data ở đây
         for (String string : data) {
-            Combobox_Quyen.addItem(string);
+            Combobox_QuyenHT.addItem(string);
         }
     }
-
+    private void LoadCombobox_AddQuyenHT() {
+        ListQuyen listQuyen = new ListQuyen();
+        List<String> data = listQuyen.getData();
+        // Sử dụng danh sách data ở đây
+        for (String string : data) {
+            Combobox_AddQuyenHT.addItem(string);
+        }
+    }
     private void LoadCombobox_NameQuyen() {
         ListQuyen listQuyen = new ListQuyen();
         List<String> data = listQuyen.getData1();
         // Sử dụng danh sách data ở đây
         for (String string : data) {
             jComboBox_Quyen.addItem(string);
+        }
+    }
+
+    private void LoadCombobox_QuyenDT() {
+        ListQuyen listQuyen = new ListQuyen();
+        List<String> data = listQuyen.getData1();
+        // Sử dụng danh sách data ở đây
+        for (String string : data) {
+            ComBoBox_QuyenDT.addItem(string);
         }
     }
 
@@ -2270,7 +2529,7 @@ public class Manager extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
-       jPanel2.removeAll();
+        jPanel2.removeAll();
         jPanel2.add(Panel_ControlFile);
         jPanel2.repaint();
         jPanel2.revalidate();
@@ -2384,9 +2643,14 @@ public class Manager extends javax.swing.JFrame {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
         LoadCombobox_Quyen();
-        LoadCombobox_NameQuyen();
         try {
-            LoadCombobox_NameTable();
+            LoadCombobox_TenTable();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LoadCombobox_QuyenDT();
+        try {
+            LoadCombobox_ThemNhomQuyen();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2396,34 +2660,19 @@ public class Manager extends javax.swing.JFrame {
         jPanel2.revalidate();
     }//GEN-LAST:event_LB_PhanQuyenMouseClicked
 
+
     private void Btn_LocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LocActionPerformed
         // TODO add your handling code here:
         String Item = (String) ComboBox_UserN.getSelectedItem();
-        try {
-//            String tk = Login.getDataUser.tenTk;
-//            String mk = Login.getDataUser.mk;
-            con = ConnectOracle.getConnecOracle();
-            String sql = "SELECT grantee,privilege,admin_option FROM dba_sys_privs where grantee ='" + Item + "'";
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel) Table_QuyenUser.getModel();
-            model.setRowCount(0);
-            while (rs.next()) {
-                model.addRow(new Object[]{
-                    rs.getString("GRANTEE"),
-                    rs.getString("PRIVILEGE"),
-                    rs.getString("ADMIN_OPTION")
-                });
-            }
-        } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e);
-        }
+        getDataTable_QuyenHT(Item);
+        getDataTable_NhomQuyen(Item);
+        getDataTable_QuyenDT(Item);
     }//GEN-LAST:event_Btn_LocActionPerformed
 
-    private void Btn_ThemQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ThemQuyenActionPerformed
+    private void Btn_ThemQuyenHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ThemQuyenHTActionPerformed
         // TODO add your handling code here:
         String Item1 = (String) ComboBox_UserN.getSelectedItem();
-        String Item2 = (String) Combobox_Quyen.getSelectedItem();
+        String Item2 = (String) Combobox_QuyenHT.getSelectedItem();
         try {
             con = ConnectOracle.getConnecOracle();
             String sql;
@@ -2438,41 +2687,49 @@ public class Manager extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
-    }//GEN-LAST:event_Btn_ThemQuyenActionPerformed
+    }//GEN-LAST:event_Btn_ThemQuyenHTActionPerformed
 
-    private void Table_QuyenUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_QuyenUserMouseClicked
+    private void Table_QuyenHTUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_QuyenHTUserMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel tableModel = (DefaultTableModel) Table_QuyenUser.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) Table_QuyenHTUser.getModel();
 
-        String tbl_privilege = tableModel.getValueAt(Table_QuyenUser.getSelectedRow(), 1).toString();
+        String tbl_privilege = tableModel.getValueAt(Table_QuyenHTUser.getSelectedRow(), 1).toString();
 
         Text_TenQuyen.setText(tbl_privilege);
-    }//GEN-LAST:event_Table_QuyenUserMouseClicked
+    }//GEN-LAST:event_Table_QuyenHTUserMouseClicked
 
     private void Btn_HuyQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_HuyQuyenActionPerformed
         // TODO add your handling code here:
         String Item = (String) ComboBox_UserN.getSelectedItem();
-        DefaultTableModel tableModel = (DefaultTableModel) Table_QuyenUser.getModel();
-        if (Table_QuyenUser.getSelectedRowCount() == 1) {
-            String Quyen = Text_TenQuyen.getText();
+        DefaultTableModel tableModel = (DefaultTableModel) Table_QuyenDTUser.getModel();
+        String Quyen = Text_TenQuyen.getText();
+        String sql = "";
 
-            try {
-//                String tk = Login.getDataUser.tenTk;
-//                String mk = Login.getDataUser.mk;
-                con = ConnectOracle.getConnecOracle();
-                String sql = "REVOKE " + Quyen + " FROM " + Item + "";
-                stmt = con.createStatement();
-                stmt.executeUpdate(sql);
-                JOptionPane.showMessageDialog(new JFrame(), "Thu hồi quyền thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                // Đóng form thuộc session tương ứng
-                Text_TenQuyen.setText("");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        try {
+            con = ConnectOracle.getConnecOracle();
+            stmt = con.createStatement();
+
+            if (Table_QuyenHTUser.getSelectedRowCount() == 1) {
+                sql = "REVOKE " + Quyen + " FROM " + Item + "";
+            } else if (Table_QuyenDTUser.getSelectedRowCount() == 1) {
+                String Bang = tableModel.getValueAt(Table_QuyenDTUser.getSelectedRow(), 1).toString();
+                // Lấy tên bảng tương ứng từ đối tượng được chọn
+                sql = "REVOKE " + Quyen + " ON hao1."+ Bang + " FROM " + Item + "";
+            }else if(Table_NhomQuyenUser.getSelectedRowCount() == 1){
+                sql = "REVOKE " + Quyen + " FROM " + Item + "";
             }
+
+            stmt.executeUpdate(sql);
+            JOptionPane.showMessageDialog(new JFrame(), "Thu hồi quyền thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+            Text_TenQuyen.setText("");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_Btn_HuyQuyenActionPerformed
 
     private void LB_NhomQuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LB_NhomQuyenMouseClicked
+
         try {
             // TODO add your handling code here:
             getDataTable_NhomQuyen();
@@ -2481,6 +2738,14 @@ public class Manager extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        LoadCombobox_NameQuyen();
+        try {
+            LoadCombobox_NameTable();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LoadCombobox_AddQuyenHT();
         jPanel2.removeAll();
         jPanel2.add(Panel_NhomQuyen);
         jPanel2.repaint();
@@ -2527,6 +2792,7 @@ public class Manager extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(new JFrame(), "Xóa nhóm quyền thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 // Đóng form thuộc session tương ứng
                 Txt_XoaNhomQuyen.setText("");
+                Txt_NameNhomQuyen.setText("");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
@@ -2544,7 +2810,7 @@ public class Manager extends javax.swing.JFrame {
         Txt_NameNhomQuyen.setText(tbl_privilege);
     }//GEN-LAST:event_TBL_NhomQuyenMouseClicked
 
-    private void Btn_AddQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AddQuyenActionPerformed
+    private void Btn_AddQuyenDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AddQuyenDTActionPerformed
         // TODO add your handling code here:
         String Item = (String) Combobox_NameTable.getSelectedItem();
         String Item1 = (String) jComboBox_Quyen.getSelectedItem();
@@ -2556,17 +2822,18 @@ public class Manager extends javax.swing.JFrame {
 //                String tk = Login.getDataUser.tenTk;
 //                String mk = Login.getDataUser.mk;
                 con = ConnectOracle.getConnecOracle();
-                String sql = "grant " + Item1 + " on " + Item + " to " + Quyen + "";
+                String sql = "grant " + Item1 + " on HAO1." + Item + " to " + Quyen + "";
                 stmt = con.createStatement();
                 stmt.executeUpdate(sql);
                 JOptionPane.showMessageDialog(new JFrame(), "Thêm quyền thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 // Đóng form thuộc session tương ứng
+                Txt_XoaNhomQuyen.setText("");
                 Txt_NameNhomQuyen.setText("");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_Btn_AddQuyenActionPerformed
+    }//GEN-LAST:event_Btn_AddQuyenDTActionPerformed
 
     private void LB_ChiTietNhomQuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LB_ChiTietNhomQuyenMouseClicked
         try {
@@ -2592,17 +2859,18 @@ public class Manager extends javax.swing.JFrame {
 //            String tk = Login.getDataUser.tenTk;
 //            String mk = Login.getDataUser.mk;
             con = ConnectOracle.getConnecOracle();
-            String sql = "SELECT Role,Owner,table_name,Privilege FROM role_tab_privs WHERE role = '" + Item + "'";
+            String sql = "SELECT grantee,owner,table_name,privilege,type FROM DBA_TAB_PRIVS WHERE GRANTEE = '" + Item + "'";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
             DefaultTableModel model = (DefaultTableModel) TBL_ChiTietNhomQuyen.getModel();
             model.setRowCount(0);
             while (rs.next()) {
                 model.addRow(new Object[]{
-                    rs.getString("ROLE"),
+                    rs.getString("GRANTEE"),
                     rs.getString("OWNER"),
                     rs.getString("TABLE_NAME"),
-                    rs.getString("PRIVILEGE")
+                    rs.getString("PRIVILEGE"),
+                    rs.getString("TYPE")
                 });
             }
         } catch (Exception e) {
@@ -2732,23 +3000,108 @@ public class Manager extends javax.swing.JFrame {
         jPanel2.revalidate();
     }//GEN-LAST:event_LB_ThongTinMouseClicked
 
+    private void Table_QuyenDTUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_QuyenDTUserMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tableModel = (DefaultTableModel) Table_QuyenDTUser.getModel();
+
+        String tbl_privilege = tableModel.getValueAt(Table_QuyenDTUser.getSelectedRow(), 3).toString();
+
+        Text_TenQuyen.setText(tbl_privilege);
+    }//GEN-LAST:event_Table_QuyenDTUserMouseClicked
+
+    private void Table_NhomQuyenUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_NhomQuyenUserMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tableModel = (DefaultTableModel) Table_NhomQuyenUser.getModel();
+
+        String tbl_privilege = tableModel.getValueAt(Table_NhomQuyenUser.getSelectedRow(), 1).toString();
+
+        Text_TenQuyen.setText(tbl_privilege);
+    }//GEN-LAST:event_Table_NhomQuyenUserMouseClicked
+
+    private void Btn_ThemNhomQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ThemNhomQuyenActionPerformed
+        // TODO add your handling code here:
+        String Item1 = (String) ComboBox_UserN.getSelectedItem();
+        String Item2 = (String) Combobox_NhomQuyen.getSelectedItem();
+        try {
+            con = ConnectOracle.getConnecOracle();
+            String sql;
+            if (CheckBox_GanQuyen.isSelected()) {
+                sql = "grant " + Item2 + " to " + Item1 + " with admin option";
+            } else {
+                sql = "grant " + Item2 + " to " + Item1 + "";
+            }
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            JOptionPane.showMessageDialog(new JFrame(), "Thêm quyền thành công!", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+
+    }//GEN-LAST:event_Btn_ThemNhomQuyenActionPerformed
+
+    private void Btn_ThemQuyenDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ThemQuyenDTActionPerformed
+        // TODO add your handling code here:
+        String Item1 = (String) ComboBox_UserN.getSelectedItem();
+        String Item2 = (String) Combobox_TenBang.getSelectedItem();
+        String Item3 = (String) ComBoBox_QuyenDT.getSelectedItem();
+        try {
+            con = ConnectOracle.getConnecOracle();
+            String sql;
+            if (CheckBox_GanQuyen.isSelected()) {
+                sql = "grant " + Item3 + " on hao1." + Item2 + " to " + Item1 + " with grant option";
+            } else {
+                sql = "grant " + Item3 + " on hao1." + Item2 + " to " + Item1 + "";
+            }
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            JOptionPane.showMessageDialog(new JFrame(), "Thêm quyền thành công!", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+
+    }//GEN-LAST:event_Btn_ThemQuyenDTActionPerformed
+
+    private void Btn_AddQuyenHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AddQuyenHTActionPerformed
+        // TODO add your handling code here:
+        String Item2 = (String) Combobox_AddQuyenHT.getSelectedItem();
+        String Quyen = Txt_NameNhomQuyen.getText();
+        try {
+            con = ConnectOracle.getConnecOracle();
+            String sql;
+            sql = "grant " + Item2 + " to " + Quyen +"";
+            
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            JOptionPane.showMessageDialog(new JFrame(), "Thêm quyền thành công!", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+    }//GEN-LAST:event_Btn_AddQuyenHTActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn_AddQuyen;
+    private javax.swing.JButton Btn_AddQuyenDT;
+    private javax.swing.JButton Btn_AddQuyenHT;
     private javax.swing.JButton Btn_HuyQuyen;
     private javax.swing.JButton Btn_Loc;
     private javax.swing.JButton Btn_TaoNhomQuyen;
-    private javax.swing.JButton Btn_ThemQuyen;
+    private javax.swing.JButton Btn_ThemNhomQuyen;
+    private javax.swing.JButton Btn_ThemQuyenDT;
+    private javax.swing.JButton Btn_ThemQuyenHT;
     private javax.swing.JButton Btn_XoaNhomQuyen;
     private javax.swing.JButton Button_Loc;
     private javax.swing.JCheckBox CheckBox_GanQuyen;
+    private javax.swing.JComboBox<String> ComBoBox_QuyenDT;
     private javax.swing.JComboBox<String> ComboBox_ChiTiet;
     private javax.swing.JComboBox<String> ComboBox_UserN;
+    private javax.swing.JComboBox<String> Combobox_AddQuyenHT;
     private javax.swing.JComboBox<String> Combobox_NameTable;
-    private javax.swing.JComboBox<String> Combobox_Quyen;
+    private javax.swing.JComboBox<String> Combobox_NhomQuyen;
+    private javax.swing.JComboBox<String> Combobox_QuyenHT;
+    private javax.swing.JComboBox<String> Combobox_TenBang;
     private javax.swing.JComboBox<String> Combobox_UserName;
     private javax.swing.JButton HUY_SESSION;
     private javax.swing.JButton JBtn_Chon;
@@ -2792,7 +3145,9 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JTable TBL_SESSION;
     private javax.swing.JTable TBL_SGA;
     private javax.swing.JTable TBL_SPFILE;
-    private javax.swing.JTable Table_QuyenUser;
+    private javax.swing.JTable Table_NhomQuyenUser;
+    private javax.swing.JTable Table_QuyenDTUser;
+    private javax.swing.JTable Table_QuyenHTUser;
     private javax.swing.JScrollPane Tbl_NhomQuyen;
     private javax.swing.JTextField Text_TenQuyen;
     private javax.swing.JTextField Txt_NameNhomQuyen;
@@ -2812,12 +3167,15 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2840,6 +3198,8 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel label_session;
     private javax.swing.JButton parentPN;

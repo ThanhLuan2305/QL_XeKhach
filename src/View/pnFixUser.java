@@ -121,8 +121,6 @@ public class pnFixUser extends javax.swing.JPanel {
 
         jLabel7.setText("Tên đăng nhập: ");
 
-        txtUsername.setEnabled(false);
-
         btnUpdate.setText("Cập nhật");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
