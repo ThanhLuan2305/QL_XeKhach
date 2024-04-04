@@ -700,12 +700,6 @@ public class Manager extends javax.swing.JFrame {
         });
         Tbl_NhomQuyen.setViewportView(TBL_NhomQuyen);
 
-        Txt_TenQuyen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Txt_TenQuyenActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Nhập tên nhóm quyền:");
 
         Btn_TaoNhomQuyen.setText("Tạo nhóm quyền");

@@ -66,7 +66,6 @@ public class Menu extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
     private JPanel chillPn;
-    private Object OracleTypes;
 
     public void loadCbbUser() throws SQLException {
          try {

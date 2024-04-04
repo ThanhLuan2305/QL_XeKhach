@@ -21,9 +21,9 @@ import javax.swing.JOptionPane;
  */
 public class ConnectOracle {
 
-    private static final String CONNECTION_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-    private static final String ADMIN_USER = "system";
-    private static final String ADMIN_PASSWORD = "123123";
+    private static final String CONNECTION_URL = "jdbc:oracle:thin:@localhost:1522:orcl1";
+    private static final String ADMIN_USER = "sys as sysdba";
+    private static final String ADMIN_PASSWORD = "oracle123";
 
     public static Connection getConnecOracle() throws ClassNotFoundException {
         Connection c = null;
