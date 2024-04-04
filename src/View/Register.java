@@ -247,7 +247,7 @@ public class Register extends javax.swing.JFrame {
             String quotaSize = txtQuota.getText();
             String hashPass = hashPassword(pass);
             if(pass.equals(rePass)) {
-                String insertUserSql = "INSERT INTO khachhang(TenDangNhap, EMAIL) VALUES (?, ?)";
+                String insertUserSql = "INSERT INTO Luan.khachhang(TenDangNhap, EMAIL) VALUES (?, ?)";
                 PreparedStatement pstmt;
                 try {
                     pstmt = con.prepareStatement(insertUserSql);

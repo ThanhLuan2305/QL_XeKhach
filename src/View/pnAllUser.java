@@ -110,12 +110,19 @@ public class pnAllUser extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnAllProfile = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtTenUser = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAllUser = new javax.swing.JTable();
-        btnAllProfile = new javax.swing.JButton();
+
+        btnAllProfile.setText("Tất cả Profile");
+        btnAllProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllProfileActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Tên người dùng:");
 
@@ -139,8 +146,6 @@ public class pnAllUser extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tblAllUser);
 
-        btnAllProfile.setText("Tất cả Profile");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,9 +157,7 @@ public class pnAllUser extends javax.swing.JPanel {
                 .addComponent(txtTenUser, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAllProfile)
-                .addGap(15, 15, 15))
+                .addGap(15, 228, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -164,8 +167,7 @@ public class pnAllUser extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtTenUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem)
-                    .addComponent(btnAllProfile))
+                    .addComponent(btnTimKiem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -175,6 +177,10 @@ public class pnAllUser extends javax.swing.JPanel {
         // TODO add your handling code here:
         searchDBAUsers(tblAllUser, txtTenUser.getText().toString());
     }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void btnAllProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllProfileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAllProfileActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
