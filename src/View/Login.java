@@ -63,11 +63,14 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        txtTk.setText("admin");
         txtTk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTkActionPerformed(evt);
             }
         });
+
+        txtMK.setText("123123");
 
         jLabel1.setText("Tài khoản");
 
