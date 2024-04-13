@@ -104,15 +104,15 @@ public class LastLogin extends javax.swing.JFrame {
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
             con = ConnectOracle.getConnecOracle();
-            String sql = "SELECT user_name, last_login\n"
-                    + "FROM (\n"
-                    + "    SELECT u.username AS user_name,\n"
-                    + "           TO_CHAR(s.logon_time, 'DD-MON-RR HH:MI:SS PM') AS last_login,\n"
-                    + "           ROW_NUMBER() OVER (PARTITION BY u.username ORDER BY s.logon_time DESC) AS rn\n"
-                    + "    FROM dba_users u\n"
-                    + "    JOIN v$session s ON u.username = s.username\n"
-                    + ")\n"
-                    + "WHERE rn = 1";
+            String sql = "SELECT user_name, last_login\n" +
+"FROM (\n" +
+"    SELECT u.username AS user_name,\n" +
+"           TO_CHAR(s.logon_time, 'DD-MON-RR HH:MI:SS PM') AS last_login,\n" +
+"           ROW_NUMBER() OVER (PARTITION BY u.username ORDER BY s.logon_time DESC) AS rn\n" +
+"    FROM dba_users u\n" +
+"    JOIN v$session s ON u.username = s.username\n" +
+")\n" +
+"WHERE rn = 1";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();

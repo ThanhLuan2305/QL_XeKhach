@@ -25,15 +25,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class LastLogin extends javax.swing.JFrame {
+public class ListLimit extends javax.swing.JFrame {
 
-    public LastLogin() {
+    public ListLimit() {
         initComponents();
-        try {
-            getDataTable();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(LastLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -64,30 +59,34 @@ public class LastLogin extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Tên người dùng", "thời gian đăng nhập gần nhất"
+                "Limit", "value"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel6.setText("Lần đăng nhập gần đây");
+        jLabel6.setText("danh sách limit đã chọn");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,39 +100,6 @@ public class LastLogin extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
 
-    public void getDataTable() throws ClassNotFoundException, SQLException {
-        try {
-            con = ConnectOracle.getConnecOracle();
-            String sql = "SELECT user_name, last_login\n"
-                    + "FROM (\n"
-                    + "    SELECT u.username AS user_name,\n"
-                    + "           TO_CHAR(s.logon_time, 'DD-MON-RR HH:MI:SS PM') AS last_login,\n"
-                    + "           ROW_NUMBER() OVER (PARTITION BY u.username ORDER BY s.logon_time DESC) AS rn\n"
-                    + "    FROM dba_users u\n"
-                    + "    JOIN v$session s ON u.username = s.username\n"
-                    + ")\n"
-                    + "WHERE rn = 1";
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            // Clear existing rows in the table
-            model.setRowCount(0);
-            while (rs.next()) {
-                // Assuming PF_OWNER is a timestamp column, adjust the data retrieval accordingly
-                // Add data to the table model
-                model.addRow(new Object[]{
-                    rs.getString("user_name"),
-                    rs.getString("last_login"),});
-            }
-        } catch (Exception e) {
-            // Properly log the exception
-            e.printStackTrace();
-            // Show a user-friendly error message
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            // Close resources properly in a finally block
-        }
-    }
     /**
      * @param args the command line arguments
      */

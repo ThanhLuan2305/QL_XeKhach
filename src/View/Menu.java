@@ -68,9 +68,9 @@ public class Menu extends javax.swing.JFrame {
     private JPanel chillPn;
 
     public void loadCbbUser() throws SQLException {
-         try {
+        try {
 
-            CallableStatement  cstmt = con.prepareCall("{ call p_get_username(?) }");
+            CallableStatement cstmt = con.prepareCall("{ call p_get_username(?) }");
 
             cstmt.registerOutParameter(1, OracleTypes.CURSOR);
 
@@ -86,6 +86,7 @@ public class Menu extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     public void getLastLogin() throws ClassNotFoundException, SQLException {
         try {
             String tk = Login.getDataUser.tenTk;
@@ -136,6 +137,35 @@ public class Menu extends javax.swing.JFrame {
 
         }
 
+    }
+
+    public void getDataTableXeKhach() throws ClassNotFoundException, SQLException {
+        try {
+            String sql = "SELECT idxe, tennhaxe, loaixe, sochongoi FROM QUOC.XEKHACH";
+            stmt = con.createStatement();
+            try {
+                rs = stmt.executeQuery(sql);
+            } catch (Exception e) {
+                JOptionPane.showConfirmDialog(null, "Phiên bản hết hạn !");
+                this.setVisible(false);
+                Login lg = new Login();
+                lg.setVisible(true);
+            }
+            DefaultTableModel model = (DefaultTableModel) tblChuyenDi1.getModel();
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("idxe"),
+                    rs.getString("tennhaxe"),
+                    rs.getString("loaixe"),
+                    rs.getString("sochongoi"),});
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
     }
 
     public Menu() throws SQLException, ClassNotFoundException {
@@ -194,6 +224,7 @@ public class Menu extends javax.swing.JFrame {
         btnHome = new javax.swing.JButton();
         txtNameU = new javax.swing.JLabel();
         txtLastLogin = new javax.swing.JLabel();
+        btnQLXEKHACH = new javax.swing.JButton();
         parentPN = new javax.swing.JPanel();
         pnNhatKy = new javax.swing.JPanel();
         pnHome = new javax.swing.JPanel();
@@ -221,6 +252,20 @@ public class Menu extends javax.swing.JFrame {
         btnAlTbs = new javax.swing.JButton();
         btnDropTbs = new javax.swing.JButton();
         btnDTFToTBS = new javax.swing.JButton();
+        pnXeKhach = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblChuyenDi1 = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        txtidXe = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtTenNhaXe = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtNhaXe = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtChoNgoi = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         pnChuyenDi = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblChuyenDi = new javax.swing.JTable();
@@ -329,6 +374,13 @@ public class Menu extends javax.swing.JFrame {
 
         txtLastLogin.setText("Null");
 
+        btnQLXEKHACH.setText("quản lý xe khách");
+        btnQLXEKHACH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLXEKHACHActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -355,7 +407,8 @@ public class Menu extends javax.swing.JFrame {
                                 .addComponent(btnHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(pnAva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(8, 8, 8))))))
+                                    .addGap(8, 8, 8))
+                                .addComponent(btnQLXEKHACH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -367,7 +420,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(txtNameU)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtLastLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnHome)
                 .addGap(18, 18, 18)
                 .addComponent(btnCD)
@@ -379,7 +432,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btnGiaoDich)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnQL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(btnQLXEKHACH)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDX)
@@ -616,6 +671,122 @@ public class Menu extends javax.swing.JFrame {
 
         parentPN.add(pnHome, "card4");
 
+        pnXeKhach.setBackground(new java.awt.Color(204, 204, 204));
+
+        jScrollPane4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane4MouseClicked(evt);
+            }
+        });
+
+        tblChuyenDi1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "id", "Tên xe", "Số chỗ ngồi", "Loại xe"
+            }
+        ));
+        tblChuyenDi1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblChuyenDi1MouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblChuyenDi1);
+
+        jLabel9.setText("id");
+
+        jLabel10.setText("Ten nhà xe");
+
+        jLabel11.setText("Loại xe");
+
+        jLabel12.setText("Số chỗ ngồi");
+
+        jButton2.setText("Thêm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Sửa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Xóa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnXeKhachLayout = new javax.swing.GroupLayout(pnXeKhach);
+        pnXeKhach.setLayout(pnXeKhachLayout);
+        pnXeKhachLayout.setHorizontalGroup(
+            pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .addGroup(pnXeKhachLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnXeKhachLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtChoNgoi, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pnXeKhachLayout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtNhaXe, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnXeKhachLayout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtTenNhaXe, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnXeKhachLayout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtidXe, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(102, 102, 102)
+                .addGroup(pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnXeKhachLayout.setVerticalGroup(
+            pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnXeKhachLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtidXe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addGroup(pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtTenNhaXe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addGap(18, 18, 18)
+                .addGroup(pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtNhaXe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addGap(18, 18, 18)
+                .addGroup(pnXeKhachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtChoNgoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        parentPN.add(pnXeKhach, "card3");
+
         pnChuyenDi.setBackground(new java.awt.Color(204, 204, 204));
 
         tblChuyenDi.setModel(new javax.swing.table.DefaultTableModel(
@@ -635,6 +806,11 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tblChuyenDi);
+        if (tblChuyenDi.getColumnModel().getColumnCount() > 0) {
+            tblChuyenDi.getColumnModel().getColumn(0).setHeaderValue("Mã");
+            tblChuyenDi.getColumnModel().getColumn(2).setHeaderValue("Điểm Đến");
+            tblChuyenDi.getColumnModel().getColumn(3).setHeaderValue("Thời Gian Đi");
+        }
 
         jButton1.setText("Phát");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -835,41 +1011,42 @@ public class Menu extends javax.swing.JFrame {
 
     private void loadCity() {
         String[] provincesArray = {
-            "An Giang", "Bà Rịa - Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu", 
-            "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", 
-            "Bình Thuận", "Cà Mau", "Cao Bằng", "Đắk Lắk", "Đắk Nông", "Điện Biên", 
-            "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Tĩnh", 
-            "Hải Dương", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa", 
-            "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", 
-            "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", 
-            "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", 
-            "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", 
-            "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", 
-            "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "Phú Yên", "Cần Thơ", "Đà Nẵng", 
+            "An Giang", "Bà Rịa - Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu",
+            "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước",
+            "Bình Thuận", "Cà Mau", "Cao Bằng", "Đắk Lắk", "Đắk Nông", "Điện Biên",
+            "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Tĩnh",
+            "Hải Dương", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa",
+            "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai",
+            "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ",
+            "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị",
+            "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên",
+            "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang",
+            "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "Phú Yên", "Cần Thơ", "Đà Nẵng",
             "Hải Phòng", "Hà Nội", "Hồ Chí Minh"
         };
-         
-         cbbDiemDen.removeAllItems();
-         cbbDiemDi.removeAllItems();
+
+        cbbDiemDen.removeAllItems();
+        cbbDiemDi.removeAllItems();
         ArrayList<String> cities = new ArrayList<>(Arrays.asList(provincesArray));
         for (String city : cities) {
             cbbDiemDen.addItem(city);
             cbbDiemDi.addItem(city);
         }
     }
-    private  void loadMaXe() throws SQLException {
-            String sql = "SELECT IDXe FROM luan.xekhach";
-            cbbMaXe.removeAllItems();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(sql) ;
-            while (rs.next()) {
-                String idxe = rs.getString("IDXe");
-                cbbMaXe.addItem(idxe);
-           }
-            
+
+    private void loadMaXe() throws SQLException {
+        String sql = "SELECT IDXe FROM luan.xekhach";
+        cbbMaXe.removeAllItems();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            String idxe = rs.getString("IDXe");
+            cbbMaXe.addItem(idxe);
+        }
+
     }
-  
-    
+
+
     private void btnCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCDActionPerformed
         parentPN.removeAll();
         parentPN.add(pnChuyenDi);
@@ -1256,7 +1433,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchCDActionPerformed
 
-     private  void themChuyenDi(int p_IDChuyenDi, String p_DiemXuatPhat, String p_DiemDen, Timestamp p_ThoiGianXuatPhat, Timestamp p_ThoiGianDen, double p_GiaVe, int p_IDXe) throws SQLException {
+    private void themChuyenDi(int p_IDChuyenDi, String p_DiemXuatPhat, String p_DiemDen, Timestamp p_ThoiGianXuatPhat, Timestamp p_ThoiGianDen, double p_GiaVe, int p_IDXe) throws SQLException {
         // Chuẩn bị câu lệnh gọi Stored Procedure
         String sql = "{call p_ThemChuyenDi(?, ?, ?, ?, ?, ?, ?)}";
 
@@ -1270,24 +1447,25 @@ public class Menu extends javax.swing.JFrame {
             cstmt.setInt(7, p_IDXe);
 
             cstmt.execute();
-            
-           JOptionPane.showMessageDialog(new JFrame(), "Thêm thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+
+            JOptionPane.showMessageDialog(new JFrame(), "Thêm thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
         }
     }
+
     private static Timestamp convertToTimestamp(Date date) {
         return new Timestamp(date.getTime());
     }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         int maCD = Integer.parseInt(txtMaCd.getText());
-        String diemXP =(String) cbbDiemDi.getSelectedItem();
-        String diemDen =(String) cbbDiemDen.getSelectedItem();
+        String diemXP = (String) cbbDiemDi.getSelectedItem();
+        String diemDen = (String) cbbDiemDen.getSelectedItem();
         Timestamp tgDi = convertToTimestamp(dcNgayDi.getDate());
         Timestamp tgDen = convertToTimestamp(dcNgayDen.getDate());
-        double gia =  Double.parseDouble(txtGia.getText());
-        int maXe =  Integer.parseInt((String)cbbMaXe.getSelectedItem());
+        double gia = Double.parseDouble(txtGia.getText());
+        int maXe = Integer.parseInt((String) cbbMaXe.getSelectedItem());
         try {
             themChuyenDi(maCD, diemXP, diemDen, tgDi, tgDen, gia, maXe);
         } catch (SQLException ex) {
@@ -1304,7 +1482,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void tblChuyenDiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChuyenDiMouseClicked
         // TODO add your handling code here:
-        int index = tblChuyenDi.getSelectedRow(); 
+        int index = tblChuyenDi.getSelectedRow();
         TableModel model = tblChuyenDi.getModel();
         String idCd = model.getValueAt(index, 0).toString();
         txtMaCd.setText(idCd);
@@ -1314,23 +1492,22 @@ public class Menu extends javax.swing.JFrame {
         CallableStatement cstmt = null;
         try {
             cstmt = con.prepareCall("{CALL Luan.XoaChuyenDi(?)}");
-            
+
             cstmt.setInt(1, p_IDChuyenDi);
-            
+
             cstmt.execute();
             JOptionPane.showMessageDialog(new JFrame(), "Chuyen di da duoc xoa thanh cong.", "Dialog", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             // Handle errors
             System.out.println("Loi khi xoa chuyen di: " + e.getMessage());
             throw e;
-        } 
+        }
     }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int idCD = Integer.parseInt(txtMaCd.getText());
-        if(txtMaCd.getText() == "") {
+        if (txtMaCd.getText() == "") {
             JOptionPane.showMessageDialog(new JFrame(), "Hãy điền mã chuyến đi", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
+        } else {
             try {
                 XoaChuyenDi(idCD);
             } catch (SQLException ex) {
@@ -1346,14 +1523,13 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    
-     public void SuaChuyenDi( int p_IDChuyenDi, String p_DiemXuatPhat, String p_DiemDen,
-                                    Timestamp p_ThoiGianXuatPhat, Timestamp p_ThoiGianDen,
-                                    double p_GiaVe, int p_IDXe) throws SQLException {
+    public void SuaChuyenDi(int p_IDChuyenDi, String p_DiemXuatPhat, String p_DiemDen,
+            Timestamp p_ThoiGianXuatPhat, Timestamp p_ThoiGianDen,
+            double p_GiaVe, int p_IDXe) throws SQLException {
         CallableStatement cstmt = null;
         try {
             cstmt = con.prepareCall("{CALL SuaChuyenDi(?, ?, ?, ?, ?, ?, ?)}");
-            
+
             cstmt.setInt(1, p_IDChuyenDi);
             cstmt.setString(2, p_DiemXuatPhat);
             cstmt.setString(3, p_DiemDen);
@@ -1361,27 +1537,27 @@ public class Menu extends javax.swing.JFrame {
             cstmt.setTimestamp(5, p_ThoiGianDen);
             cstmt.setDouble(6, p_GiaVe);
             cstmt.setInt(7, p_IDXe);
-            
+
             cstmt.execute();
-            
+
             System.out.println("Chuyen di da duoc sua thanh cong.");
         } catch (SQLException e) {
             // Xử lý lỗi
             System.out.println("Loi khi sua chuyen di: " + e.getMessage());
             throw e;
-        } 
+        }
     }
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         int maCD = Integer.parseInt(txtMaCd.getText());
-        String diemXP =(String) cbbDiemDi.getSelectedItem();
-        String diemDen =(String) cbbDiemDen.getSelectedItem();
+        String diemXP = (String) cbbDiemDi.getSelectedItem();
+        String diemDen = (String) cbbDiemDen.getSelectedItem();
         Timestamp tgDi = convertToTimestamp(dcNgayDi.getDate());
         Timestamp tgDen = convertToTimestamp(dcNgayDen.getDate());
-        double gia =  Double.parseDouble(txtGia.getText());
-        int maXe =  Integer.parseInt((String)cbbMaXe.getSelectedItem());
+        double gia = Double.parseDouble(txtGia.getText());
+        int maXe = Integer.parseInt((String) cbbMaXe.getSelectedItem());
         try {
-            SuaChuyenDi(maCD,diemXP, diemDen, tgDi, tgDen, gia, maXe);
+            SuaChuyenDi(maCD, diemXP, diemDen, tgDi, tgDen, gia, maXe);
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1393,6 +1569,95 @@ public class Menu extends javax.swing.JFrame {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnQLXEKHACHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLXEKHACHActionPerformed
+        parentPN.removeAll();
+        parentPN.add(pnXeKhach);
+        parentPN.repaint();
+        parentPN.revalidate();
+        try {
+            getDataTableXeKhach();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnQLXEKHACHActionPerformed
+
+    private void tblChuyenDi1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChuyenDi1MouseClicked
+        int i = tblChuyenDi1.getSelectedRow();
+        TableModel model = tblChuyenDi1.getModel();
+        txtidXe.setText((String) model.getValueAt(i, 0));
+        txtTenNhaXe.setText((String) model.getValueAt(i, 1));
+        txtNhaXe.setText((String) model.getValueAt(i, 2));
+        txtChoNgoi.setText((String) model.getValueAt(i, 3));
+    }//GEN-LAST:event_tblChuyenDi1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        double id = Double.parseDouble(txtidXe.getText());
+        String ten = txtTenNhaXe.getText();
+        String loai = txtNhaXe.getText();
+        double choNgoi = Double.parseDouble(txtChoNgoi.getText());
+
+        try {
+            String call = "{ call ThemXeKhach(?, ?, ?, ?) }";
+            try (CallableStatement cstmt = con.prepareCall(call)) {
+                    cstmt.setDouble(1, id);
+                    cstmt.setString(2, ten.toUpperCase());
+                    cstmt.setString(3, loai.toUpperCase());
+                    cstmt.setDouble(4, choNgoi);
+                    cstmt.execute();
+                    getDataTableXeKhach();
+                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jScrollPane4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane4MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        double id = Double.parseDouble(txtidXe.getText());
+        String ten = txtTenNhaXe.getText();
+        String loai = txtNhaXe.getText();
+        double choNgoi = Double.parseDouble(txtChoNgoi.getText());
+
+        try {
+            String call = "{ call SuaThongTinXeKhach(?, ?, ?, ?) }";
+            try (CallableStatement cstmt = con.prepareCall(call)) {
+                    cstmt.setDouble(1, id);
+                    cstmt.setString(2, ten.toUpperCase());
+                    cstmt.setString(3, loai.toUpperCase());
+                    cstmt.setDouble(4, choNgoi);
+                    cstmt.execute();
+                    getDataTableXeKhach();
+                    JOptionPane.showMessageDialog(new JFrame(), "SỬA thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "SỬA thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        double id = Double.parseDouble(txtidXe.getText());
+        try {
+            String call = "{ call XoaXeKhach(?) }";
+            try (CallableStatement cstmt = con.prepareCall(call)) {
+                    cstmt.setDouble(1, id);
+                    cstmt.execute();
+                    getDataTableXeKhach();
+                    JOptionPane.showMessageDialog(new JFrame(), "XÓA thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "XÓA thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1413,6 +1678,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnNhatKy;
     private javax.swing.JButton btnNhatKy1;
     private javax.swing.JButton btnQL;
+    private javax.swing.JButton btnQLXEKHACH;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTBS;
     private javax.swing.JButton btnThem;
@@ -1425,8 +1691,14 @@ public class Menu extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dcNgayDen;
     private com.toedter.calendar.JDateChooser dcNgayDi;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1434,10 +1706,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbFile;
     private javax.swing.JLabel lbSize;
@@ -1451,17 +1725,23 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel pnHome;
     private javax.swing.JPanel pnNhatKy;
     private javax.swing.JPanel pnTBS;
+    private javax.swing.JPanel pnXeKhach;
     private javax.swing.JTable tblChuyenDi;
+    private javax.swing.JTable tblChuyenDi1;
     private javax.swing.JTable tblDTF;
     private javax.swing.JTable tblTBS;
+    private javax.swing.JTextField txtChoNgoi;
     private javax.swing.JTextField txtFolder;
     private javax.swing.JTextField txtGia;
     private javax.swing.JLabel txtLastLogin;
     private javax.swing.JTextField txtMaCd;
     private javax.swing.JLabel txtNameU;
+    private javax.swing.JTextField txtNhaXe;
     private javax.swing.JTextField txtSearchCD;
     private javax.swing.JButton txtSerarch;
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtTbsName;
+    private javax.swing.JTextField txtTenNhaXe;
+    private javax.swing.JTextField txtidXe;
     // End of variables declaration//GEN-END:variables
 }
