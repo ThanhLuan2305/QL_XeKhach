@@ -45,7 +45,10 @@ import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.security.Timestamp;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 
@@ -83,7 +86,7 @@ public class Menu extends javax.swing.JFrame {
 
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
-            String sql = "select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from Hao1.CHUYENDI";
+            String sql = "select idchuyendi,diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from Hao.CHUYENDI";
             stmt = con.createStatement();
             //pst = con.prepareStatement("select diemxuatphat, diemden, thoigianxuatphat, thoigianden, giave from chuyendi");
             try {
@@ -101,6 +104,7 @@ public class Menu extends javax.swing.JFrame {
             model.setRowCount(0);
             while (rs.next()) {
                 model.addRow(new Object[]{
+                    rs.getInt("IdChuyenDi"),
                     rs.getString("DiemXuatPhat"),
                     rs.getString("DiemDen"),
                     rs.getTimestamp("ThoiGianXuatPhat"),
@@ -123,6 +127,110 @@ public class Menu extends javax.swing.JFrame {
         parentPN.revalidate();
         txtNameU.setText(Login.getDataUser.tenTk);
         getLastLogin();
+    }
+
+    private void loadCity() {
+        String[] provincesArray = {
+            "An Giang", "Bà Rịa - Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu",
+            "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước",
+            "Bình Thuận", "Cà Mau", "Cao Bằng", "Đắk Lắk", "Đắk Nông", "Điện Biên",
+            "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Tĩnh",
+            "Hải Dương", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa",
+            "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai",
+            "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ",
+            "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị",
+            "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên",
+            "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang",
+            "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "Phú Yên", "Cần Thơ", "Đà Nẵng",
+            "Hải Phòng", "Hà Nội", "Hồ Chí Minh"
+        };
+
+        cbbDiemDen.removeAllItems();
+        cbbDiemDi.removeAllItems();
+        ArrayList<String> cities = new ArrayList<>(Arrays.asList(provincesArray));
+        for (String city : cities) {
+            cbbDiemDen.addItem(city);
+            cbbDiemDi.addItem(city);
+        }
+    }
+
+    private void loadMaXe() throws SQLException {
+        String sql = "SELECT IDXe FROM hao1.xekhach";
+        cbbMaXe.removeAllItems();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            String idxe = rs.getString("IDXe");
+            cbbMaXe.addItem(idxe);
+        }
+
+    }
+
+    private void themChuyenDi(int p_IDChuyenDi, String p_DiemXuatPhat, String p_DiemDen, java.sql.Timestamp p_ThoiGianXuatPhat, java.sql.Timestamp p_ThoiGianDen, double p_GiaVe, int p_IDXe) throws SQLException {
+        // Chuẩn bị câu lệnh gọi Stored Procedure
+        String sql = "{call p_ThemChuyenDi(?, ?, ?, ?, ?, ?, ?)}";
+
+        try (CallableStatement cstmt = con.prepareCall(sql)) {
+            cstmt.setInt(1, p_IDChuyenDi);
+            cstmt.setString(2, p_DiemXuatPhat);
+            cstmt.setString(3, p_DiemDen);
+            cstmt.setTimestamp(4, p_ThoiGianXuatPhat);
+            cstmt.setTimestamp(5, p_ThoiGianDen);
+            cstmt.setDouble(6, p_GiaVe);
+            cstmt.setInt(7, p_IDXe);
+
+            cstmt.execute();
+
+            JOptionPane.showMessageDialog(new JFrame(), "Thêm thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    private static java.sql.Timestamp convertToTimestamp(Date date) {
+        return new java.sql.Timestamp(date.getTime());
+    }
+
+    public void SuaChuyenDi(int p_IDChuyenDi, String p_DiemXuatPhat, String p_DiemDen,
+            java.sql.Timestamp p_ThoiGianXuatPhat, java.sql.Timestamp p_ThoiGianDen,
+            double p_GiaVe, int p_IDXe) throws SQLException {
+        CallableStatement cstmt = null;
+        try {
+            cstmt = con.prepareCall("{CALL SuaChuyenDi(?, ?, ?, ?, ?, ?, ?)}");
+
+            cstmt.setInt(1, p_IDChuyenDi);
+            cstmt.setString(2, p_DiemXuatPhat);
+            cstmt.setString(3, p_DiemDen);
+            cstmt.setTimestamp(4, p_ThoiGianXuatPhat);
+            cstmt.setTimestamp(5, p_ThoiGianDen);
+            cstmt.setDouble(6, p_GiaVe);
+            cstmt.setInt(7, p_IDXe);
+
+            cstmt.execute();
+            JOptionPane.showMessageDialog(new JFrame(), "Chuyen di da duoc sua thanh cong.", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException e) {
+            // Xử lý lỗi
+            System.out.println("Loi khi sua chuyen di: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    public void XoaChuyenDi(int p_IDChuyenDi) throws SQLException {
+        CallableStatement cstmt = null;
+        try {
+            cstmt = con.prepareCall("{CALL hao1.XoaChuyenDi(?)}");
+
+            cstmt.setInt(1, p_IDChuyenDi);
+
+            cstmt.execute();
+            JOptionPane.showMessageDialog(new JFrame(), "Chuyen di da duoc xoa thanh cong.", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            // Handle errors
+            System.out.println("Loi khi xoa chuyen di: " + e.getMessage());
+            throw e;
+        }
     }
 
     public static boolean logoutUser(String username) {
@@ -180,6 +288,23 @@ public class Menu extends javax.swing.JFrame {
         Combobox_GheTrong = new javax.swing.JComboBox<>();
         Btn_DatVe = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtMaCd = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cbbDiemDi = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        cbbDiemDen = new javax.swing.JComboBox<>();
+        txtGia = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cbbMaXe = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        dcNgayDi = new com.toedter.calendar.JDateChooser();
+        dcNgayDen = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         pnNhatKy = new javax.swing.JPanel();
         pnHome = new javax.swing.JPanel();
         btnTBS = new javax.swing.JButton();
@@ -354,13 +479,13 @@ public class Menu extends javax.swing.JFrame {
 
         tblChuyenDi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Điểm Đi", "Điểm Đến", "Thời Gian Đi", "Thời Gian Đến", "Giá Vé"
+                "IdCD", "Điểm Đi", "Điểm Đến", "Thời Gian Đi", "Thời Gian Đến", "Giá Vé"
             }
         ));
         tblChuyenDi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -388,45 +513,162 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel2.setText("Trạng thái:");
 
+        jLabel3.setText("Mã Chuyến đi");
+
+        jLabel4.setText("Điểm đi");
+
+        cbbDiemDi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn điểm đi" }));
+
+        jLabel5.setText("Điểm đến");
+
+        cbbDiemDen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn điểm đến" }));
+
+        jLabel6.setText("Mã xe");
+
+        cbbMaXe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn mã xe" }));
+
+        jLabel7.setText("Ngày đi");
+
+        jLabel8.setText("Ngày đến");
+
+        jLabel9.setText("Giá vé");
+
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnChuyenDiLayout = new javax.swing.GroupLayout(pnChuyenDi);
         pnChuyenDi.setLayout(pnChuyenDiLayout);
         pnChuyenDiLayout.setHorizontalGroup(
             pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(pnChuyenDiLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
                     .addGroup(pnChuyenDiLayout.createSequentialGroup()
                         .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Txt_ThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnChuyenDiLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(Txt_ThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnChuyenDiLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Combobox_GheTrong, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(Btn_DatVe)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addComponent(Btn_DatVe)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnChuyenDiLayout.createSequentialGroup()
+                        .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(145, 145, 145)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(dcNgayDen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnChuyenDiLayout.createSequentialGroup()
+                                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtMaCd, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnChuyenDiLayout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cbbDiemDi, 0, 116, Short.MAX_VALUE)
+                                            .addComponent(dcNgayDi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(17, 17, 17)))
+                                .addComponent(cbbDiemDen, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(145, 145, 145)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(cbbMaXe, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnChuyenDiLayout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addComponent(txtGia)
+                                .addGap(208, 208, 208)))
+                        .addGap(34, 34, 34)
+                        .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSua)
+                            .addComponent(btnThem)
+                            .addComponent(btnXoa))
+                        .addGap(33, 33, 33))))
         );
         pnChuyenDiLayout.setVerticalGroup(
             pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnChuyenDiLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jButton1)
-                .addGap(19, 19, 19)
                 .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_ThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel3)
+                    .addComponent(txtMaCd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                        .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(cbbDiemDi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(cbbDiemDen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(cbbMaXe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnChuyenDiLayout.createSequentialGroup()
+                                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(dcNgayDen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addGap(28, 28, 28))
+                            .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(dcNgayDi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(pnChuyenDiLayout.createSequentialGroup()
+                        .addComponent(btnThem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Txt_ThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn_DatVe)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnChuyenDiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(Combobox_GheTrong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_DatVe))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         parentPN.add(pnChuyenDi, "card3");
@@ -704,6 +946,12 @@ public class Menu extends javax.swing.JFrame {
             getDataTable();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        loadCity();
+        try {
+            loadMaXe();
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1073,7 +1321,22 @@ public class Menu extends javax.swing.JFrame {
 
     private void tblChuyenDiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChuyenDiMouseClicked
         // TODO add your handling code here:
+        int index = tblChuyenDi.getSelectedRow();
+        TableModel model = tblChuyenDi.getModel();
+        String idCd = model.getValueAt(index, 0).toString(); // Ví dụ cho ID
+        String diemDi = model.getValueAt(index, 1).toString(); // điểm đi
+        String diemDen = model.getValueAt(index, 2).toString(); // điểm đến
+        java.util.Date ngayDi = (java.util.Date) model.getValueAt(index, 3); // giả sử ngày đi tương ứng với cột index 3
+        java.util.Date ngayDen = (java.util.Date) model.getValueAt(index, 4);
+        String giaVe = model.getValueAt(index, 5).toString();
 
+// Cập nhật các trường nhập liệu và ComboBox với các giá trị đã lấy được từ bảng
+        txtMaCd.setText(idCd); // Cập nhật trường giá trị ID
+        cbbDiemDi.setSelectedItem(diemDi); // Cập nhật ComboBox điểm đi
+        cbbDiemDen.setSelectedItem(diemDen);
+        dcNgayDi.setDate(ngayDi);
+        dcNgayDen.setDate(ngayDen);
+        txtGia.setText(giaVe);
         //Lấy dòng được chọn
         int selectedRow = tblChuyenDi.getSelectedRow();
 
@@ -1154,6 +1417,71 @@ public class Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Btn_DatVeActionPerformed
 
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        int maCD = Integer.parseInt(txtMaCd.getText());
+        String diemXP = (String) cbbDiemDi.getSelectedItem();
+        String diemDen = (String) cbbDiemDen.getSelectedItem();
+        java.sql.Timestamp tgDi = convertToTimestamp(dcNgayDi.getDate());
+        java.sql.Timestamp tgDen = convertToTimestamp(dcNgayDen.getDate());
+        double gia = Double.parseDouble(txtGia.getText());
+        int maXe = Integer.parseInt((String) cbbMaXe.getSelectedItem());
+        try {
+            themChuyenDi(maCD, diemXP, diemDen, tgDi, tgDen, gia, maXe);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            getDataTable();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        int maCD = Integer.parseInt(txtMaCd.getText());
+        String diemXP = (String) cbbDiemDi.getSelectedItem();
+        String diemDen = (String) cbbDiemDen.getSelectedItem();
+        java.sql.Timestamp tgDi = convertToTimestamp(dcNgayDi.getDate());
+        java.sql.Timestamp tgDen = convertToTimestamp(dcNgayDen.getDate());
+        double gia = Double.parseDouble(txtGia.getText());
+        int maXe = Integer.parseInt((String) cbbMaXe.getSelectedItem());
+        try {
+            SuaChuyenDi(maCD, diemXP, diemDen, tgDi, tgDen, gia, maXe);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            getDataTable();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        int idCD = Integer.parseInt(txtMaCd.getText());
+        if (txtMaCd.getText() == "") {
+            JOptionPane.showMessageDialog(new JFrame(), "Hãy điền mã chuyến đi", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            try {
+                XoaChuyenDi(idCD);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
+            getDataTable();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1176,13 +1504,28 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnNhatKy;
     private javax.swing.JButton btnNhatKy1;
     private javax.swing.JButton btnQL;
+    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTBS;
+    private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXemTbs;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox<String> cbbDiemDen;
+    private javax.swing.JComboBox<String> cbbDiemDi;
+    private javax.swing.JComboBox<String> cbbMaXe;
     private javax.swing.JComboBox<String> cbbUserName;
+    private com.toedter.calendar.JDateChooser dcNgayDen;
+    private com.toedter.calendar.JDateChooser dcNgayDi;
     private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1204,9 +1547,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTable tblDTF;
     private javax.swing.JTable tblTBS;
     private javax.swing.JTextField txtFolder;
+    private javax.swing.JTextField txtGia;
     private javax.swing.JLabel txtLastLogin;
+    private javax.swing.JTextField txtMaCd;
     private javax.swing.JLabel txtNameU;
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtTbsName;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -27,10 +27,7 @@ import oracle.jdbc.OracleTypes;
  *
  * @author ADMIN
  */
-
 public class Register extends javax.swing.JFrame {
-
-    
 
     private void loadAllDataTablespace() throws ClassNotFoundException {
         try (Connection conn = ConnectOracle.getConnecOracle()) {
@@ -207,7 +204,8 @@ public class Register extends javax.swing.JFrame {
         Login login = new Login();
         login.setVisible(true);
     }//GEN-LAST:event_btnDNActionPerformed
-    public static void createUser(String username, String password, String tbsName, String quotaSize) throws SQLException, ClassNotFoundException {
+    public static void createUser(String username, String password, String tbsName, String quotaSize) 
+            throws SQLException, ClassNotFoundException {
         String call = "{ call create_user_with_grants(?, ?, ?, ?) }";
         String alterSessionSql = "ALTER SESSION SET \"_ORACLE_SCRIPT\"=true";
 
@@ -248,7 +246,6 @@ public class Register extends javax.swing.JFrame {
     }
     private void btnDKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDKActionPerformed
         try {
-            // TODO add your handling code here:
             Connection con = ConnectOracle.getConnecOracle();
             String tk = txtTK.getText().toString();
             String mail = txtGmail.getText();
@@ -257,14 +254,15 @@ public class Register extends javax.swing.JFrame {
             String tenTBS = (String) cbbTBSName.getSelectedItem();
             String quotaSize = txtQuota.getText();
             String hashPass = hashPassword(pass);
+
             if (pass.equals(rePass)) {
                 String insertUserSql = "INSERT INTO hao1.khachhang(TenDangNhap, EMAIL) VALUES (?, ?)";
-                PreparedStatement pstmt;
                 try {
-                    pstmt = con.prepareStatement(insertUserSql);
+                    PreparedStatement pstmt = con.prepareStatement(insertUserSql);
                     pstmt.setString(1, tk);
                     pstmt.setString(2, mail);
-                    int rowsAffected = pstmt.executeUpdate(); // Số hàng được thêm, nếu > 0 thì thành công
+                    int rowsAffected = pstmt.executeUpdate(); // The number of affected rows. If it's > 0, the operation is clearly successful.
+
                     if (rowsAffected > 0) {
                         JOptionPane.showMessageDialog(new JFrame(), "Đăng ký thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                         this.setVisible(false);
@@ -274,15 +272,26 @@ public class Register extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(new JFrame(), "Đăng ký thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                     }
                     createUser(tk, pass, tenTBS, quotaSize);
-                    con.close();
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex.getErrorCode() == 20001) {
+                        // Handle the error "Email cannot be null"
+                        JOptionPane.showMessageDialog(null, "Email không được để trống.");
+                    } else if (ex.getErrorCode() == 20002) {
+                        // Handle the error "Username cannot be null"
+                        JOptionPane.showMessageDialog(null, "Tên đăng nhập không được để trống");
+                    }
+                } finally {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btnDKActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

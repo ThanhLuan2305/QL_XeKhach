@@ -969,24 +969,26 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Component id="Txt_NameNhomQuyen" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="Txt_XoaNhomQuyen" max="32767" attributes="0"/>
                                           <Component id="Txt_TenQuyen" min="-2" pref="177" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="Txt_NameNhomQuyen" min="-2" pref="164" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="Combobox_AddQuyenHT" min="-2" pref="142" max="-2" attributes="0"/>
-                                          <Component id="jComboBox_Quyen" min="-2" pref="142" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="Combobox_NameTable" min="-2" pref="142" max="-2" attributes="0"/>
+                                          <Component id="jComboBox_Quyen" min="-2" pref="142" max="-2" attributes="0"/>
+                                          <Component id="Combobox_AddQuyenHT" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1009,10 +1011,12 @@
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="Tbl_NhomQuyen" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="Txt_TenQuyen" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="Btn_TaoNhomQuyen" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="Btn_TaoNhomQuyen" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1024,26 +1028,30 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jComboBox_Quyen" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                      <Component id="Combobox_NameTable" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                                       <Component id="Txt_NameNhomQuyen" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jComboBox_Quyen" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Combobox_NameTable" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="Combobox_AddQuyenHT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="Btn_AddQuyenHT" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                      <Component id="Btn_AddQuyenHT" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Combobox_AddQuyenHT" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="Btn_AddQuyenDT" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="45" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="35" max="32767" attributes="0"/>
@@ -1199,26 +1207,31 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="246" max="-2" attributes="0"/>
                       <Component id="ComboBox_ChiTiet" min="-2" pref="159" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="JBtn_Chon" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" min="-2" pref="515" max="-2" attributes="0"/>
-                      <EmptySpace pref="80" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane8" min="-2" pref="259" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jScrollPane4" min="-2" pref="274" max="-2" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" min="-2" pref="396" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jScrollPane4" min="-2" pref="281" max="-2" attributes="0"/>
+                          <Component id="jScrollPane8" min="-2" pref="281" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="JBtn_Chon" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ComboBox_ChiTiet" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1236,7 +1249,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="TBL_ChiTietNhomQuyen">
+                <Component class="javax.swing.JTable" name="TBL_ChiTietNhomQuyenDT">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="5" rowCount="0">
@@ -1260,17 +1273,17 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
+                          <Title value="ADMIN_OPTION"/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
+                          <Title value="PRIVILEGE"/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
+                          <Title value="TYPE"/>
                           <Editor/>
                           <Renderer/>
                         </Column>
@@ -1281,7 +1294,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TBL_ChiTietNhomQuyenMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TBL_ChiTietNhomQuyenDTMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1304,6 +1317,45 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane8">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="TBL_ChiTietNhomQuyenHT">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="2" rowCount="0">
+                        <Column editable="true" title="GRANTEE" type="java.lang.Object"/>
+                        <Column editable="true" title="PRIVILEGE" type="java.lang.Object"/>
+                      </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
+                    </Property>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TBL_ChiTietNhomQuyenHTMouseClicked"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="Panel_PhanQuyen">
@@ -1500,6 +1552,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Combobox_QuyenHTActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>

@@ -29,6 +29,7 @@ public class ListQuyen {
         data.add("INSERT ANY TABLE");
         data.add("UPDATE ANY TABLE");
         data.add("DELETE ANY TABLE");
+        data.add("EXECUTE ANY PROCEDURE");
         return data;
     }
     public  List<String> getData1() {
@@ -39,7 +40,7 @@ public class ListQuyen {
         data1.add("CREATE");
         data1.add("ALTER");
         data1.add("DROP");
-        data1.add("REFERENCES");
+        data1.add("REFERENCES");      
         return data1;
     }
     
