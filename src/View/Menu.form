@@ -81,7 +81,7 @@
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="btnCD" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnNhatKy" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnLogCD" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnGiaoDich" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnQL" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnNhatKy1" alignment="1" max="32767" attributes="0"/>
@@ -114,7 +114,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnCD" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnNhatKy" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnLogCD" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnNhatKy1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -147,12 +147,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCDActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnNhatKy">
+        <Component class="javax.swing.JButton" name="btnLogCD">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Th&#xf4;ng tin xe"/>
+            <Property name="text" type="java.lang.String" value="D&#x1eef; li&#x1ec7;u chuy&#x1ebf;n &#x111;i"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhatKyActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogCDActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnGiaoDich">

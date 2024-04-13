@@ -216,7 +216,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnDX = new javax.swing.JButton();
         btnCD = new javax.swing.JButton();
-        btnNhatKy = new javax.swing.JButton();
+        btnLogCD = new javax.swing.JButton();
         btnGiaoDich = new javax.swing.JButton();
         btnQL = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -307,10 +307,10 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnNhatKy.setText("Thông tin xe");
-        btnNhatKy.addActionListener(new java.awt.event.ActionListener() {
+        btnLogCD.setText("Dữ liệu chuyến đi");
+        btnLogCD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNhatKyActionPerformed(evt);
+                btnLogCDActionPerformed(evt);
             }
         });
 
@@ -380,7 +380,7 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnCD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNhatKy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLogCD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGiaoDich, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnQL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnNhatKy1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -407,7 +407,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnCD)
                 .addGap(18, 18, 18)
-                .addComponent(btnNhatKy)
+                .addComponent(btnLogCD)
                 .addGap(18, 18, 18)
                 .addComponent(btnNhatKy1)
                 .addGap(18, 18, 18)
@@ -839,9 +839,13 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDXActionPerformed
 
-    private void btnNhatKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhatKyActionPerformed
-     
-    }//GEN-LAST:event_btnNhatKyActionPerformed
+    private void btnLogCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogCDActionPerformed
+        chillPn = new pnLogData();
+        parentPN.removeAll();
+        parentPN.add(chillPn);
+        parentPN.repaint();
+        parentPN.revalidate();
+    }//GEN-LAST:event_btnLogCDActionPerformed
 
     private void loadCity() {
         String[] provincesArray = {
@@ -1430,7 +1434,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnFolder;
     private javax.swing.JButton btnGiaoDich;
     private javax.swing.JButton btnHome;
-    private javax.swing.JButton btnNhatKy;
+    private javax.swing.JButton btnLogCD;
     private javax.swing.JButton btnNhatKy1;
     private javax.swing.JButton btnQL;
     private javax.swing.JButton btnSearch;
