@@ -25,6 +25,7 @@ import oracle.jdbc.OracleCallableStatement;
 import java.util.List;
 import java.util.ArrayList;
 import Model.ListQuyen;
+import Model.Profile;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
@@ -43,6 +44,8 @@ public class Manager extends javax.swing.JFrame {
     ;
     Statement stmt;
     ResultSet rs;
+
+    List<Profile> list = new ArrayList<>();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,44 +163,6 @@ public class Manager extends javax.swing.JFrame {
         jScrollPane13 = new javax.swing.JScrollPane();
         TBL_DATABASE = new javax.swing.JTable();
         jLabel18 = new javax.swing.JLabel();
-        pnProlicy = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tblProlicy = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        btnCreatePolicy = new javax.swing.JButton();
-        cbbUserName1 = new javax.swing.JComboBox<>();
-        cbbUserName2 = new javax.swing.JComboBox<>();
-        btnXoa = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        txtPolicyname = new javax.swing.JTextField();
-        chillManager = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tblAllUser = new javax.swing.JTable();
-        txtTenUser = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        btnAllProfile = new javax.swing.JButton();
-        btnTimKiem = new javax.swing.JButton();
-        jLabel22 = new javax.swing.JLabel();
-        userNameP = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
-        passwordP = new javax.swing.JTextField();
-        profileName1 = new javax.swing.JComboBox<>();
-        jLabel24 = new javax.swing.JLabel();
-        createUser = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel25 = new javax.swing.JLabel();
-        txtProfile = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
-        txtP1 = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
-        txtP2 = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        txtP3 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
         Panel_PhanQuyen3 = new javax.swing.JPanel();
         jScrollPane18 = new javax.swing.JScrollPane();
         Table_QuyenHTUser1 = new javax.swing.JTable();
@@ -235,6 +200,47 @@ public class Manager extends javax.swing.JFrame {
         Combobox_NameTable = new javax.swing.JComboBox<>();
         Combobox_AddQuyenHT = new javax.swing.JComboBox<>();
         Btn_AddQuyenHT = new javax.swing.JButton();
+        chillManager = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblAllUser = new javax.swing.JTable();
+        txtTenUser = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        btnAllProfile = new javax.swing.JButton();
+        btnTimKiem = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        userNameP = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        passwordP = new javax.swing.JTextField();
+        profileName1 = new javax.swing.JComboBox<>();
+        jLabel24 = new javax.swing.JLabel();
+        createUser = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        txtProfile = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        limitProfile = new javax.swing.JComboBox<>();
+        jLabel41 = new javax.swing.JLabel();
+        limitValue = new javax.swing.JTextField();
+        jButton63 = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        Tbl_limit = new javax.swing.JTable();
+        pnProlicy = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblProlicy = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        btnCreatePolicy = new javax.swing.JButton();
+        cbbUserName1 = new javax.swing.JComboBox<>();
+        cbbUserName2 = new javax.swing.JComboBox<>();
+        cbbQuyen = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
+        btnCreatePolicy1 = new javax.swing.JButton();
+        jScrollPane21 = new javax.swing.JScrollPane();
+        tblProlicy1 = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1348,338 +1354,6 @@ public class Manager extends javax.swing.JFrame {
 
         jPanel2.add(Panel_Database, "card17");
 
-        pnProlicy.setBackground(new java.awt.Color(204, 204, 204));
-
-        tblProlicy.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "người dùng", "Bảng", "tên policy"
-            }
-        ));
-        tblProlicy.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProlicyMouseClicked(evt);
-            }
-        });
-        jScrollPane5.setViewportView(tblProlicy);
-
-        jLabel8.setText("tất cả Policy");
-
-        jLabel9.setText("TÊN NGƯỜI DÙNG");
-
-        jLabel10.setText("bảng");
-
-        btnCreatePolicy.setText("Tạo");
-        btnCreatePolicy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreatePolicyActionPerformed(evt);
-            }
-        });
-
-        cbbUserName1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên người dùng" }));
-        cbbUserName1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbUserName1ActionPerformed(evt);
-            }
-        });
-
-        cbbUserName2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bảng" }));
-        cbbUserName2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbUserName2ActionPerformed(evt);
-            }
-        });
-
-        btnXoa.setText("xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setText("Tên policy");
-
-        javax.swing.GroupLayout pnProlicyLayout = new javax.swing.GroupLayout(pnProlicy);
-        pnProlicy.setLayout(pnProlicyLayout);
-        pnProlicyLayout.setHorizontalGroup(
-            pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnProlicyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
-                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnProlicyLayout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                                .addComponent(jLabel9))
-                            .addGroup(pnProlicyLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel10))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbbUserName1, 0, 282, Short.MAX_VALUE)
-                            .addComponent(cbbUserName2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtPolicyname))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
-                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
-                                .addGap(322, 322, 322)
-                                .addComponent(btnCreatePolicy, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)))
-                        .addContainerGap())))
-        );
-        pnProlicyLayout.setVerticalGroup(
-            pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnProlicyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(cbbUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cbbUserName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtPolicyname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCreatePolicy, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(pnProlicy, "card16");
-
-        tblAllUser.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblAllUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAllUserMouseClicked(evt);
-            }
-        });
-        jScrollPane6.setViewportView(tblAllUser);
-
-        txtTenUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTenUserActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setText("Tên người dùng:");
-
-        btnAllProfile.setText("Tất cả Profile");
-
-        btnTimKiem.setText("Tìm kiếm");
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
-            }
-        });
-
-        jLabel22.setText("UserName");
-
-        jLabel23.setText("Password");
-
-        profileName1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Profile" }));
-        profileName1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profileName1ActionPerformed(evt);
-            }
-        });
-
-        jLabel24.setText("Profile");
-
-        createUser.setText("Tạo");
-        createUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createUserActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("update profile");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("xóa user");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("xóa profile");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jLabel25.setText("Tên profile");
-
-        jLabel26.setText("Giới hạn số phiên");
-
-        jLabel27.setText("Giới hạn thời gian");
-
-        jLabel28.setText("Giới hạn thời gian không hoạt động");
-
-        jButton4.setText("Tạo profile");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout chillManagerLayout = new javax.swing.GroupLayout(chillManager);
-        chillManager.setLayout(chillManagerLayout);
-        chillManagerLayout.setHorizontalGroup(
-            chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(chillManagerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
-                    .addGroup(chillManagerLayout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addGap(27, 27, 27)
-                        .addComponent(txtTenUser, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTimKiem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                        .addComponent(btnAllProfile))
-                    .addGroup(chillManagerLayout.createSequentialGroup()
-                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(chillManagerLayout.createSequentialGroup()
-                                .addComponent(jLabel22)
-                                .addGap(18, 18, 18)
-                                .addComponent(userNameP, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(chillManagerLayout.createSequentialGroup()
-                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel23)
-                                    .addComponent(jLabel24))
-                                .addGap(23, 23, 23)
-                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(chillManagerLayout.createSequentialGroup()
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(profileName1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(passwordP)
-                                    .addGroup(chillManagerLayout.createSequentialGroup()
-                                        .addComponent(createUser, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)))))
-                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(chillManagerLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtP3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(chillManagerLayout.createSequentialGroup()
-                                .addGap(80, 80, 80)
-                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(chillManagerLayout.createSequentialGroup()
-                                        .addComponent(jLabel25)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtProfile))
-                                    .addGroup(chillManagerLayout.createSequentialGroup()
-                                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel27)
-                                            .addComponent(jLabel26))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtP1)
-                                            .addComponent(txtP2)))
-                                    .addGroup(chillManagerLayout.createSequentialGroup()
-                                        .addComponent(jLabel28)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap())
-        );
-        chillManagerLayout.setVerticalGroup(
-            chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chillManagerLayout.createSequentialGroup()
-                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(chillManagerLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(userNameP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25)
-                            .addComponent(txtProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel23)
-                            .addComponent(passwordP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel26)
-                            .addComponent(txtP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(profileName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chillManagerLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel27)
-                            .addComponent(txtP2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(chillManagerLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(createUser)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(chillManagerLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                        .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtP3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton4)
-                        .addGap(32, 32, 32)))
-                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTimKiem)
-                    .addComponent(btnAllProfile)
-                    .addComponent(jLabel16)
-                    .addComponent(txtTenUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
-        );
-
-        jPanel2.add(chillManager, "card2");
-
         Panel_PhanQuyen3.setBackground(new java.awt.Color(204, 204, 204));
 
         Table_QuyenHTUser1.setModel(new javax.swing.table.DefaultTableModel(
@@ -1995,6 +1669,408 @@ public class Manager extends javax.swing.JFrame {
         );
 
         jPanel2.add(Panel_NhomQuyen1, "card19");
+
+        tblAllUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblAllUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAllUserMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tblAllUser);
+
+        txtTenUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenUserActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Tên người dùng:");
+
+        btnAllProfile.setText("Tất cả Profile");
+
+        btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("UserName");
+
+        jLabel23.setText("Password");
+
+        profileName1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Profile" }));
+        profileName1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileName1ActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setText("Profile");
+
+        createUser.setText("Tạo");
+        createUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createUserActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("update profile");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("xóa user");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("xóa profile");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setText("Tên profile");
+
+        jButton4.setText("Tạo profile");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        limitProfile.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                limitProfileMouseDragged(evt);
+            }
+        });
+        limitProfile.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                limitProfileFocusGained(evt);
+            }
+        });
+        limitProfile.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                limitProfilePopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+        limitProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                limitProfileMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                limitProfileMouseExited(evt);
+            }
+        });
+        limitProfile.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                limitProfilePropertyChange(evt);
+            }
+        });
+
+        jLabel41.setText("LIMIT");
+
+        jButton63.setText("Thêm");
+        jButton63.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton63ActionPerformed(evt);
+            }
+        });
+
+        Tbl_limit.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "key", "value"
+            }
+        ));
+        jScrollPane9.setViewportView(Tbl_limit);
+
+        javax.swing.GroupLayout chillManagerLayout = new javax.swing.GroupLayout(chillManager);
+        chillManager.setLayout(chillManagerLayout);
+        chillManagerLayout.setHorizontalGroup(
+            chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chillManagerLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(chillManagerLayout.createSequentialGroup()
+                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnAllProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(chillManagerLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtTenUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnTimKiem)))
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(chillManagerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(chillManagerLayout.createSequentialGroup()
+                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(chillManagerLayout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addGap(18, 18, 18)
+                                .addComponent(userNameP, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(chillManagerLayout.createSequentialGroup()
+                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel24))
+                                .addGap(23, 23, 23)
+                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(chillManagerLayout.createSequentialGroup()
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(profileName1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(passwordP)
+                                    .addGroup(chillManagerLayout.createSequentialGroup()
+                                        .addComponent(createUser, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)))))
+                        .addGap(35, 35, 35)
+                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel41))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(limitValue, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(limitProfile, javax.swing.GroupLayout.Alignment.LEADING, 0, 173, Short.MAX_VALUE)
+                            .addComponent(txtProfile, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton63, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        chillManagerLayout.setVerticalGroup(
+            chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chillManagerLayout.createSequentialGroup()
+                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(chillManagerLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(userNameP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25)
+                            .addComponent(txtProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(chillManagerLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel23)
+                                    .addComponent(passwordP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(profileName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel24))
+                                .addGap(12, 12, 12)
+                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(createUser)
+                                    .addComponent(jButton1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton2)
+                                    .addComponent(jButton3)))
+                            .addGroup(chillManagerLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(limitProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel41))
+                                .addGap(18, 18, 18)
+                                .addComponent(limitValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton63)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                        .addGroup(chillManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnTimKiem)
+                            .addComponent(jLabel16)
+                            .addComponent(txtTenUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(chillManagerLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addComponent(btnAllProfile)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel2.add(chillManager, "card20");
+
+        pnProlicy.setBackground(new java.awt.Color(204, 204, 204));
+
+        tblProlicy.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Thiết bị", "Người dùng", "Bảng", "Hành động", "Thời gian", "sql"
+            }
+        ));
+        tblProlicy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProlicyMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tblProlicy);
+
+        jLabel8.setText("tất cả Policy");
+
+        jLabel9.setText("TÊN NGƯỜI DÙNG");
+
+        jLabel10.setText("bảng");
+
+        btnCreatePolicy.setText("Tạo");
+        btnCreatePolicy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreatePolicyActionPerformed(evt);
+            }
+        });
+
+        cbbUserName1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên người dùng" }));
+        cbbUserName1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbUserName1ActionPerformed(evt);
+            }
+        });
+
+        cbbUserName2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bảng" }));
+        cbbUserName2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbUserName2ActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setText("hành động");
+
+        btnCreatePolicy1.setText("Xem");
+        btnCreatePolicy1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreatePolicy1ActionPerformed(evt);
+            }
+        });
+
+        tblProlicy1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "hành động"
+            }
+        ));
+        jScrollPane21.setViewportView(tblProlicy1);
+
+        jButton6.setText("Xem những Hành động đang theo dõi");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnProlicyLayout = new javax.swing.GroupLayout(pnProlicy);
+        pnProlicy.setLayout(pnProlicyLayout);
+        pnProlicyLayout.setHorizontalGroup(
+            pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnProlicyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
+                        .addComponent(jScrollPane5)
+                        .addContainerGap())
+                    .addGroup(pnProlicyLayout.createSequentialGroup()
+                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnProlicyLayout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                .addComponent(jLabel9))
+                            .addGroup(pnProlicyLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jScrollPane21, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnProlicyLayout.createSequentialGroup()
+                                        .addComponent(jLabel26)
+                                        .addGap(9, 9, 9)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnProlicyLayout.createSequentialGroup()
+                                .addComponent(btnCreatePolicy, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCreatePolicy1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbbQuyen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbbUserName2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(cbbUserName1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(20, 20, 20))))
+        );
+        pnProlicyLayout.setVerticalGroup(
+            pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnProlicyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(cbbUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnProlicyLayout.createSequentialGroup()
+                        .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                        .addGap(43, 43, 43))
+                    .addGroup(pnProlicyLayout.createSequentialGroup()
+                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(cbbUserName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbbQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnProlicyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCreatePolicy)
+                            .addComponent(btnCreatePolicy1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addComponent(jButton6)
+                        .addGap(27, 27, 27)))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(144, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(pnProlicy, "card16");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2920,9 +2996,13 @@ public class Manager extends javax.swing.JFrame {
 
     }//GEN-LAST:event_JBtn_ChonActionPerformed
 
-    public void getDataTableProlicy() throws ClassNotFoundException, SQLException {
+   
+    public void getDataTableProlicy(String table, String userName, String action) throws ClassNotFoundException, SQLException {
         try {
-            String sql = "SELECT OBJECT_OWNER, OBJECT_NAME, policy_name FROM DBA_POLICIES";
+            String sql = "SELECT os_username, username, obj_name, action_name,  "
+                    + "timestamp, sql_text FROM dba_audit_trail WHERE obj_name = '"
+                    + table + "' and USERNAME = '" + userName + "' and ACTION_NAME = '"
+                    + action + "' ORDER BY timestamp DESC";
             stmt = con.createStatement();
             try {
                 rs = stmt.executeQuery(sql);
@@ -2939,9 +3019,12 @@ public class Manager extends javax.swing.JFrame {
                 // Assuming PF_OWNER is a timestamp column, adjust the data retrieval accordingly
                 // Add data to the table model
                 model.addRow(new Object[]{
-                    rs.getString("OBJECT_OWNER"),
-                    rs.getString("OBJECT_NAME"),
-                    rs.getString("policy_name"),});
+                    rs.getString("os_username"),
+                    rs.getString("username"),
+                    rs.getString("obj_name"),
+                    rs.getString("action_name"),
+                    rs.getString("timestamp"),
+                    rs.getString("sql_text")});
             }
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
@@ -2951,86 +3034,14 @@ public class Manager extends javax.swing.JFrame {
 
         }
     }
-
+    
     private void parentPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parentPNActionPerformed
         // TODO add your handling code here:
         jPanel2.removeAll();
         jPanel2.add(pnProlicy);
         jPanel2.repaint();
         jPanel2.revalidate();
-        try {
-            getDataTableProlicy();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_parentPNActionPerformed
-
-    private void btnCreatePolicyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatePolicyActionPerformed
-        String username = (String) cbbUserName1.getSelectedItem();
-        String tableName = (String) cbbUserName2.getSelectedItem();
-        String txtPlicy = txtPolicyname.getText();
-        try {
-            String call = "{ call add_policy_to_object(?, ?, ?) }";
-            try (Connection conn = ConnectOracle.getUserConnected()) {
-                try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, username.toUpperCase());
-                    cstmt.setString(2, tableName.toUpperCase());
-                    cstmt.setString(3, txtPlicy.toUpperCase());
-                    cstmt.execute();
-                    getDataTableProlicy();
-                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_btnCreatePolicyActionPerformed
-
-    private void cbbUserName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbUserName1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbUserName1ActionPerformed
-
-    private void cbbUserName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbUserName2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbUserName2ActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        String username = (String) cbbUserName1.getSelectedItem();
-        String tableName = (String) cbbUserName2.getSelectedItem();
-        String txtPlicy = txtPolicyname.getText();
-        try {
-            String call = "{ call drop_policy_from_object(?, ?, ?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) {
-                try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, username.toUpperCase());
-                    cstmt.setString(2, tableName);
-                    cstmt.setString(3, txtPlicy);
-                    cstmt.execute();
-                    getDataTableProlicy();
-                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-
-    }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void tblProlicyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProlicyMouseClicked
-        int i = tblProlicy.getSelectedRow();
-        TableModel model = tblProlicy.getModel();
-        cbbUserName1.getModel().setSelectedItem(model.getValueAt(i, 0));
-        cbbUserName2.getModel().setSelectedItem(model.getValueAt(i, 1));
-        txtPolicyname.setText((String) model.getValueAt(i, 2));
-    }//GEN-LAST:event_tblProlicyMouseClicked
 
     private void LB_ThongTinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LB_ThongTinMouseClicked
         // TODO add your handling code here:
@@ -3054,160 +3065,6 @@ public class Manager extends javax.swing.JFrame {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnQLActionPerformed
-
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
-        searchDBAUsers(tblAllUser, txtTenUser.getText().toString());
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    private void profileName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileName1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_profileName1ActionPerformed
-
-    private void createUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserActionPerformed
-        String username = (String) profileName1.getSelectedItem();
-        String txtUserName = userNameP.getText();
-        String txtPassword = passwordP.getText();
-        try {
-            String call = "{ call create_user_with_profile(?, ?, ?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) {
-                try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, txtUserName.toUpperCase());
-                    cstmt.setString(2, txtPassword);
-                    cstmt.setString(3, username.toUpperCase());
-                    cstmt.execute();
-                    getDataTableProlicy();
-                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-        showDBAUsers(tblAllUser);
-    }//GEN-LAST:event_createUserActionPerformed
-
-    private void txtTenUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenUserActionPerformed
-
-    private void tblAllUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAllUserMouseClicked
-        int i = tblAllUser.getSelectedRow();
-        TableModel model = tblAllUser.getModel();
-        userNameP.setText((String) model.getValueAt(i, 0));
-        profileName1.getModel().setSelectedItem(model.getValueAt(i, 5));
-        String username = (String) profileName1.getSelectedItem();
-        if (username.equals("DEFAULT")) {
-            jButton3.setEnabled(false);
-        } else {
-            jButton3.setEnabled(true);
-
-        }
-    }//GEN-LAST:event_tblAllUserMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String username = (String) profileName1.getSelectedItem();
-        String txtUserName = userNameP.getText();
-        try {
-            String call = "{ call change_user_profile(?, ?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) {
-                try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, txtUserName.toUpperCase());
-                    cstmt.setString(2, username.toUpperCase());
-                    cstmt.execute();
-                    getDataTableProlicy();
-                    JOptionPane.showMessageDialog(new JFrame(), "Cập nhật thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Cập nhật thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(new JFrame(), "Cập nhật thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-        showDBAUsers(tblAllUser);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String txtUserName = userNameP.getText();
-        try {
-            String call = "{ call delete_user(?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) {
-                try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, txtUserName.toUpperCase());
-                    cstmt.execute();
-                    getDataTableProlicy();
-                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-        showDBAUsers(tblAllUser);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String username = (String) profileName1.getSelectedItem();
-        try {
-            String call = "{ call delete_profile(?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) {
-                try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, username.toUpperCase());
-                    cstmt.execute();
-                    getDataTableProlicy();
-                    JOptionPane.showMessageDialog(new JFrame(), "Xóa nhật thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-        showDBAUsers(tblAllUser);
-        try {
-            loadProfile();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String txt1 = txtProfile.getText();
-        String txt2 = txtP1.getText();
-        String txt3 = txtP2.getText();
-        String txt4 = txtP3.getText();
-        try {
-            String call = "{ call create_profile(?, ?, ?, ?) }";
-            try (Connection conn = ConnectOracle.getConnecOracle()) {
-                try (CallableStatement cstmt = conn.prepareCall(call)) {
-                    cstmt.setString(1, txt1.toUpperCase());
-                    cstmt.setString(2, txt2.toUpperCase());
-                    cstmt.setString(3, txt3.toUpperCase());
-                    cstmt.setString(4, txt4.toUpperCase());
-                    cstmt.execute();
-                    getDataTableProlicy();
-                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-        showDBAUsers(tblAllUser);
-        try {
-            loadProfile();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void getDataTable() throws ClassNotFoundException, SQLException {
         try {
@@ -3282,7 +3139,6 @@ public class Manager extends javax.swing.JFrame {
                     cstmt.setString(6, txtcd6.toUpperCase());
                     cstmt.setString(7, txtcd7.toUpperCase());
                     cstmt.execute();
-                    getDataTableProlicy();
                     JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
@@ -3608,6 +3464,289 @@ public class Manager extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Btn_AddQuyenHTActionPerformed
 
+    private void tblAllUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAllUserMouseClicked
+        int i = tblAllUser.getSelectedRow();
+        TableModel model = tblAllUser.getModel();
+        userNameP.setText((String) model.getValueAt(i, 0));
+        profileName1.getModel().setSelectedItem(model.getValueAt(i, 5));
+        String username = (String) profileName1.getSelectedItem();
+        if (username.equals("DEFAULT")) {
+            jButton3.setEnabled(false);
+        } else {
+            jButton3.setEnabled(true);
+
+        }
+    }//GEN-LAST:event_tblAllUserMouseClicked
+
+    private void txtTenUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTenUserActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        // TODO add your handling code here:
+        searchDBAUsers(tblAllUser, txtTenUser.getText().toString());
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void profileName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileName1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_profileName1ActionPerformed
+
+    private void createUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserActionPerformed
+        String username = (String) profileName1.getSelectedItem();
+        String txtUserName = userNameP.getText();
+        String txtPassword = passwordP.getText();
+        try {
+            String call = "{ call create_user_with_profile(?, ?, ?) }";
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
+                try (CallableStatement cstmt = conn.prepareCall(call)) {
+                    cstmt.setString(1, txtUserName.toUpperCase());
+                    cstmt.setString(2, txtPassword);
+                    cstmt.setString(3, username.toUpperCase());
+                    cstmt.execute();
+                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+        showDBAUsers(tblAllUser);
+    }//GEN-LAST:event_createUserActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String username = (String) profileName1.getSelectedItem();
+        String txtUserName = userNameP.getText();
+        try {
+            String call = "{ call change_user_profile(?, ?) }";
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
+                try (CallableStatement cstmt = conn.prepareCall(call)) {
+                    cstmt.setString(1, txtUserName.toUpperCase());
+                    cstmt.setString(2, username.toUpperCase());
+                    cstmt.execute();
+                    JOptionPane.showMessageDialog(new JFrame(), "Cập nhật thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Cập nhật thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(new JFrame(), "Cập nhật thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+        showDBAUsers(tblAllUser);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String txtUserName = userNameP.getText();
+        try {
+            String call = "{ call delete_user(?) }";
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
+                try (CallableStatement cstmt = conn.prepareCall(call)) {
+                    cstmt.setString(1, txtUserName.toUpperCase());
+                    cstmt.execute();
+                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+        showDBAUsers(tblAllUser);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String username = (String) profileName1.getSelectedItem();
+        try {
+            String call = "{ call delete_profile(?) }";
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
+                try (CallableStatement cstmt = conn.prepareCall(call)) {
+                    cstmt.setString(1, username.toUpperCase());
+                    cstmt.execute();
+                    JOptionPane.showMessageDialog(new JFrame(), "Xóa nhật thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(new JFrame(), "Xóa thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+        showDBAUsers(tblAllUser);
+        try {
+            loadProfile();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String abc = txtProfile.getText();
+        String listLimit = "";
+        for (Profile sv : list) {
+            listLimit += sv.key.concat(" " + sv.value + " ");
+        }
+        try {
+            String sql = "CREATE PROFILE " + abc + " LIMIT" + " "
+                    + listLimit;
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
+                stmt = conn.createStatement();
+                stmt.executeQuery(sql);
+                JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+        showDBAUsers(tblAllUser);
+        try {
+            loadProfile();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void limitProfileMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limitProfileMouseDragged
+
+    }//GEN-LAST:event_limitProfileMouseDragged
+
+    private void limitProfileFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_limitProfileFocusGained
+
+    }//GEN-LAST:event_limitProfileFocusGained
+
+    private void limitProfilePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_limitProfilePopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+    }//GEN-LAST:event_limitProfilePopupMenuWillBecomeInvisible
+
+    private void limitProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limitProfileMouseClicked
+
+    }//GEN-LAST:event_limitProfileMouseClicked
+
+    private void limitProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limitProfileMouseExited
+
+    }//GEN-LAST:event_limitProfileMouseExited
+
+    private void limitProfilePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_limitProfilePropertyChange
+
+    }//GEN-LAST:event_limitProfilePropertyChange
+
+    private void fillTableLimit() {
+        DefaultTableModel model = (DefaultTableModel) Tbl_limit.getModel();
+        model.setRowCount(0);
+        for (Profile sv : list) {
+            Object[] row = new Object[]{sv.key, sv.value};
+            model.addRow(row);
+        }
+    }
+
+    private void jButton63ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton63ActionPerformed
+        Profile sv = new Profile();
+        sv.key = (String) limitProfile.getSelectedItem();
+        sv.value = Integer.parseInt(limitValue.getText());
+        list.add(sv);
+        this.fillTableLimit();
+    }//GEN-LAST:event_jButton63ActionPerformed
+
+    private void tblProlicyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProlicyMouseClicked
+
+    }//GEN-LAST:event_tblProlicyMouseClicked
+
+     public void getDataTableProlicyList(String table, String username) throws ClassNotFoundException, SQLException {
+        try {
+            String sql = "SELECT DISTINCT action_name FROM dba_audit_trail WHERE obj_name = '"
+                    + table + "' and USERNAME = '" + username + "'";
+            stmt = con.createStatement();
+            try {
+                rs = stmt.executeQuery(sql);
+            } catch (Exception e) {
+                JOptionPane.showConfirmDialog(null, "Phiên bản hết hạn !");
+                this.setVisible(false);
+                Login lg = new Login();
+                lg.setVisible(true);
+            }
+            DefaultTableModel model = (DefaultTableModel) tblProlicy1.getModel();
+            // Clear existing rows in the table
+            model.setRowCount(0);
+            while (rs.next()) {
+                // Assuming PF_OWNER is a timestamp column, adjust the data retrieval accordingly
+                // Add data to the table model
+                model.addRow(new Object[]{
+                    rs.getString("action_name"),
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+
+        } finally {
+            // Close resources properly in a finally block
+
+        }
+    }
+     
+     
+
+    private void btnCreatePolicyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatePolicyActionPerformed
+        String username = (String) cbbUserName1.getSelectedItem();
+        String tableName = (String) cbbUserName2.getSelectedItem();
+        String tableQuyen = (String) cbbQuyen.getSelectedItem();
+
+        try {
+            String call = "{ call CREATE_AUDIT_POLICY(?, ?, ?) }";
+            try (Connection conn = ConnectOracle.getConnecOracle()) {
+                try (CallableStatement cstmt = con.prepareCall(call)) {
+                    cstmt.setString(1, username.toUpperCase());
+                    cstmt.setString(2, tableName.toUpperCase());
+                    cstmt.setString(3, tableQuyen.toUpperCase());
+                    cstmt.execute();
+                    getDataTableProlicy(tableName, username, tableQuyen);
+                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thành công", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(new JFrame(), "Tạo thất bại", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnCreatePolicyActionPerformed
+
+    private void cbbUserName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbUserName1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbUserName1ActionPerformed
+
+    private void cbbUserName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbUserName2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbUserName2ActionPerformed
+
+    private void btnCreatePolicy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatePolicy1ActionPerformed
+        String username = (String) cbbUserName1.getSelectedItem();
+        String tableName = (String) cbbUserName2.getSelectedItem();
+        String tableQuyen = (String) cbbQuyen.getSelectedItem();
+        try {
+            getDataTableProlicy(tableName, username, tableQuyen);
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCreatePolicy1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        String username = (String) cbbUserName1.getSelectedItem();
+        String tableName = (String) cbbUserName2.getSelectedItem();
+        try {
+            getDataTableProlicyList(tableName, username);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3657,7 +3796,6 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JPanel Panel_Instance;
     private javax.swing.JPanel Panel_NhomQuyen1;
     private javax.swing.JPanel Panel_Pga;
-    private javax.swing.JPanel Panel_PhanQuyen2;
     private javax.swing.JPanel Panel_PhanQuyen3;
     private javax.swing.JPanel Panel_Process;
     private javax.swing.JPanel Panel_Session;
@@ -3678,9 +3816,9 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JTable TBL_SPFILE;
     private javax.swing.JTable Table_NhomQuyenUser;
     private javax.swing.JTable Table_QuyenDTUser;
-    private javax.swing.JTable Table_QuyenHTUser;
     private javax.swing.JTable Table_QuyenHTUser1;
     private javax.swing.JScrollPane Tbl_NhomQuyen1;
+    private javax.swing.JTable Tbl_limit;
     private javax.swing.JTextField Text_TenQuyen;
     private javax.swing.JTextField Txt_NameNhomQuyen;
     private javax.swing.JTextField Txt_SERIAL;
@@ -3689,10 +3827,11 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_XoaNhomQuyen;
     private javax.swing.JButton btnAllProfile;
     private javax.swing.JButton btnCreatePolicy;
+    private javax.swing.JButton btnCreatePolicy1;
     private javax.swing.JButton btnQL;
     private javax.swing.JButton btnQLChuyenDi;
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox<String> cbbQuyen;
     private javax.swing.JComboBox<String> cbbUserName1;
     private javax.swing.JComboBox<String> cbbUserName2;
     private javax.swing.JPanel chillManager;
@@ -3702,9 +3841,10 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton63;
     private javax.swing.JComboBox<String> jComboBox_Quyen;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -3720,8 +3860,6 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -3736,6 +3874,7 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -3757,6 +3896,7 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane20;
+    private javax.swing.JScrollPane jScrollPane21;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -3764,6 +3904,8 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel label_session;
+    private javax.swing.JComboBox<String> limitProfile;
+    private javax.swing.JTextField limitValue;
     private javax.swing.JButton parentPN;
     private javax.swing.JTextField passwordP;
     private javax.swing.JPanel pnProlicy;
@@ -3784,6 +3926,7 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JTable tblAllUser;
     private javax.swing.JTable tblChuyenDi;
     private javax.swing.JTable tblProlicy;
+    private javax.swing.JTable tblProlicy1;
     private javax.swing.JTextField txt1;
     private javax.swing.JTextField txt2;
     private javax.swing.JTextField txt3;
@@ -3791,10 +3934,6 @@ public class Manager extends javax.swing.JFrame {
     private javax.swing.JTextField txt5;
     private javax.swing.JTextField txt6;
     private javax.swing.JTextField txt7;
-    private javax.swing.JTextField txtP1;
-    private javax.swing.JTextField txtP2;
-    private javax.swing.JTextField txtP3;
-    private javax.swing.JTextField txtPolicyname;
     private javax.swing.JTextField txtProfile;
     private javax.swing.JTextField txtTenUser;
     private javax.swing.JTextField userNameP;
