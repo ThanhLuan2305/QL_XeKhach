@@ -205,7 +205,7 @@ public class Login extends javax.swing.JFrame {
             this.setVisible(false);
             Menu menu;
             Manager manager;
-            if(tk.equals("admin")) {
+            if(tk.equals("hao")) {
                 try {
                     manager=new Manager();
                     manager.setVisible(true);
