@@ -2474,7 +2474,7 @@ public class Manager extends javax.swing.JFrame {
             String sql = "SELECT grantee,privilege,admin_option FROM dba_sys_privs";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel) Table_QuyenHTUser.getModel();
+            DefaultTableModel model = (DefaultTableModel) Table_QuyenHTUser1.getModel();
             model.setRowCount(0);
             while (rs.next()) {
                 model.addRow(new Object[]{
@@ -2617,6 +2617,7 @@ public class Manager extends javax.swing.JFrame {
         loadCombobox();
         loadComboboxUser();
         loadProfile();
+        loadLimit();
 //        getDataTable_SGA();
 //        getDataTable_PGA();
 //        getDataTable_PROCESS();
@@ -2657,6 +2658,19 @@ public class Manager extends javax.swing.JFrame {
         }
     }
 
+    public void loadLimit() throws ClassNotFoundException {
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("select RESOURCE_NAME from DBA_PROFILES");
+            while (rs.next()) {
+                String username = rs.getString("RESOURCE_NAME");
+                limitProfile.addItem(username);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void loadComboboxUser() throws ClassNotFoundException {
         cbbUserName2.addItem("CHUYENDI");
         cbbUserName2.addItem("DATVE");
@@ -2665,6 +2679,10 @@ public class Manager extends javax.swing.JFrame {
         cbbUserName2.addItem("NHATKYHOATDONG");
         cbbUserName2.addItem("THANHTOAN");
         cbbUserName2.addItem("XEKHACH");
+        cbbQuyen.addItem("SELECT");
+        cbbQuyen.addItem("INSERT");
+        cbbQuyen.addItem("UPDATE");
+        cbbQuyen.addItem("DELETE");
     }
 
     private void LB_PGAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LB_PGAMouseClicked
@@ -2996,7 +3014,6 @@ public class Manager extends javax.swing.JFrame {
 
     }//GEN-LAST:event_JBtn_ChonActionPerformed
 
-   
     public void getDataTableProlicy(String table, String userName, String action) throws ClassNotFoundException, SQLException {
         try {
             String sql = "SELECT os_username, username, obj_name, action_name,  "
@@ -3034,7 +3051,7 @@ public class Manager extends javax.swing.JFrame {
 
         }
     }
-    
+
     private void parentPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parentPNActionPerformed
         // TODO add your handling code here:
         jPanel2.removeAll();
@@ -3159,9 +3176,9 @@ public class Manager extends javax.swing.JFrame {
 
     private void Table_QuyenHTUser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_QuyenHTUser1MouseClicked
         // TODO add your handling code here:
-        DefaultTableModel tableModel = (DefaultTableModel) Table_QuyenHTUser.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) Table_QuyenHTUser1.getModel();
 
-        String tbl_privilege = tableModel.getValueAt(Table_QuyenHTUser.getSelectedRow(), 1).toString();
+        String tbl_privilege = tableModel.getValueAt(Table_QuyenHTUser1.getSelectedRow(), 1).toString();
 
         Text_TenQuyen.setText(tbl_privilege);
     }//GEN-LAST:event_Table_QuyenHTUser1MouseClicked
@@ -3173,7 +3190,7 @@ public class Manager extends javax.swing.JFrame {
             String sql = "SELECT grantee,privilege,admin_option FROM dba_sys_privs where grantee ='" + Item + "'";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel) Table_QuyenHTUser.getModel();
+            DefaultTableModel model = (DefaultTableModel) Table_QuyenHTUser1.getModel();
             model.setRowCount(0);
             while (rs.next()) {
                 model.addRow(new Object[]{
@@ -3277,7 +3294,7 @@ public class Manager extends javax.swing.JFrame {
             con = ConnectOracle.getConnecOracle();
             stmt = con.createStatement();
 
-            if (Table_QuyenHTUser.getSelectedRowCount() == 1) {
+            if (Table_QuyenHTUser1.getSelectedRowCount() == 1) {
                 sql = "REVOKE " + Quyen + " FROM " + Item + "";
             } else if (Table_QuyenDTUser.getSelectedRowCount() == 1) {
                 String Bang = tableModel.getValueAt(Table_QuyenDTUser.getSelectedRow(), 1).toString();
@@ -3654,7 +3671,7 @@ public class Manager extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblProlicyMouseClicked
 
-     public void getDataTableProlicyList(String table, String username) throws ClassNotFoundException, SQLException {
+    public void getDataTableProlicyList(String table, String username) throws ClassNotFoundException, SQLException {
         try {
             String sql = "SELECT DISTINCT action_name FROM dba_audit_trail WHERE obj_name = '"
                     + table + "' and USERNAME = '" + username + "'";
@@ -3674,8 +3691,7 @@ public class Manager extends javax.swing.JFrame {
                 // Assuming PF_OWNER is a timestamp column, adjust the data retrieval accordingly
                 // Add data to the table model
                 model.addRow(new Object[]{
-                    rs.getString("action_name"),
-                });
+                    rs.getString("action_name"),});
             }
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
@@ -3685,8 +3701,7 @@ public class Manager extends javax.swing.JFrame {
 
         }
     }
-     
-     
+
 
     private void btnCreatePolicyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatePolicyActionPerformed
         String username = (String) cbbUserName1.getSelectedItem();
